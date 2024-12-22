@@ -6,10 +6,10 @@ PortGroup                       clang_dependency 1.0
 # Increase the revision of p5-www-curl whenever the version of curl gets updated.
 
 name                            curl
-version                         8.6.0
-checksums                       rmd160  ad2c181b2f290b4a4d5634b5886831fd7ab8cb0f \
-                                sha256  3ccd55d91af9516539df80625f818c734dc6f2ecf9bada33c76765e99121db15 \
-                                size    2630108
+version                         8.11.1
+checksums                       rmd160  f5270a96f2ead387fff0f97fba1843fa5c563996 \
+                                sha256  c7ca7db48b0909743eaef34250da02c19bc61d4f1dcedd6603f109409536ab56 \
+                                size    2751236
 
 categories                      net www
 platforms                       darwin freebsd
@@ -35,23 +35,23 @@ checksums-prepend               ${curl_distfile}
 if {${name} eq ${subport}} {
     PortGroup                   muniversal 1.0
 
-    revision                    1
+    revision                    0
 
     depends_build               path:bin/pkg-config:pkgconfig
 
-    depends_lib                 port:brotli \
-                                port:libidn2 \
-                                port:libpsl \
-                                port:zlib \
-                                port:zstd
+    depends_lib                 port:zlib
 
-    patchfiles                  configure.patch
+    patchfiles-append           async-thread.patch \
+                                sectransp.patch
 
     configure.args              --disable-silent-rules \
                                 --enable-ipv6 \
+                                --without-brotli \
                                 --without-gnutls \
                                 --without-gssapi \
                                 --without-libgsasl \
+                                --without-libidn2 \
+                                --without-libpsl \
                                 --without-librtmp \
                                 --without-libssh2 \
                                 --without-mbedtls \
@@ -62,20 +62,16 @@ if {${name} eq ${subport}} {
                                 --without-ssl \
                                 --without-secure-transport \
                                 --without-wolfssl \
+                                --without-zstd \
                                 --disable-ares \
                                 --disable-ldap \
                                 --disable-ldaps \
-                                --with-brotli \
-                                --with-libidn2=${prefix} \
                                 --with-zlib=${prefix} \
-                                --with-zstd \
                                 ac_cv_prog_AWK=/usr/bin/awk
 
     configure.cflags-append     -mmacosx-version-min=${macosx_deployment_target}
 
     configure.checks.implicit_function_declaration.whitelist-append strchr
-
-    configure.env               PKG_CONFIG_PATH=${prefix}
 
     if {${os.platform} eq "darwin" && ${os.major} < 10} {
         depends_build-append    port:cctools
@@ -103,6 +99,7 @@ if {${name} eq ${subport}} {
 
     test.run                    yes
     test.target                 test-full
+    test.args                   -j${build.jobs} TFLAGS=-j${build.jobs}
 
     global merger_dont_diff
     set merger_dont_diff "${prefix}/include/curl/curlbuild.h"
@@ -112,35 +109,28 @@ if {${name} eq ${subport}} {
         xinstall -d ${destroot}${docdir}/html/libcurl ${destroot}${docdir}/pdf/libcurl \
             ${destroot}${prefix}/share/aclocal
         xinstall -m 0644 -W ${worksrcpath} \
-            CHANGES \
+            CHANGES.md \
             COPYING \
             README \
             RELEASE-NOTES \
             ${destroot}${docdir}
         xinstall -m 0644 -W ${worksrcpath}/docs \
-            ALTSVC.md \
             BINDINGS.md \
-            BUFREF.md \
             BUGS.md \
             CIPHERS.md \
             CODE_OF_CONDUCT.md \
-            CODE_STYLE.md \
-            CONNECTION-FILTERS.md \
             CONTRIBUTE.md \
             CURL-DISABLE.md \
             DEPRECATE.md \
-            DYNBUF.md \
             FAQ \
             FEATURES.md \
             GOVERNANCE.md \
             HELP-US.md \
             HISTORY.md \
-            HSTS.md \
             HTTP-COOKIES.md \
             INTERNALS.md \
             KNOWN_BUGS \
-            MAIL-ETIQUETTE \
-            PARALLEL-TRANSFERS.md \
+            MAIL-ETIQUETTE.md \
             ROADMAP.md \
             SECURITY-ADVISORY.md \
             SSL-PROBLEMS.md \
@@ -150,14 +140,8 @@ if {${name} eq ${subport}} {
             TheArtOfHttpScripting.md \
             URL-SYNTAX.md \
             VERSIONS.md \
-            WEBSOCKET.md \
             VULN-DISCLOSURE-POLICY.md \
             ${destroot}${docdir}
-        if {[variant_isset http2]} {
-            xinstall -m 0644 -W ${worksrcpath}/docs \
-                HTTP2.md \
-                ${destroot}${docdir}
-        }
         if {[variant_isset http3]} {
             xinstall -m 0644 -W ${worksrcpath}/docs \
                 HTTP3.md \
@@ -170,6 +154,11 @@ if {${name} eq ${subport}} {
     variant ares description {Support resolving names asynchronously} {
         depends_lib-append      port:c-ares
         configure.args-replace  --disable-ares --enable-ares
+    }
+
+    variant brotli description {Support brotli compression} {
+        depends_lib-append      port:brotli
+        configure.args-replace  --without-brotli --with-brotli
     }
 
     variant darwinssl conflicts gnutls mbedtls ssl wolfssl description {Allow secure connections using Apple OS native TLS} {
@@ -213,20 +202,9 @@ if {${name} eq ${subport}} {
         configure.args-replace  --without-gssapi --with-gssapi
     }
 
-    variant http2 description {Support HTTP/2 with nghttp2} {
+    variant http2 description {Support HTTP/2} {
         depends_lib-append      port:nghttp2
         configure.args-replace  --without-nghttp2 --with-nghttp2=${prefix}
-    }
-
-    # HTTP/2 support is desirable but nghttp2 requires C++14. Some users
-    # use a bootstrap MacPorts installation to provide a newer curl for
-    # a primary MacPorts installation and requiring those users to build
-    # a C++14 compiler for that is undesirable. Also, newer clangs use
-    # cmake, which uses curl, so it would introduce a dependency cycle.
-    # So enable this variant by default only on systems that have a
-    # suitable compiler in Xcode.
-    if {${os.platform} ne "darwin" || ${os.major} >= 14} {
-        default_variants-append +http2
     }
 
     variant http3 requires gnutls description {Support HTTP/3 with nghttp3 and ngtcp2} {
@@ -236,10 +214,22 @@ if {${name} eq ${subport}} {
                                 --without-ngtcp2 --with-ngtcp2=${prefix}
     }
 
+    variant idn description {Support internationalized domain names} {
+        depends_lib-append      port:libidn2
+        configure.args-replace  --without-libidn2 --with-libidn2=${prefix}
+    }
+
     variant openldap description {Support performing Lightweight Directory Access Protocol queries with OpenLDAP} {
         depends_lib-append      path:lib/libldap.dylib:openldap
         configure.args-replace  --disable-ldap --enable-ldap
         configure.args-replace  --disable-ldaps --enable-ldaps
+    }
+
+    # Curl's psl support does not require its idn support but the libpsl port
+    # depends on the libidn2 port so we might as well enable curl's idn support.
+    variant psl requires idn description {Use the public suffix list to avoid privacy-leaking "supercookies"} {
+        depends_lib-append      port:libpsl
+        configure.args-replace  --without-libpsl --with-libpsl
     }
 
     variant rtmp description {Support RTMP media streams} {
@@ -260,8 +250,22 @@ if {${name} eq ${subport}} {
         configure.args-append   --with-ca-bundle=${prefix}/share/curl/curl-ca-bundle.crt
     }
 
+    variant zstd description {Support zstd compression} {
+        depends_lib-append      port:zstd
+        configure.args-replace  --without-zstd --with-zstd
+    }
+
+    default_variants +brotli +http2 +idn +psl +zstd
+
     if {![variant_isset darwinssl] && ![variant_isset gnutls] && ![variant_isset mbedtls] && ![variant_isset wolfssl]} {
         default_variants-append +ssl
+    }
+
+    if {[variant_isset darwinssl] || [variant_isset mbedtls]} {
+        notes-append {
+            The selected TLS library does not support TLS 1.3; you may want to\
+            use one that does by choosing the +ssl, +gnutls, or +wolfssl variant.
+        }
     }
 
     livecheck.type              regex
@@ -299,11 +303,11 @@ subport curl-ca-bundle {
 
     # The approximate time (in seconds since the epoch) when the port maintainer
     # updated the certdata.txt file in this port. (The output of "date +%s".)
-    set certdata_updated        1706686438
+    set certdata_updated        1734045673
     # The upstream commit in which certdata.txt was last updated.
-    set certdata_commit         a3dd112b0ed075be924f114a490abaeb9d7c3cd6
+    set certdata_commit         fc857d1685f9cd017a2cf656a52d871b02a4cc89
     # The date (in YYYYMMDD format) that commit was pushed.
-    set certdata_date           20231116
+    set certdata_date           20241119
     set certdata_file           certdata.txt
     # Using tar.bz2 would be preferable because it's smaller but upstream has
     # disabled the creation of all but zip archives:
@@ -324,12 +328,12 @@ subport curl-ca-bundle {
     distfiles-append            ${certdata_distfile}:certdata
 
     checksums-append            ${certdata_distfile} \
-                                rmd160  7316d88d8dda1cb2a5edbe90ad1821511475e09e \
-                                sha256  056f9260062a89b3232f32111928ef592f9ae208a338e681c22a1227b44195af \
-                                size    276429
+                                rmd160  84fe81fcee192f13de1a21fb44b9a529515db8f9 \
+                                sha256  3112344e7742a3372e756f8c080765cc98dc7b2807b813cdef5b9d5421ec0784 \
+                                size    291100
 
     extract.only                ${curl_distfile}
-    extract.post_args-append    ${worksrcdir}/Makefile \
+    extract.post_args-append    ${worksrcdir}/Makefile.dist \
                                 ${worksrcdir}/scripts/mk-ca-bundle.pl
 
     post-extract {
@@ -342,6 +346,7 @@ subport curl-ca-bundle {
 
     use_configure               no
 
+    build.args                  -f Makefile.dist
     build.target                ca-bundle
 
     destroot {

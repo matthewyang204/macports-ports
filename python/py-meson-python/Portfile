@@ -4,7 +4,7 @@ PortSystem          1.0
 PortGroup           python 1.0
 
 name                py-meson-python
-version             0.15.0
+version             0.17.1
 revision            0
 
 categories-append   devel
@@ -20,12 +20,11 @@ homepage            https://github.com/mesonbuild/meson-python
 
 distname            meson_python-${version}
 
-checksums           rmd160  afbd792a0481ee4af822bc8918f255523ef03275 \
-                    sha256  fddb73eecd49e89c1c41c87937cd89c2d0b65a1c63ba28238681d4bd9484d26f \
-                    size    79920
+checksums           rmd160  e8c66649dbe2de8057f9ba61756e1d9ca3ff10b9 \
+                    sha256  efb91f69f2e19eef7bc9a471ed2a4e730088cc6b39eacaf3e49fc4f930eb5f83 \
+                    size    82687
 
-python.versions     38 39 310 311 312
-python.pep517       yes
+python.versions     38 39 310 311 312 313
 
 if {${name} ne ${subport}} {
     patchfiles      patch-mesonpy-__init__.py.diff

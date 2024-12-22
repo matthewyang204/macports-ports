@@ -3,17 +3,19 @@
 PortSystem          1.0
 PortGroup           R 1.0
 
-R.setup             github HenrikBengtsson future.apply 1.11.1
+R.setup             github HenrikBengtsson future.apply 1.11.3
 revision            0
 categories-append   parallel
-maintainers         {@barracuda156 gmail.com:vital.had} openmaintainer
+platforms           {darwin any}
+maintainers         nomaintainer
 license             GPL-2+
 description         Apply function to elements in parallel using futures
 long_description    {*}${description}
 homepage            https://future.apply.futureverse.org
-checksums           rmd160  ae9283533ca7da73eadafe729bf7711dc38fef66 \
-                    sha256  8e0ecc8ca30df22c6febf8fdc4f2b13bcd357564c845d6169ff02739abadc940 \
-                    size    121741
+checksums           rmd160  32dd80988bfc6ae8333d06bc18e3dd898c852300 \
+                    sha256  b8d07141726aa028f6d7e2118ba5d3ec8787ddb5ce37f319e94b2acd7d02da56 \
+                    size    125039
+github.tarball_from archive
 supported_archs     noarch
 
 depends_lib-append  port:R-globals \

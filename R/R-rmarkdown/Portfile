@@ -3,16 +3,18 @@
 PortSystem          1.0
 PortGroup           R 1.0
 
-R.setup             cran rstudio rmarkdown 2.25
+R.setup             github rstudio rmarkdown 2.29 v
 revision            0
+platforms           {darwin any}
 maintainers         nomaintainer
 license             GPL-3
 description         Dynamic documents for R
 long_description    Convert R Markdown documents into a variety of formats.
 homepage            https://pkgs.rstudio.com/rmarkdown
-checksums           rmd160  452c98036fc6dbcec484218000a3db3f4a11cda0 \
-                    sha256  06e4662666fe018fbe3bef3531280a461c7bc24bb00f34b9d4c7b08d52210155 \
-                    size    2188934
+checksums           rmd160  1035cdadbc1fe9516a7933a61766b044a35e9f50 \
+                    sha256  542da1909d4c76716efb0b1979527ec125fd694ebea43a81859cca814286eab7 \
+                    size    2217020
+github.tarball_from archive
 supported_archs     noarch
 
 depends_lib-append  port:R-bslib \
@@ -22,14 +24,11 @@ depends_lib-append  port:R-bslib \
                     port:R-jquerylib \
                     port:R-jsonlite \
                     port:R-knitr \
-                    port:R-stringr \
                     port:R-tinytex \
                     port:R-xfun \
                     port:R-yaml
 
-# Remove a test dependency that requires NodeJS:
-patchfiles          patch-no-katex.diff
-
+# Dep on R-katex is dropped due to requiring NodeJS.
 depends_test-append port:R-cleanrmd \
                     port:R-digest \
                     port:R-downlit \
@@ -41,6 +40,7 @@ depends_test-append port:R-cleanrmd \
                     port:R-testthat \
                     port:R-tibble \
                     port:R-vctrs \
-                    port:R-withr
+                    port:R-withr \
+                    port:R-xml2
 
 test.run            yes

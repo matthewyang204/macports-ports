@@ -5,9 +5,8 @@ PortGroup cmake     1.1
 PortGroup compilers 1.0
 
 name                ecCodes
-version             2.34.1
+version             2.39.0
 revision            0
-platforms           darwin
 maintainers         {takeshi @tenomoto} \
                     {me.com:remko.scharroo @remkos} \
                     openmaintainer
@@ -18,9 +17,9 @@ homepage            https://confluence.ecmwf.int/display/ECC
 master_sites        https://confluence.ecmwf.int/download/attachments/45757960
 distname            eccodes-${version}-Source
 
-checksums           rmd160  b43fe958ce27be04d2b94919bc605a3b0c922a53 \
-                    sha256  f9b8680122e3ccec26e6ed24a81f1bc50ed9f2232b431e05e573678aac4d9734 \
-                    size    12191252
+checksums           rmd160  e7bfef7982c789b61bc1ec23e0964c4c13c80107 \
+                    sha256  0c4d746700acc49af9c878925f1b26bdd42443ff7c2d7c676deb2babb6847afb \
+                    size    12581144
 
 patchfiles          patch-pkg-config.diff
 
@@ -46,7 +45,11 @@ depends_lib         port:openjpeg15 \
                     port:netcdf \
                     port:zlib
 
-fetch.ignore_sslcert yes
+# ecCodes only supports 64 bit platforms
+supported_archs     arm64 ppc64 x86_64
+
+compiler.cxx_standard \
+                    2017
 
 # error if CMAKE_BUILD_TYPE MacPorts
 if {[variant_isset debug]} {
@@ -82,9 +85,6 @@ post-destroot {
 if {[fortran_variant_isset]} {
     configure.args-replace  -DENABLE_FORTRAN=OFF \
                             -DENABLE_FORTRAN=ON
-}
-
-variant python27 description {Deprecated variant to be removed Q1 2023} {
 }
 
 variant openmp description {Add support for OpenMP} {

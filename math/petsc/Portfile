@@ -6,7 +6,7 @@ PortGroup                   mpi 1.0
 PortGroup                   muniversal 1.0
 
 name                        petsc
-version                     3.20.2
+version                     3.22.1
 categories                  math science
 maintainers                 {mcalhoun @MarcusCalhoun-Lopez} openmaintainer
 license                     BSD
@@ -20,11 +20,16 @@ homepage                    https://www.mcs.anl.gov/petsc/
 
 master_sites                https://web.cels.anl.gov/projects/petsc/download/release-snapshots/
 
-checksums                   rmd160 a33fea0f517dcbf14c9123f1050bbf4559d4cb7d \
-                            sha256 2a2d08b5f0e3d0198dae2c42ce1fd036f25c153ef2bb4a2d320ca141ac7cd30b \
-                            size   16975723
+checksums                   rmd160  adbf4c988532d4828e2ef355041376b6e7f315af \
+                            sha256  7117d3ae6827f681ed9737939d4e86896b4751e27cca941bb07e5703f19a0a7b \
+                            size    16752281
 
-mpi.setup                   default
+if {${os.platform} eq "darwin" && ${os.arch} eq "powerpc"} {
+    mpi.setup               require require_fortran \
+                            -clang -fortran
+} else {
+    mpi.setup               default
+}
 
 use_parallel_build          no
 

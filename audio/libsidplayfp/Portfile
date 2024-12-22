@@ -1,0 +1,24 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+
+PortSystem          1.0
+PortGroup           github 1.0
+
+github.setup        libsidplayfp libsidplayfp 2.12.0 v
+github.tarball_from releases
+revision            0
+categories          audio devel
+license             GPL-2+
+maintainers         {makr @mohd-akram} openmaintainer
+
+description         C64 music player library
+
+long_description    libsidplayfp is a C64 music player library which integrates \
+                    the reSID SID chip emulation into a cycle-based emulator \
+                    environment, constantly aiming to improve emulation of the \
+                    C64 system and the SID chips.
+
+checksums           rmd160  f235bd72b9bb3c0a6ed749a8d8f1d183fc78c466 \
+                    sha256  bc4f4fa203dcf0736fe48c23dce9aa0db825370e5941e7595e4851efe6937cdc \
+                    size    834173
+
+compiler.cxx_standard   2011

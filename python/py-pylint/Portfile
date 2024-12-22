@@ -5,15 +5,15 @@ PortGroup           python 1.0
 PortGroup           select 1.0
 
 name                py-pylint
-version             3.0.3
-revision            1
+version             3.3.2
+revision            0
 
 categories-append   devel
 platforms           {darwin any}
 license             GPL-2+
 supported_archs     noarch
 
-python.versions     38 39 310 311 312
+python.versions     39 310 311 312 313
 
 maintainers         {stromnov @stromnov} openmaintainer
 
@@ -29,9 +29,9 @@ long_description    Pylint is a tool that checks for errors in python code, \
 
 homepage            https://pylint.org
 
-checksums           rmd160  0e60dfc7503484315f0f73cc78101c5f11bcec3d \
-                    sha256  58c2398b0301e049609a8429789ec6edf3aabe9b6c5fec916acd18639c16de8b \
-                    size    441807
+checksums           rmd160  047a1ec66be48a16ccb57c429d5f9f44eb350860 \
+                    sha256  9ec054ec992cd05ad30a6df1676229739a73f8feeabf3912c995d17601052b01 \
+                    size    1516485
 
 if {${name} ne ${subport}} {
     depends_lib-append  port:py${python.version}-dill \
@@ -52,11 +52,6 @@ if {${name} ne ${subport}} {
     }
 
     depends_run-append  port:pylint_select
-
-    post-patch {
-        reinplace "s|setuptools~=62.6|setuptools|g" ${worksrcpath}/pyproject.toml
-        reinplace "s|wheel~=0.37.1|wheel|g" ${worksrcpath}/pyproject.toml
-    }
 
     post-destroot {
         xinstall -m 0755 -d ${destroot}${prefix}/share/doc/${subport}

@@ -3,17 +3,18 @@
 PortSystem          1.0
 PortGroup           R 1.0
 
-# Revert to GitHub once updated there.
-R.setup             cran rstudio bookdown 0.37
+R.setup             github rstudio bookdown 0.41 v
 revision            0
+platforms           {darwin any}
 maintainers         nomaintainer
 license             GPL-3
 description         Authoring books and technical documents with R markdown
 long_description    {*}${description}
 homepage            https://pkgs.rstudio.com/bookdown
-checksums           rmd160  7d3f80eaa16ef8e9586a9e8b75a0235aea964823 \
-                    sha256  b3c11156d873ea892b548344d02e01bbfa3505002ab948010bdcf28215f548a2 \
-                    size    858915
+checksums           rmd160  3e6d7778e935f668ca9ecea0fc10d694be60fbfc \
+                    sha256  6cfb4a5c695008d55ff4d1ec1ac7319e9e45ae4b553cc75dfabf852e0875c4e8 \
+                    size    1475184
+github.tarball_from archive
 supported_archs     noarch
 
 depends_lib-append  port:R-htmltools \

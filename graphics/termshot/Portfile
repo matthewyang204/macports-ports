@@ -3,7 +3,7 @@
 PortSystem          1.0
 PortGroup           golang 1.0
 
-go.setup            github.com/homeport/termshot 0.2.7 v
+go.setup            github.com/homeport/termshot 0.2.12 v
 github.tarball_from archive
 revision            0
 
@@ -16,9 +16,9 @@ license             MIT
 maintainers         {gmail.com:herby.gillot @herbygillot} \
                     openmaintainer
 
-checksums           rmd160  af13ab30d6d3e9c1a8558191cdc5cff1292b62a5 \
-                    sha256  afdecd3f491e60f3edd895bd4ecdead872924466e263d1492c83d8ba6b7f57a8 \
-                    size    668672
+checksums           rmd160  b76921034ef7d241c0bbfb58ebe0f2ec2cc15494 \
+                    sha256  728842405c400548f4d2cf71f9b51aec0eac990deda5b38a9a14ca0fb8130554 \
+                    size    668784
 
 go.offline_build no
 

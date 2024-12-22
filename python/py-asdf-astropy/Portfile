@@ -4,7 +4,8 @@ PortSystem          1.0
 PortGroup           python 1.0
 
 name                py-asdf-astropy
-version             0.5.0
+python.rootname     asdf_astropy
+version             0.7.0
 revision            0
 license             BSD
 maintainers         {mps @Schamschula} openmaintainer
@@ -14,20 +15,21 @@ long_description    {*}${description} The plugins are automatically enabled when
                     package is installed.
 homepage            https://github.com/astropy/asdf-astropy
 
-checksums           rmd160  8294407c1a587b97cc75ef53b319596e4eb02146 \
-                    sha256  fbbc88672f6584b3d8ef1b422569f5a0963f14764ef96714ca143bd1423e3e18 \
-                    size    71842
+checksums           rmd160  80ceb1af9459f8f020e42f16c5904461aca1273b \
+                    sha256  c981754e10145439de3cc6808ffb3101ef055d0b3164742c72f44b0b2b5c0525 \
+                    size    77336
 
-python.versions     39 310 311
+python.versions     39 310 311 312
 
 if {${name} ne ${subport}} {
     depends_build-append \
-                    port:py${python.version}-setuptools
+                    port:py${python.version}-setuptools_scm
 
     depends_lib-append  \
                     port:py${python.version}-asdf \
                     port:py${python.version}-asdf-coordinates-schemas \
                     port:py${python.version}-asdf-transform-schemas \
+                    port:py${python.version}-astropy \
                     port:py${python.version}-numpy \
                     port:py${python.version}-packaging
 }

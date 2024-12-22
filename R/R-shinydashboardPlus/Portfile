@@ -3,16 +3,18 @@
 PortSystem          1.0
 PortGroup           R 1.0
 
-R.setup             github RinteRface shinydashboardPlus 2.0.3 v
+# Revert to GitHub once updated there.
+R.setup             cran RinteRface shinydashboardPlus 2.0.5 v
 revision            0
+platforms           {darwin any}
 maintainers         nomaintainer
 license             GPL-2+
 description         Add more AdminLTE2 components to R-shinydashboard
 long_description    {*}${description}
 homepage            https://shinydashboardplus.rinterface.com
-checksums           rmd160  98dc9e42d279621b102a8d6f3d5f19a19594f419 \
-                    sha256  318905ccebe94c3a3f100b466d0390e1ce8d0a9256a81b1f9709c164ff46e8f5 \
-                    size    1700274
+checksums           rmd160  f8fb87cc07c7e3d127452c6fe4b820254c4f9d5f \
+                    sha256  0bc34cd75f6df1d9c6cb8e7e98e18c5c9c4f739ef54c8d79462597dd1cf3a3cc \
+                    size    1277816
 supported_archs     noarch
 
 depends_lib-append  port:R-fresh \
@@ -21,3 +23,15 @@ depends_lib-append  port:R-fresh \
                     port:R-shiny \
                     port:R-shinydashboard \
                     port:R-waiter
+
+depends_test-append port:R-bslib \
+                    port:R-jsonlite \
+                    port:R-knitr \
+                    port:R-rmarkdown \
+                    port:R-shinyAce \
+                    port:R-shinyEffects \
+                    port:R-shinyjqui \
+                    port:R-shinyWidgets \
+                    port:R-styler
+
+test.run            yes

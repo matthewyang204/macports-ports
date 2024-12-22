@@ -3,35 +3,39 @@
 PortSystem          1.0
 PortGroup           R 1.0
 
-R.setup             cran mtsagris Compositional 6.7
+R.setup             cran mtsagris Compositional 7.2
 revision            0
 categories-append   math
-maintainers         {@barracuda156 gmail.com:vital.had} openmaintainer
+platforms           {darwin any}
+maintainers         nomaintainer
 license             GPL-2+
 description         Compositional data analysis
 long_description    {*}${description}
-checksums           rmd160  0e35ca3fddfcc568e1673686e35114fb40c4a359 \
-                    sha256  5d88af51f22c3e44505542d818b72f2ad0c22bb7547dfdd6a7fe493456c22e39 \
-                    size    179018
+checksums           rmd160  9d139fafa082aa206c38e7f605585749f1f64ca9 \
+                    sha256  457e1a856c8e91cc4cfab89481cf9e631e382bcd884c37e79a0cc97f377a3059 \
+                    size    210278
 supported_archs     noarch
 
-depends_lib-append  port:R-codalm \
-                    port:R-Directional \
+depends_lib-append  port:R-bigstatsr \
                     port:R-doParallel \
                     port:R-emplik \
                     port:R-energy \
-                    port:R-FlexDir \
                     port:R-foreach \
                     port:R-glmnet \
                     port:R-mda \
+                    port:R-minpack.lm \
                     port:R-mixture \
                     port:R-mvhtests \
-                    port:R-pchc \
                     port:R-quadprog \
+                    port:R-quantreg \
                     port:R-regda \
                     port:R-Rfast \
                     port:R-Rfast2 \
                     port:R-Rnanoflann \
                     port:R-sn
+
+depends_test-append port:R-bigparallelr \
+                    port:R-codalm \
+                    port:R-FlexDir
 
 test.run            yes

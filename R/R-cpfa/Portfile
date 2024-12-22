@@ -3,15 +3,16 @@
 PortSystem          1.0
 PortGroup           R 1.0
 
-R.setup             cran snodg031 cpfa 1.1-2
+R.setup             cran snodg031 cpfa 1.1-6
 revision            0
+platforms           {darwin any}
 maintainers         nomaintainer
 license             GPL-2+
 description         Classification with Parallel Factor Analysis
 long_description    {*}${description}
-checksums           rmd160  9a973512271a6337c59df0e8dffb4e12cb76bc47 \
-                    sha256  960a762a81ba44b0155082fb57cbb28434a917771b57180c9d175f4823d96211 \
-                    size    31567
+checksums           rmd160  48bb0f58491b19faded05efffb8b5e3e46033c61 \
+                    sha256  44fafcc9a57779ac235b06b715c6858df99f0d3ef462cd4fd254dffbf72a91cf \
+                    size    37350
 supported_archs     noarch
 
 depends_lib-append  port:R-doParallel \
@@ -20,6 +21,7 @@ depends_lib-append  port:R-doParallel \
                     port:R-glmnet \
                     port:R-multiway \
                     port:R-randomForest \
-                    port:R-rda
+                    port:R-rda \
+                    port:R-xgboost
 
 test.run            yes

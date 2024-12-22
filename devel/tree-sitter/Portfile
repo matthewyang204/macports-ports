@@ -3,7 +3,7 @@
 PortSystem          1.0
 PortGroup           github 1.0
 
-github.setup        tree-sitter tree-sitter 0.21.0 v
+github.setup        tree-sitter tree-sitter 0.24.4 v
 github.tarball_from archive
 revision            0
 
@@ -29,15 +29,17 @@ maintainers         {gmail.com:herby.gillot @herbygillot} \
 dist_subdir         ${name}/${version}_${revision}
 
 checksums           ${distname}${extract.suffix} \
-                    rmd160  db2701b5d72cda191c215dfd2435f27e35e60bff \
-                    sha256  6bb60e5b63c1dc18aba57a9e7b3ea775b4f9ceec44cc35dac4634d26db4eb69c \
-                    size    3055055
+                    rmd160  1797fa317fb2dcde753c30ea71f8c6079d6da5b1 \
+                    sha256  d704832a6bfaac8b3cbca3b5d773cad613183ba8c04166638af2c6e5dfb9e2d2 \
+                    size    3019387
 
 use_configure       no
 
 if {${subport} eq ${name}} {
     PortGroup       makefile 1.0
 
+    # cc1: error: unrecognized command line option "-std=c11"
+    compiler.c_standard 2011
 }
 
 subport ${name}-cli {
@@ -63,4 +65,5 @@ subport ${name}-cli {
 }
 
 # Exclude pre-release candidates
-github.livecheck.regex  {([0-9.]+)}
+github.livecheck.regex \
+                    {([0-9.]+)}

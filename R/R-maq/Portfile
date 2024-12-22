@@ -3,20 +3,22 @@
 PortSystem          1.0
 PortGroup           R 1.0
 
-R.setup             cran grf-labs maq 0.3.1
+R.setup             cran grf-labs maq 0.5.0
 revision            0
 categories-append   math
 maintainers         nomaintainer
 license             MIT
 description         Multi-Armed Qini
 long_description    {*}${description}
-checksums           rmd160  c11f7c7ce656d891e2be60e2d9cc567ea52f82a0 \
-                    sha256  cd6bc6cd4285caa570dc52b870062e1043d83efbba1e4b6fdd75ce74382c03ad \
-                    size    31638
+homepage            https://github.com/grf-labs/maq
+checksums           rmd160  d87bcef67704f58db39e91ef0f2878c488d6d814 \
+                    sha256  85a768a50bbaa03edbb59a303f86b587b21185b034da286593ba4b9af986394d \
+                    size    34422
 
 depends_lib-append  port:R-Rcpp
 
-depends_test-append port:R-grf \
+depends_test-append port:R-ggplot2 \
+                    port:R-grf \
                     port:R-testthat
 
 test.run            yes

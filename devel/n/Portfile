@@ -3,7 +3,7 @@
 PortSystem          1.0
 PortGroup           github 1.0
 
-github.setup        tj n 9.2.1 v
+github.setup        tj n 10.1.0 v
 revision            0
 categories          devel
 maintainers         {@akierig fastmail.de:akierig} \
@@ -17,9 +17,9 @@ description         A simple tool to interactively manage Node.js versions
 
 long_description    {*}${description}
 
-checksums           rmd160  27d80b8894f8b51f9347f8a55b26517f1400b5da \
-                    sha256  02e722808a58110f228c18e80dec3fca197b3b874733b1eb8627c48a1491d4bd \
-                    size    35310
+checksums           rmd160  0d3b5b37e45063afa8343dc94c8d43886105709c \
+                    sha256  8eacbe036abce638927992b4c4ecdc9828b01aedca57f21c5c4988a133f67dae \
+                    size    37689
 
 use_configure       no
 

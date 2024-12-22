@@ -3,16 +3,18 @@
 PortSystem          1.0
 PortGroup           R 1.0
 
-R.setup             cran matttyersstat jagshelper 0.2.1
+R.setup             cran mbtyers jagshelper 0.4.1
 revision            0
 categories-append   math
-maintainers         {@barracuda156 gmail.com:vital.had} openmaintainer
+platforms           {darwin any}
+maintainers         nomaintainer
 license             GPL-2
-description         Extracting and visualizing output from jagsUI
+description         Extracting and visualizing output from R-jagsUI
 long_description    {*}${description}
-checksums           rmd160  322aa20ad1fedd9d99c2deaa03b0c12179a2791f \
-                    sha256  039b6718145051b7e9adfdd36a062a167c94e03513912bb63641a3e994d9aeb3 \
-                    size    3677916
+homepage            https://github.com/mbtyers/jagshelper
+checksums           rmd160  1d2c60bd7eac56ef22f7f037669e7ea010426771 \
+                    sha256  426120135d8ca7d63c4fee5f39fe54c3c9c0cb093a79562c5d5f3cf0262441c4 \
+                    size    3792338
 supported_archs     noarch
 
 depends_lib-append  port:R-jagsUI

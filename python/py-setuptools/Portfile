@@ -4,7 +4,7 @@ PortSystem          1.0
 PortGroup           python 1.0
 
 name                py-setuptools
-version             69.1.1
+version             75.6.0
 categories-append   devel
 # License status is murky. The current maintainer decided to relicense as
 # MIT, but he doesn't appear to have obtained the permission of previous
@@ -24,32 +24,43 @@ platforms           {darwin any}
 
 homepage            https://pypi.org/project/setuptools/
 
-checksums           md5 bfad5bc64d49984f98fca0de77687f99 \
-                    rmd160 a5654e05520526591dbbeec2355ba165b7a53335 \
-                    sha256 5c0806c7d9af348e6dd3777b4f4dbb42c7ad85b190104837488eab9a7c945cf8
+checksums           md5 94458e508bd8e9dc6e6d097fc8747cf0 \
+                    rmd160 dcc8cb889ccac75c1045e0ef66e4cca98fc1c709 \
+                    sha256 8199222558df7c86216af4f84c30e9b34a61d8ba19366cc914424cdbd28252f6
 
-python.versions     26 27 32 33 34 35 36 37 38 39 310 311 312
+python.versions     26 27 32 33 34 35 36 37 38 39 310 311 312 313
 python.link_binaries no
+python.pep517_backend
 
 if {$subport ne $name} {
 
-    if {${python.version} >= 36} {
-        python.pep517   yes
+    set pythonpath [list ${worksrcpath}]
+     if {${python.version} in {37 38 39}} {
+        # break circular dependencies
         python.add_dependencies no
-        depends_build   port:py-bootstrap-modules
+        depends_build   port:py-bootstrap-modules \
+                        port:py${python.version}-installer
         depends_lib     port:python${python.version}
-        build.env-append    PYTHONPATH=${prefix}/share/py-bootstrap-modules
+        lappend pythonpath ${worksrcpath}/setuptools/_vendor \
+                           ${prefix}/share/py-bootstrap-modules
         build.args      --skip-dependency-check
-        if {${python.version} >= 37} {
-            depends_build-append    port:py${python.version}-installer
-        }
-    } else {
+    }
+    build.env-append    PYTHONPATH=[join $pythonpath :]
+    if {${python.version} <= 35} {
         use_zip     yes
         post-destroot {
             ln -s ${python.prefix}/bin/easy_install-${python.branch} ${destroot}${prefix}/bin
         }
     }
     switch ${python.version} {
+        38 {
+            version     75.3.0
+            revision    0
+            checksums   md5 ca5ea2d5e9622d6a7b9f6c6664821853 \
+                        rmd160 2eeeb9c94187f7dd65e1f7589acdea85716bd41d \
+                        sha256 fba5dd4d766e97be1b1681d98712680ae8f2f26d7881245f2ce9e40714f1a686
+            patchfiles-append   4666.diff
+        }
         37 {
             version     67.7.2
             revision    0
@@ -63,7 +74,6 @@ if {$subport ne $name} {
             checksums   md5 7d9cdfb85e905390a1d820fa5e9b01a2 \
                         rmd160 0604aed7827ac8631a07cf5ed8b12d7c7a4b5f3d \
                         sha256 22c7348c6d2976a52632c67f7ab0cdf40147db7789f9aed18734643fe9cf3373
-            destroot.env-append PYTHONPATH=${prefix}/share/py-bootstrap-modules
         }
         35 {
             version     50.3.1

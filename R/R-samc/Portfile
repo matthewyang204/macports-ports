@@ -4,17 +4,17 @@ PortSystem          1.0
 PortGroup           R 1.0
 
 # GitHub version is outdated.
-R.setup             cran andrewmarx samc 3.2.1
+R.setup             cran andrewmarx samc 4.0.0
 revision            0
 categories-append   math
-maintainers         {@barracuda156 gmail.com:vital.had} openmaintainer
+maintainers         nomaintainer
 license             GPL-3+
 description         Functions for working with absorbing Markov chains
 long_description    {*}${description}
 homepage            https://andrewmarx.github.io/samc
-checksums           rmd160  6ec9e2dc68fd8a6249d4b8bc6f8eea6038cb77fd \
-                    sha256  a40d86acad3bd2d14b70b528fac50c97165a48b481ccb6dcef48dc94cc11b344 \
-                    size    594813
+checksums           rmd160  d5256a34065801d6b96da77542e95eb2c8b6cd1b \
+                    sha256  c572aeddee307b0c03b5e846ad0f00c109d528e3fa512b1286e30c4c92b2ba42 \
+                    size    603701
 
 depends_lib-append  port:R-circular \
                     port:R-raster \

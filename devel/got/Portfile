@@ -3,8 +3,11 @@
 PortSystem          1.0
 PortGroup           legacysupport 1.1
 
+# CLOCK_MONOTONIC, open_memstream
+legacysupport.newest_darwin_requires_legacy 16
+
 name                got
-version             0.96
+version             0.106
 revision            0
 distname            ${name}-portable-${version}
 categories          devel
@@ -20,10 +23,21 @@ long_description    Game of Trees is a version control system which \
                     repository.
 homepage            https://gameoftrees.org/
 master_sites        ${homepage}releases/portable/
-checksums           rmd160 844e41d4463389753e1fa5b4eebe55d92b052718 \
-                    sha256 fd1eebe8826d824b8d430a0bc72b3fd477175be9773d59239cf5e9845a40153b \
-                    size 1273852
+checksums           rmd160 ff79b073a179e3860642c279c30ea7fc98a44383 \
+                    sha256 3079d742c125047de339dd923d75d0b960995a3a4b567ed08ef36d112bdb07cc \
+                    size 1510753
+# memset_s() is not available on macOS <10.9, so
+# emulate it with volatile memset().
+if {${os.platform} eq "darwin" && ${os.major} < 13} {
+    patchfiles          patch-use-volatile-memset.diff
+}
+# There is probably a smarter way to do this, see failed attempts at
+# https://trac.macports.org/ticket/69827
+# So, if you, like me, are using LibreSSL, remove the port:libretls line
+# as that is only required for OpenSSL users to supply libtls which is
+# already included with LibreSSL.
 depends_lib         path:lib/libssl.dylib:openssl \
+                    port:libretls \
                     port:ncurses \
                     port:ossp-uuid \
                     port:libevent

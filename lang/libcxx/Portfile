@@ -9,7 +9,7 @@ version                 5.0.1
 revision                5
 categories              lang
 license                 MIT NCSA
-maintainers             {jeremyhu @jeremyhu} {@catap korins.ky:kirill}
+maintainers             {jeremyhu @jeremyhu}
 description             libc++ is a new implementation of the C++ standard library with support for C++11 and portions of C++14.
 long_description        {*}${description} \
                         Because objects cannot be passed between different versions of the C++ runtime, this port must \
@@ -121,7 +121,6 @@ if {${os.major} < 11 || [variant_isset replacemnt_libcxx]} {
     }
 
     patch.dir ${workpath}
-    patch.pre_args -p0
 
     # patches for libc++abi buildit
     patchfiles-append \

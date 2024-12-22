@@ -4,7 +4,7 @@ PortSystem          1.0
 PortGroup           python 1.0
 
 name                py-magicgui
-version             0.8.2
+version             0.10.0
 revision            0
 categories          python
 license             MIT
@@ -15,14 +15,13 @@ supported_archs     noarch
 platforms           {darwin any}
 homepage            https://github.com/pyapp-kit/magicgui
 
-python.versions     38 39 310 311 312
+python.versions     39 310 311 312 313
 
-checksums           rmd160  c2ef1163ec4ee848bad84595beff7b4fc8a28ef6 \
-                    sha256  470176d4864007f42af2f1a64a1224a665b8afec14e5c8efa1e6c644b4100096 \
-                    size    20937020
+checksums           rmd160  a325181c2c280bf623aa7632843c01696e15d68e \
+                    sha256  56dbe28afc526809e09932cd6caad8fc1a8305fe66c8feca16f797a04b5aee7c \
+                    size    20942460
 
 if {${name} ne ${subport}} {
-    python.pep517   yes
     python.pep517_backend \
                     hatch
 

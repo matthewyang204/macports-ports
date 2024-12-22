@@ -3,16 +3,19 @@
 PortSystem          1.0
 PortGroup           R 1.0
 
-R.setup             github VNNikolaidis nnlib2Rcpp 0.2.4
+# Revert to GitHub once updated there.
+R.setup             cran VNNikolaidis nnlib2Rcpp 0.2.9
 revision            0
 categories-append   math
 maintainers         {@barracuda156 gmail.com:vital.had} openmaintainer
 license             MIT
-description         Tool for creating custom neural networks in C++ and using them in R
+description         Tool for creating custom neural networks in C++ \
+                    and using them in R
 long_description    {*}${description}
-checksums           rmd160  c0ffee030d9ef00681d5437134c7ed852bfb90bd \
-                    sha256  37cefa4ad4bc88c989c6f84ebe1777228b9c53c71d75be470571e0ee6e17b61f \
-                    size    542741
+homepage            https://github.com/VNNikolaidis/nnlib2Rcpp
+checksums           rmd160  1d147378fc6cf56d1300503903f4e38adb4572b7 \
+                    sha256  ac57158e1c1c2e400cd72164a12855019d21aa24c3f98f4e55acf99fa7819349 \
+                    size    583267
 
 depends_lib-append  port:R-Rcpp
 

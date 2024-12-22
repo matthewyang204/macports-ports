@@ -3,7 +3,7 @@
 PortSystem          1.0
 PortGroup           golang 1.0
 
-go.setup            github.com/gopasspw/git-credential-gopass 1.15.11 v
+go.setup            github.com/gopasspw/git-credential-gopass 1.15.15 v
 go.offline_build    no
 github.tarball_from archive
 revision            0
@@ -19,10 +19,11 @@ description         Gopass git-credentials helper
 long_description    {*}${description}
 homepage            https://www.gopass.pw
 
-checksums           rmd160  f31aac63ba161b3a39b030933a8dbbc6043ed7d3 \
-                    sha256  b757672d283ee67371022ad68a0060eb798f5f89a1285bba6f4532ad71c8bda0 \
-                    size    24602
+checksums           rmd160  ee599adec00751fbf6ff09669c0b8cb33a5a8ab4 \
+                    sha256  7d06c4f7b007992f46515be73d095299b7fa46eb27ee6c4bad9f692d01a4b4d4 \
+                    size    18143
 
+build.cmd           ${go.bin} mod tidy \&\& ${go.bin} build
 build.args          -ldflags '-X main.version=${version}'
 
 destroot {

@@ -32,7 +32,7 @@ if {$subport eq $name} {
     description         Multithreaded SQL database server
     long_description    MySQL is an open-source, multi-threaded SQL database.
 
-    master_sites        mysql:MySQL-${version_branch}:mysql \
+    master_sites        macports_distfiles:mysql \
                         sourceforge:project/boost/boost/${boost_version}:boost
 
     distname            mysql-${version}
@@ -40,7 +40,10 @@ if {$subport eq $name} {
     set boost_distver   [join [split ${boost_version} .] _]
     set boost_distname  boost_${boost_distver}
 
-    conflicts_build     boost protobuf3-cpp protobuf-cpp
+    # poll-emulator breaks the build, if active:
+    # xcom/task.c:744:37: error: 'POLLRDNORM' undeclared (first use in this function)
+    # See also: https://trac.macports.org/ticket/38558
+    conflicts_build     boost protobuf3-cpp protobuf-cpp poll-emulator
 
     distfiles           ${distname}${extract.suffix}:mysql \
                         ${boost_distname}${extract.suffix}:boost
@@ -69,13 +72,20 @@ if {$subport eq $name} {
             ${cmake.build_dir}/macports/
     }
 
-    patch.pre_args  -p1
+    patch.pre_args-replace  -p0 -p1
     patchfiles      patch-cmake-install_layout.cmake.diff \
                     patch-configure.cmake.diff \
                     patch-innodb_engine-fcommon.diff \
                     patch-innodb_memcached-daemon_memcached-include-memcached-util.h.diff \
                     patch-lockpool.diff \
                     patch-cmake-fix-test-env.diff
+
+    platform darwin powerpc {
+        # These can be applied unconditionally, but unneeded outside of ppc.
+        patchfiles-append \
+                    patch-powerpc.diff \
+                    patch-NOTE_TRIGGER.diff
+    }
 
     post-patch {
         reinplace "s|@NAME@|${name_mysql}|g" \
@@ -93,7 +103,6 @@ if {$subport eq $name} {
         reinplace "s|/usr/bin/libtool|libtool|g" \
             ${worksrcpath}/cmake/merge_archives.cmake.in
     }
-
 
     patchfiles-append \
                     patch-rename_version.diff
@@ -133,7 +142,12 @@ if {$subport eq $name} {
     configure.cppflags-delete \
         -I${prefix}/include
 
-    use_parallel_build  yes
+    if {[string match *gcc* ${configure.compiler}]} {
+        configure.args-append \
+            -DFORCE_UNSUPPORTED_COMPILER=ON
+        configure.ldflags-append \
+            -latomic
+    }
 
     select.group        mysql
     select.file         ${filespath}/${name_mysql}
@@ -197,10 +211,6 @@ directive; to disable networking. With disabled networking it is
 possible to install and have running all the MacPorts mysql ports
 simultaneously.
 "
-
-    livecheck.type      regex
-    livecheck.url       https://dev.mysql.com/downloads/mysql/${version_branch}.html
-    livecheck.regex     "MySQL Community Server (${version_branch}(\.\[0-9.\]+)?)"
 }
 
 subport ${name_mysql}-server {
@@ -276,6 +286,7 @@ If this is a new install you might want to run:
 \$ sudo ${prefix}/lib/${name_mysql}/bin/mysqld --initialize --user=${mysqluser}
 \$ ${prefix}/lib/${name_mysql}/bin/mysql_secure_installation
 "
-
-    livecheck.type          none
 }
+
+# No longer available from upstream
+livecheck.type          none

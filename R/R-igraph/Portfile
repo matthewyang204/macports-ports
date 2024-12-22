@@ -3,9 +3,11 @@
 PortSystem          1.0
 PortGroup           R 1.0
 
-R.setup             cran igraph igraph 2.0.2
+R.setup             cran igraph igraph 2.1.2
 revision            0
-maintainers         {gmail.com:szhorvat @szhorvat} {@barracuda156 gmail.com:vital.had} openmaintainer
+maintainers         {gmail.com:szhorvat @szhorvat} \
+                    {@barracuda156 gmail.com:vital.had} \
+                    openmaintainer
 license             GPL-2+
 description         Network Analysis and Visualization
 long_description    Routines for simple graphs and network analysis. \
@@ -13,12 +15,11 @@ long_description    Routines for simple graphs and network analysis. \
                     for generating random and regular graphs, graph visualization, \
                     centrality methods and much more.
 homepage            https://igraph.org/r
-checksums           rmd160  35d0fb8dd4de3645f0e55049979134803a4a3db6 \
-                    sha256  34f9d5b778c2f41a024183cc3613a1716660f7e3ffb74a2af88c14efe94acc4d \
-                    size    4965448
+checksums           rmd160  c5b6a9784a45e3da620e8e70d3b47368f39de502 \
+                    sha256  52d2a79bb76bece97eb9a342069dc13ce458ddd767387b9476b063f29fe0529f \
+                    size    4987159
 
-depends_lib-append  path:lib/pkgconfig/icu-uc.pc:icu \
-                    port:glpk \
+depends_lib-append  port:glpk \
                     port:gmp \
                     port:libxml2 \
                     port:R-cli \
@@ -44,5 +45,7 @@ depends_test-append port:R-ape \
                     port:R-testthat \
                     port:R-vdiffr \
                     port:R-withr
+
+patchfiles          patch-configure.diff
 
 test.run            yes

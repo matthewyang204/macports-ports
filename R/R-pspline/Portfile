@@ -3,16 +3,16 @@
 PortSystem          1.0
 PortGroup           R 1.0
 
-R.setup             cran cran pspline 1.0-19
-revision            1
+R.setup             cran r-project pspline 1.0-21
+revision            0
 categories-append   math
-maintainers         {@barracuda156 gmail.com:vital.had} openmaintainer
+maintainers         nomaintainer
 license             Permissive
 description         Penalized Smoothing Splines
 long_description    Smoothing splines with penalties on order m derivatives.
-checksums           rmd160  8bb40ed4261916724bd29a0725245b4bdfba92e3 \
-                    sha256  ba55bf193f1df9785a0e13b7ef727d5fd2415b318cd6a26b48a2db490c4dfe40 \
-                    size    18253
+checksums           rmd160  7642d5db4496ba94ed58aef0121c52dd53f2733c \
+                    sha256  7f5739b9cf378dda6cd33d152b5f84ae2afa728f7dac0729dab565264138abca \
+                    size    18431
 
 compilers.setup     require_fortran
 

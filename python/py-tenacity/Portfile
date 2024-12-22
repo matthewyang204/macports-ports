@@ -1,11 +1,10 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
 
 PortSystem          1.0
-PortGroup           github 1.0
 PortGroup           python 1.0
 
 name                py-tenacity
-version             8.2.3
+version             9.0.0
 license             Apache-2
 platforms           {darwin any}
 supported_archs     noarch
@@ -16,11 +15,11 @@ long_description    {*}${description}
 
 homepage            https://github.com/jd/tenacity
 
-checksums           rmd160  9b08a641597c054b1c2a7e16c4376c7a72d373a4 \
-                    sha256  5398ef0d78e63f40007c1fb4c0bff96e1911394d2fa8d194f77619c05ff6cc8a \
-                    size    40651
+checksums           rmd160  26e11e48b9de19ea6e795fd36a24abdac2c293f8 \
+                    sha256  807f37ca97d62aa361264d497b0e31e92b8027044942bfa756160d908320d73b \
+                    size    47421
 
-python.versions     38 39 310 311 312
+python.versions     38 39 310 311 312 313
 
 if {${name} ne ${subport}} {
     depends_build-append \

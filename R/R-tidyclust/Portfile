@@ -3,17 +3,19 @@
 PortSystem          1.0
 PortGroup           R 1.0
 
-R.setup             github tidymodels tidyclust 0.2.1 v
+R.setup             github tidymodels tidyclust 0.2.3 v
 revision            0
+platforms           {darwin any}
 maintainers         {@barracuda156 gmail.com:vital.had} openmaintainer
 license             MIT
 description         Common API to clustering
 long_description    A common interface to specifying clustering models, in the same style as parsnip. \
                     Creates unified interface across different functions and computational engines.
 homepage            https://tidyclust.tidymodels.org
-checksums           rmd160  6d765d13830ea33ad5f1e3f2d4d9d796d878028f \
-                    sha256  82973e354fc9a4dbc6935035bb0e58d6715d7acefd974118f501dc0dd344bca8 \
-                    size    529482
+checksums           rmd160  aef50980187f37bee480332689f3641309d445d1 \
+                    sha256  1d4f8697251ef6c384a858965965a146b450424ed5c584f85bc0c77fa4ce0520 \
+                    size    528711
+github.tarball_from archive
 supported_archs     noarch
 
 depends_lib-append  port:R-cli \

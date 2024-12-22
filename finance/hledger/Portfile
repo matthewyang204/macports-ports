@@ -4,7 +4,7 @@ PortSystem          1.0
 PortGroup           github 1.0
 PortGroup           haskell_stack 1.0
 
-github.setup        simonmichael hledger 1.32.2
+github.setup        simonmichael hledger 1.40
 revision            0
 categories          finance textproc haskell
 
@@ -25,9 +25,9 @@ long_description    \
     entry accounting.
 homepage            https://hledger.org
 
-checksums           rmd160  ed5b9cc61a1008ed6929b235657ddf732338f3c8 \
-                    sha256  12da16b26d37e360a098513d8c6411b6549f75fc14096c79282477561adf7526 \
-                    size    3089041
+checksums           rmd160  54c92530b546107142f29c6eb45d92bcc0cde20f \
+                    sha256  e29c05f8830bb3c8d4f8241897b4d2ff9d3d8dff26dbed4ab89c57bfde743b75 \
+                    size    3315769
 
 post-destroot {
     # Add man-pages

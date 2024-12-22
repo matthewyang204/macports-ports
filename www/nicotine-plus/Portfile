@@ -4,34 +4,72 @@ PortSystem          1.0
 PortGroup           github 1.0
 PortGroup           python 1.0
 
-github.setup        nicotine-plus nicotine-plus 3.3.0
+github.setup        nicotine-plus nicotine-plus 3.3.6
 revision            0
 categories          www p2p python
 license             GPL-3
 platforms           {darwin any}
 supported_archs     noarch
-maintainers         {@barracuda156 gmail.com:vital.had} openmaintainer
+maintainers         nomaintainer
 description         Nicotine+ is a graphical client for the Soulseek peer-to-peer network
 long_description    Nicotine+ aims to be a lightweight, pleasant, free and open-source alternative \
                     to the official Soulseek client, while also providing a comprehensive set of features.
 homepage            https://nicotine-plus.org
-checksums           rmd160  28b4921acb592df0350980d3e3c3fc82d78bddc5 \
-                    sha256  c94bd7ecf6a107445836df80efed9b8c18cab307d812c2b91be18e93dfb4ac1f \
-                    size    3503858
+checksums           rmd160  dfd85784edcd0af1859d886b8d57ebc70e98af2c \
+                    sha256  3911c178f96da1fdd48dedd98ac2d2ad6a59da388f091f91bb5722871cca91da \
+                    size    3752758
 github.tarball_from archive
 
-python.default_version 311
+variant python311 conflicts python312 description "Use Python 3.11" {
+    python.default_version  311
+}
+
+variant python312 conflicts python311 description "Use Python 3.12" {
+    python.default_version  312
+}
+
+if {![variant_isset python311] && ![variant_isset python312]} {
+    default_variants-append +python312
+}
 
 depends_build-append \
                     port:gettext \
-                    port:pkgconfig \
+                    path:bin/pkg-config:pkgconfig \
                     port:py${python.version}-setuptools
 
 depends_lib-append  port:adwaita-icon-theme \
                     port:gettext-runtime \
-                    path:lib/pkgconfig/gtk3.pc:gtk3 \
-                    port:py${python.version}-gdbm \
                     port:py${python.version}-gobject3
 
-build.env-append    NICOTINE_GTK_VERSION=3 \
-                    NICOTINE_USE_LIBADWAITA=1
+# Patches from the upstream. Drop in next release.
+# https://github.com/nicotine-plus/nicotine-plus/issues/3172
+# https://github.com/nicotine-plus/nicotine-plus/issues/3176
+patchfiles-append   937eacfb63e026030e4f010097c3c2e8f8a0cbf6.patch \
+                    0757668709f00190c357549f3eb5101566da0bde.patch
+
+variant gtk3 conflicts gtk4 description "Build with GTK3" {
+    patchfiles-append \
+                    patch-GTK3.diff
+
+    depends_lib-append \
+                    path:lib/pkgconfig/gtk+-3.0.pc:gtk3
+}
+
+# https://github.com/nicotine-plus/nicotine-plus/issues/2942
+# https://github.com/nicotine-plus/nicotine-plus/issues/3172
+variant gtk4 conflicts gtk3 description "Build with GTK4" {
+    patchfiles-append \
+                    patch-GTK4.diff
+
+    depends_lib-append \
+                    path:lib/pkgconfig/gtk4.pc:gtk4
+}
+
+if {![variant_isset gtk3] && ![variant_isset gtk4]} {
+    default_variants-append +gtk4
+}
+
+notes "
+To choose GTK version at runtime, you may set NICOTINE_GTK_VERSION=\
+in the environment.
+"

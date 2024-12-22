@@ -4,7 +4,7 @@ PortSystem          1.0
 PortGroup           github 1.0
 PortGroup           tree_sitter 1.0
 
-github.setup        tree-sitter tree-sitter-json 0.20.2 v
+github.setup        tree-sitter tree-sitter-json 0.24.8 v
 revision            0
 
 description         A tree-sitter parser for JSON
@@ -15,8 +15,11 @@ categories          devel
 license             MIT
 maintainers         {amake @amake} openmaintainer
 
-checksums           rmd160  2a128def10d97577502d9a0ee636dc6e19b3d2c1 \
-                    sha256  bb25de067780ad0d49cd73c5868e42f670be07ce70e18aa89df1c99653003c6f \
-                    size    15649
+checksums           rmd160  56bf00816e2c7169e689cb3c3d24156737fc3885 \
+                    sha256  49f8fedfe71b0bb51846733d04c88d410417be427e12963093700ccfb87deee8 \
+                    size    39822
 
 worksrcdir          ${worksrcdir}/src
+
+# parser.c: error: ‘for’ loop initial declaration used outside C99 mode
+configure.cflags-append -std=c99

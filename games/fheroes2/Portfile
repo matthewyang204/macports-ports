@@ -7,10 +7,9 @@ PortGroup       cmake 1.1
 PortGroup       legacysupport 1.1
 PortGroup       compiler_blacklist_versions 1.0
 
-github.setup    ihhub fheroes2 1.0.12
+github.setup    ihhub fheroes2 1.1.4
 
 categories      games
-platforms       darwin
 maintainers     {@oleg-derevenetz gmail.com:oleg.derevenetz} openmaintainer
 license         GPL-2
 
@@ -20,9 +19,9 @@ long_description \
 
 homepage        https://ihhub.github.io/fheroes2/
 
-checksums       rmd160  0ef7d2764ef76c717e9b1e3f7506a6b72ae5f7a3 \
-                sha256  7368ec45db84c173a234918bfd6c473a3757dae08daa8f687a9397392346de66 \
-                size    11949697
+checksums       rmd160  a472c7d4ce3f55f237a1e90c609b9a9c2b590a6b \
+                sha256  d25e1fb1422b476cbb92911bf6b7ad58f260becaeebb94bbc8146b460a18144a \
+                size    12283334
 
 depends_build-append \
                 port:gettext
@@ -30,6 +29,8 @@ depends_build-append \
 depends_lib     port:libsdl2 \
                 port:libsdl2_mixer \
                 port:zlib
+
+depends_run     port:innoextract
 
 patchfiles      patch-readme-txt.diff
 

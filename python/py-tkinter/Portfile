@@ -19,7 +19,6 @@ python.versions 26 27 32 33 34 35 36 37 38 39 310 311 312
 
 set extract_files [list Modules/_tkinter.c Modules/tkappinit.c]
 set module_name tkinter
-set extra_cflags ""
 subport py26-tkinter {
     maintainers {mcalhoun @MarcusCalhoun-Lopez} openmaintainer
     version     2.6.9
@@ -98,50 +97,57 @@ subport py37-tkinter {
 }
 subport py38-tkinter {
     maintainers nomaintainer
-    version     3.8.18
+    version     3.8.20
     revision    0
     homepage    https://docs.python.org/release/${version}/library/tkinter.html
-    checksums   md5 5ea6267ea00513fc31d3746feb35842d \
-                rmd160 e94b684e7dbb970de733857c281c070206535d4e \
-                sha256 3ffb71cd349a326ba7b2fadc7e7df86ba577dd9c4917e52a8401adbda7405e3f
+    checksums   md5 745478c81d6382cf46b5e7ad89e56008 \
+                rmd160 1d03db4e018f2133f2b279a3a44f0c7c759c50cf \
+                sha256 6fb89a7124201c61125c0ab4cf7f6894df339a40c02833bfd28ab4d7691fafb4
 }
 subport py39-tkinter {
     maintainers {jmr @jmroot}
-    version     3.9.18
+    version     3.9.21
     revision    0
     homepage    https://docs.python.org/release/${version}/library/tkinter.html
-    checksums   md5 765576c3af57deb046819ecd57804bbb \
-                rmd160 6d8f4682626cdbf7c7d049382e322b49d671f981 \
-                sha256 01597db0132c1cf7b331eff68ae09b5a235a3c3caa9c944c29cac7d1c4c4c00a
+    checksums   md5 e8ab0f9a295f12428310f409abd79e9c \
+                rmd160 7f33e270e3c57f3af432303c0e903a3408a35444 \
+                sha256 3126f59592c9b0d798584755f2bf7b081fa1ca35ce7a6fea980108d752a05bb1
 }
 subport py310-tkinter {
     maintainers {jmr @jmroot}
-    version     3.10.13
+    version     3.10.16
     revision    0
     homepage    https://docs.python.org/release/${version}/library/tkinter.html
-    checksums   md5 8847dc6458d1431d0ae0f55942deeb89 \
-                rmd160 5abf603950b064a64882870760ca86af57bd176f \
-                sha256 5c88848668640d3e152b35b4536ef1c23b2ca4bd2c957ef1ecbb053f571dd3f6
+    checksums   md5 97b3ee1740f32a92905dd0a99dcb04d5 \
+                rmd160 484e369963b307c1cb6eb357a1736cd3f112c13a \
+                sha256 bfb249609990220491a1b92850a07135ed0831e41738cf681d63cf01b2a8fbd1
 }
 subport py311-tkinter {
     maintainers {jmr @jmroot}
-    version     3.11.8
+    version     3.11.11
     revision    0
     homepage    https://docs.python.org/release/${version}/library/tkinter.html
-    checksums   md5 b353b8433e560e1af2b130f56dfbd973 \
-                rmd160 1f62536344c1f491048cdfc3ec3bcc8a727bc417 \
-                sha256 9e06008c8901924395bc1da303eac567a729ae012baa182ab39269f650383bb3
+    checksums   md5 3e497037b170fe4be5f462c4964596f2 \
+                rmd160 f855fd3d01fa8e1cb6839985280a8b6db1954242 \
+                sha256 2a9920c7a0cd236de33644ed980a13cbbc21058bfdc528febb6081575ed73be3
 }
 subport py312-tkinter {
     maintainers {jmr @jmroot}
-    version     3.12.2
+    version     3.12.8
     revision    0
     homepage    https://docs.python.org/release/${version}/library/tkinter.html
-    checksums   md5 e7c178b97bf8f7ccd677b94d614f7b3c \
-                rmd160 aef2878c5db39428453ed4c608f06076a3d17938 \
-                sha256 be28112dac813d2053545c14bf13a16401a21877f1a69eb6ea5d84c4a0f3d870
-    compiler.c_standard 2011
-    set extra_cflags \"-std=c11\"
+    checksums   md5 d46e5bf9f2e596a3ba45fc0b3c053dd2 \
+                rmd160 7a9659684f2a745b648e62605fee7db153228786 \
+                sha256 c909157bb25ec114e5869124cc2a9c4a4d4c1e957ca4ff553f1edc692101154e
+}
+subport py313-tkinter {
+    maintainers {jmr @jmroot}
+    version     3.13.1
+    revision    0
+    homepage    https://docs.python.org/release/${version}/library/tkinter.html
+    checksums   md5 80c16badb94ffe235280d4d9a099b8bc \
+                rmd160 9f95479cc01649411283aa171a6e96b8ec053825 \
+                sha256 9cf9427bee9e2242e3877dd0f6b641c1853ca461f39d6503ce260a59c80bf0d9
 }
 
 master_sites    https://www.python.org/ftp/python/${version}/
@@ -155,6 +161,13 @@ if {${name} ne ${subport}} {
     dist_subdir python${python.version}
 
     worksrcdir  ${worksrcdir}/Modules
+
+    if {${python.version} >= 312} {
+        compiler.c_standard 2011
+        set extra_cflags \"-std=c11\"
+    } else {
+        set extra_cflags ""
+    }
 
     if {${python.version} >= 37} {
         python.pep517   yes

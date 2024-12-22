@@ -3,16 +3,19 @@
 PortSystem          1.0
 PortGroup           R 1.0
 
-R.setup             github strengejacke ggeffects 1.5.0 v
+R.setup             github strengejacke ggeffects 1.7.1 v
 revision            0
+platforms           {darwin any}
 maintainers         nomaintainer
 license             MIT
-description         Create tidy data frames of marginal effects for ggplot from model outputs
+description         Create tidy data frames of marginal effects \
+                    for R-ggplot from model outputs
 long_description    {*}${description}
 homepage            https://strengejacke.github.io/ggeffects
-checksums           rmd160  6fd02a761ec36bad7537a714c4b7bdb6bfea4c99 \
-                    sha256  7b6ec5d57ee7e72510bf83ba6f403182662b5fa3f13a74afea6e360586987392 \
-                    size    535074
+checksums           rmd160  1e3d1ac936f9d228a6e8d927b12a582a9408d852 \
+                    sha256  cca9afc75e55f125cecc20ee45a29738d42e30f0f954430605443e6801777ec8 \
+                    size    654763
+github.tarball_from archive
 supported_archs     noarch
 
 depends_lib-append  port:R-insight

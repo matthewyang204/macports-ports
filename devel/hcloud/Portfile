@@ -3,7 +3,7 @@
 PortSystem          1.0
 PortGroup           golang 1.0
 
-go.setup            github.com/hetznercloud/cli 1.42.0 v
+go.setup            github.com/hetznercloud/cli 1.48.0 v
 revision            0
 
 name                hcloud
@@ -15,9 +15,9 @@ description         ${name} is a command-line interface for Hetzner Cloud.
 long_description    {*}${description}
 
 checksums           ${distname}${extract.suffix} \
-                        rmd160  860ca02b26dcf0f3c15fbf354a96bed554286b67 \
-                        sha256  d49483514e6cb7a7c64d6e48ba9a61a9ab9003b65503ee207996180fe2076ef3 \
-                        size    163773
+                        rmd160  775b5c53f6868c5457c4e0ebb54f37c00c6b0581 \
+                        sha256  f95e21501071bb6a115816dc6e4c75ee7671d1e5697f33290783f0013de2803e \
+                        size    204052
 
 build.pre_args-append   -ldflags \
     '-X ${go.package}/internal/version.Version=${version}'

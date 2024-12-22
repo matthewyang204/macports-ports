@@ -3,16 +3,17 @@
 PortSystem          1.0
 PortGroup           R 1.0
 
-R.setup             cran config-i1 smooth 4.0.0
+R.setup             cran config-i1 smooth 4.1.0
 revision            0
 categories-append   math
 maintainers         {@barracuda156 gmail.com:vital.had} openmaintainer
-license             GPL-2+
+license             LGPL-2.1
 description         Forecasting using state space models
 long_description    {*}${description}
-checksums           rmd160  bbf5bcd29d84f217817d5c8d62e2d946ddd1e0e1 \
-                    sha256  12fbfe6713a78e3bab6c04173846439245080f835bd84a92b1fc751e0e1c2264 \
-                    size    3166335
+homepage            https://github.com/config-i1/smooth
+checksums           rmd160  3ad2885f36e2255154a1d5cee52a22edc657b803 \
+                    sha256  3876c94536da68021167bb4298fa50de7d1ce563fd6ab8894a4d613e89ccd793 \
+                    size    3311940
 
 depends_lib-append  port:R-generics \
                     port:R-greybox \

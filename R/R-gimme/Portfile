@@ -3,17 +3,18 @@
 PortSystem          1.0
 PortGroup           R 1.0
 
-R.setup             cran GatesLab gimme 0.7-16
+R.setup             cran GatesLab gimme 0.7-18
 revision            0
 categories-append   math
+platforms           {darwin any}
 maintainers         {@barracuda156 gmail.com:vital.had} openmaintainer
 license             GPL-2
 description         Group Iterative Multiple Model Estimation
 long_description    {*}${description}
 homepage            https://tarheels.live/gimme/tutorials
-checksums           rmd160  703b650cac006cc42d803fd919b464bb25780cf4 \
-                    sha256  0ae7c6bdb3859a6fdde39c033a2d395bef90aed811897e39218368babfbd356e \
-                    size    1623293
+checksums           rmd160  856b81f1cb8485cc9d82831af06322d71429c141 \
+                    sha256  92f8b70738b87de3eaa06a32cf2420c2c5b8022687c790171357402b5000ab9b \
+                    size    1624309
 supported_archs     noarch
 
 depends_lib-append  port:R-data.tree \

@@ -3,21 +3,25 @@
 PortSystem          1.0
 PortGroup           R 1.0
 
-R.setup             github Roche rtables 0.6.6 v
+# Revert to GitHub once updated there.
+R.setup             cran insightsengineering rtables 0.6.10 v
 revision            0
+platforms           {darwin any}
 maintainers         nomaintainer
 license             Apache-2
 description         Reporting tables with R
 long_description    {*}${description}
-homepage            https://roche.github.io/rtables
-checksums           rmd160  19c8871858ea6b32158ee8118822e12402039d9e \
-                    sha256  4cd5b30696eb119cb3abf4cf39c65396019a7bd04dc133ead54414e10f2af548 \
-                    size    13411920
+homepage            https://insightsengineering.github.io/rtables
+checksums           rmd160  82520a3784c83f495d85585da9a0f2eeea9261c1 \
+                    sha256  0499f861cd91ffee1d3c2d5a66b8a3420c0f892c67606d50f6ffb2978bec5fce \
+                    size    2711147
+# github.tarball_from archive
 supported_archs     noarch
 
 depends_lib-append  port:R-checkmate \
                     port:R-formatters \
                     port:R-htmltools \
+                    port:R-lifecycle \
                     port:R-magrittr \
                     port:R-stringi
 
@@ -28,9 +32,11 @@ depends_test-append port:R-broom \
                     port:R-knitr \
                     port:R-officer \
                     port:R-r2rtf \
+                    port:R-rmarkdown \
                     port:R-testthat \
                     port:R-tibble \
                     port:R-tidyr \
+                    port:R-withr \
                     port:R-xml2
 
 test.run            yes

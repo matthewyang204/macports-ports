@@ -3,16 +3,17 @@
 PortSystem          1.0
 PortGroup           R 1.0
 
-R.setup             cran femiguez apsimx 2.6.2
+R.setup             cran femiguez apsimx 2.8.0
 revision            0
+platforms           {darwin any}
 maintainers         nomaintainer
 license             GPL-3
 description         R package for APSIM-X
 long_description    {*}${description}
 homepage            https://femiguez.github.io/apsimx-docs
-checksums           rmd160  bb3aa6168dd2621de5b4a49fd3642099d190e1cf \
-                    sha256  c4393707661c3c1336961670c011b6961322a29a2a6f55d6c61a477fb3f3af72 \
-                    size    1237336
+checksums           rmd160  23b6de6cfff37a018e49a61b9f5d9b73b3a219cf \
+                    sha256  016216ce8dd5ad4e92290a7e7d35eb01caf034478147667e69bc4d8179c5244c \
+                    size    1234164
 supported_archs     noarch
 
 depends_lib-append  port:R-DBI \

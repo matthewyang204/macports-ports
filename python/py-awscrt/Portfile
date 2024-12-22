@@ -6,11 +6,10 @@ PortGroup           python 1.0
 name                py-awscrt
 # This is only used by awscli2. Bump when Amazon bumps
 # their pinned version in awscli2's setup.cfg.
-version             0.19.19
+version             0.23.4
 revision            0
 
 categories-append   devel
-platforms           darwin
 maintainers         {gmail.com:davidgilman1 @dgilman} openmaintainer
 license             Apache-2
 
@@ -19,17 +18,17 @@ long_description    {*}${description}
 
 homepage            https://aws.amazon.com/cli/
 
-checksums           rmd160  25c5f03117cbfb7336b1553f79dd0e0ff0666e1c \
-                    sha256  1c1511535dee146a6c26a382ed3ead56259a105b3b7d7d823553ae567d038dfe \
-                    size    32064862
+checksums           rmd160  3db3c29341ea8811313e579b0692ac0bba8f34b5 \
+                    sha256  3ef5212a3c3b0549b3b0e85507b7bbdfb891ff40ca4c597e92db07a0bf7b614a \
+                    size    65405449
 
-python.versions     38 39 310 311
+python.versions     39 310 311 312 313
 
 if {${name} ne ${subport}} {
-    if {${os.platform} eq "darwin" && ${os.major} <= 15} {
+    if {${os.platform} eq "darwin" && ${os.major} <= 18} {
         known_fail      yes
         pre-fetch {
-            ui_error "${name} @${version} requires macOS 10.12 or later."
+            ui_error "${name} @${version} requires macOS 10.15 or later."
             return -code error "incompatible macOS version"
         }
     }

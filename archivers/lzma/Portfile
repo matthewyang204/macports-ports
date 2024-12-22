@@ -9,11 +9,11 @@ PortGroup       makefile 1.0
 legacysupport.newest_darwin_requires_legacy 16
 
 name            lzma
-version         23.01
+version         24.09
 revision        0
-checksums       rmd160  60a27abad278b37df47ab73f714092e7a07183ce \
-                sha256  317dd834d6bbfd95433488b832e823cd3d4d420101436422c03af88507dd1370 \
-                size    1322733
+checksums       rmd160  90dd80066862468815819137bdc9352aefbd58eb \
+                sha256  79b39f10b7b69eea293caa90c3e7ea07faf8f01f8ae9db1bb1b90c092375e5f3 \
+                size    1747679
 
 categories      archivers
 license         public-domain
@@ -34,31 +34,35 @@ distname        lzma[strsed ${version} {/\.//}]
 
 extract.mkdir   yes
 
+extract {
+    # Exclude precompiled binaries.
+    system -W ${worksrcpath} "${prefix}/bin/7za x [shellescape ${distpath}/${distfiles}] -x'!bin/*'"
+}
+
 post-extract {
     fs-traverse item [list ${worksrcpath}] {
         if {[file isdirectory ${item}]} {
             file attributes ${item} -permissions ag+rx
         }
     }
+
+   # DOS to UNIX line endings so we can patch.
+   reinplace "s|\r||g" ${worksrcpath}/CPP/7zip/7zip_gcc.mak
 }
 
 patchfiles      patch-7zip_gcc_mak.diff \
                 patch-lzma.1
 
 post-patch {
-    reinplace "s|#include <sys/sysmacros.h>|//#include <sys/sysmacros.h>|" \
-    ${worksrcpath}/CPP/7zip/Common/FileStreams.cpp \
-    ${worksrcpath}/CPP/7zip/UI/Common/UpdateCallback.cpp
     # needed for legacysupport
-    reinplace "s|LDFLAGS = $\(\LDFLAGS_STATIC\)\|LDFLAGS += $\(\LDFLAGS_STATIC\)\|" \
-    ${worksrcpath}/C/7zip_gcc_c.mak \
-    ${worksrcpath}/CPP/7zip/7zip_gcc.mak
+    reinplace -W ${worksrcpath} -E {s|LDFLAGS = \$\(LDFLAGS_STATIC\)|LDFLAGS += $(LDFLAGS_STATIC)|} \
+        C/7zip_gcc_c.mak \
+        CPP/7zip/7zip_gcc.mak
 
     reinplace "s|@CFLAGS@|${configure.cflags} [get_canonical_archflags cc]|g" \
         ${worksrcpath}/CPP/7zip/7zip_gcc.mak
     reinplace "s|@CXXFLAGS@|${configure.cxxflags} [get_canonical_archflags cxx]|g" \
         ${worksrcpath}/CPP/7zip/7zip_gcc.mak
-
 }
 
 # error: "SSE4.1 instruction set not enabled"
@@ -92,7 +96,7 @@ destroot {
 }
 
 notes "
-The LZMA SDK program is installed as \"lzma_alone\", to avoid conflict with LZMA Utils
+The LZMA SDK program is installed as \"lzma_alone\" to avoid conflict with LZMA Utils.
 "
 
 livecheck.type  regex

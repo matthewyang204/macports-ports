@@ -9,7 +9,7 @@ PortGroup               legacysupport 1.1
 # clock_gettime
 legacysupport.newest_darwin_requires_legacy 16
 
-github.setup            lfortran lfortran 0.33.1 v
+github.setup            lfortran lfortran 0.42.0 v
 revision                0
 categories              lang fortran
 maintainers             {@barracuda156 gmail.com:vital.had} openmaintainer
@@ -21,15 +21,12 @@ long_description        LFortran is a modern open-source interactive Fortran com
                         with the goal to run user’s code on modern architectures such as multi-core CPUs and GPUs.
 homepage                https://lfortran.org
 
-checksums               rmd160  f9f76743cd53d7016b31291da1399c26ee7f7df5 \
-                        sha256  4cd730121a24e8a9b58cb192b66ffdf1e9f27ebeb29e34e0b1ab50771231e1f2 \
-                        size    2552956
+checksums               rmd160  c7a21ce5cb83adc9979278731b3ab0282c359de0 \
+                        sha256  9da79d6789b2bd1bb864b653cd217fcd9fc3af3b9a1e24ee527f41cc7c515e8b \
+                        size    2921696
 github.tarball_from     archive
 
-# Build system is a bit handicapped.
-cmake.out_of_source     no
-
-set port_libfmt         libfmt10
+set port_libfmt         libfmt11
 cmake.module_path-append \
                         ${prefix}/lib/${port_libfmt}/cmake
 
@@ -40,7 +37,7 @@ depends_lib-append      path:lib/pkgconfig/RapidJSON.pc:rapidjson \
                         port:zlib \
                         port:${port_libfmt}
 
-set py_ver              3.11
+set py_ver              3.12
 set py_ver_nodot        [string map {. {}} ${py_ver}]
 depends_lib-append      port:python${py_ver_nodot}
 
@@ -61,17 +58,20 @@ post-patch {
 compiler.cxx_standard   2017
 # Use LLVM clangs
 compiler.blacklist-append {clang}
+# Avoid very recent clangs, they are known to causes errors:
+compiler.blacklist-append {macports-clang-1[8-9]} {macports-clang-2[0-9]}
 
 configure.args-append   -DLFORTRAN_BUILD_ALL=YES \
                         -DLFORTRAN_STATIC_BIN=NO \
                         -DWITH_FMT=YES \
                         -DWITH_JSON=YES \
                         -DWITH_LLVM=NO \
+                        -DWITH_MACHO=YES \
                         -DWITH_RUNTIME_LIBRARY=YES \
                         -DWITH_ZLIB=YES
 
 if {${configure.build_arch} ni [list ppc ppc64]} {
-    set llvm_version    16
+    set llvm_version    17
     set llvm_prefix     ${prefix}/libexec/llvm-${llvm_version}
     set llvm_bin        ${llvm_prefix}/bin
 
@@ -86,4 +86,16 @@ if {${configure.build_arch} ni [list ppc ppc64]} {
 
 cmake.build_type        Release
 
-test.run                yes
+variant kokkos description "Enable Kokkos support" {
+    depends_lib-append  path:lib/libkokkoscore.dylib:kokkos
+
+    configure.args-append \
+                        -DWITH_KOKKOS=YES
+}
+
+default_variants-append +kokkos
+
+# Disabling for now, since one of tests fails.
+test.run                no
+# Drop this after Macports 2.9.2 is out:
+test.ignore_archs       yes

@@ -5,8 +5,8 @@ PortGroup               sourcehut 1.0
 PortGroup               compiler_blacklist_versions 1.0
 
 name                    uxn
-sourcehut.setup         rabbits uxn c5d8ba4e3aa6a227d8417c369becf259ca7a9259
-version                 20240302
+sourcehut.setup         rabbits uxn dbb111376d38ba9848157615abaee9f33cf7200e
+version                 20241127
 revision                0
 
 categories              emulators
@@ -23,9 +23,9 @@ long_description        Uxn is a virtual machine with 32 instructions. \
 
 homepage                https://100r.co/site/uxn.html
 
-checksums               rmd160  e7a28f72f6472091b920a9d7707e4d0433806072 \
-                        sha256  9263911edd694ba76a1b0a35fb423c3a44ce97caeb444f6e9f3f962c6744af4f \
-                        size    315656
+checksums               rmd160  35aa9198bdc40a21656e521974ae3c96443814e6 \
+                        sha256  e7a29c11e7fac7d02add2f59e6a513b96c127d81249843edd900f835cdf64b1f \
+                        size    305638
 
 depends_lib             port:libsdl2
 
@@ -33,8 +33,10 @@ patchfiles              patch-uxn-build.diff
 
 use_configure           no
 
+# gcc-4.2 fails to build it, because does not support required flag.
+# gcc13 builds it normally though. No reason to blacklist all *gcc*.
 compiler.blacklist-append \
-                        *gcc* {clang < 500}
+                        *gcc-4.* {clang < 500}
 configure.cflags-append -std=c89 -Wno-typedef-redefinition -D_C99_SOURCE
 
 build.cmd               ${worksrcpath}/build.sh

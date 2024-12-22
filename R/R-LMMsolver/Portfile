@@ -3,17 +3,20 @@
 PortSystem          1.0
 PortGroup           R 1.0
 
-R.setup             github Biometris LMMsolver 1.0.6 v.
+# Revert to GitHub once updated there.
+R.setup             cran Biometris LMMsolver 1.0.8 v.
 revision            0
 categories-append   math
 maintainers         {@barracuda156 gmail.com:vital.had} openmaintainer
 license             GPL
 description         Linear Mixed Model Solver
-long_description    {*}${description}
+long_description    An efficient and flexible system \
+                    to solve sparse mixed model equations.
 homepage            https://biometris.github.io/LMMsolver/index.html
-checksums           rmd160  05d40e030015537d849822f643beed93f095df27 \
-                    sha256  31588bee5ac277fe1d20d09082d49b246c26aa0af0f5ce905564c9b79e2e65d9 \
-                    size    5950031
+checksums           rmd160  c6d77aec8ef3552807cd322daea8fd62a58fb02a \
+                    sha256  586b8f2c9075f153ec1f5984608c15afb8af23941425d109903c5a2234db741e \
+                    size    1777199
+# github.tarball_from archive
 
 depends_lib-append  port:R-agridat \
                     port:R-ggplot2 \

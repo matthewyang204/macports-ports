@@ -24,7 +24,7 @@
 PortSystem          1.0
 
 name                dotnet-cli
-version             8.0.2
+version             8.0.7
 revision            0
 categories          dotnet
 license             MIT
@@ -44,7 +44,7 @@ long_description    .NET is a free, cross-platform, open source developer platfo
                     whichever is latest.
 
 homepage            https://dotnet.microsoft.com/
-platforms           darwin
+platforms           {darwin any} {darwin >= 19}
 supported_archs     x86_64 arm64
 
 master_sites        https://dotnetcli.azureedge.net/dotnet/Runtime/${version}/
@@ -52,15 +52,15 @@ master_sites        https://dotnetcli.azureedge.net/dotnet/Runtime/${version}/
 switch ${build_arch} {
     x86_64 {
         distname            dotnet-runtime-${version}-osx-x64
-        checksums           rmd160  10dc225478c8340d65f5d6dcecd5fc1883334f32 \
-                            sha256  ae770f941e3cbf1f682f349f71355ad4ce6fa3d87e225d1aa9bf7c51cac0190d \
-                            size    30787083
+        checksums           rmd160  203e44d81ed9febb1c6f898dad897776578c8264 \
+                            sha256  dea6a6c2b964ea7305d702324081738853b25d26f9659909e467c79bf4c41f13 \
+                            size    30803633
     }
     arm64 {
         distname            dotnet-runtime-${version}-osx-arm64
-        checksums           rmd160  573dadb13d956be78a24a259f3ece4adb14557e2 \
-                            sha256  6be6a75af8fae6a1cebc111b5c47fab2e0f96f2d4e6c6a8afaa40951a124fa17 \
-                            size    29112366
+        checksums           rmd160  283c5d86a0e6afefacab3737f344aed872682eb3 \
+                            sha256  1542510e85570700f3b1ba7b338d5296b416cea3bf6928cedcc40ddbe55226a6 \
+                            size    29130595
     }
     default {
         known_fail yes

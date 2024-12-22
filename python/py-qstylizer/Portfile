@@ -2,12 +2,10 @@
 
 PortSystem          1.0
 PortGroup           python 1.0
-PortGroup           github 1.0
 
-github.setup        blambright qstylizer 0.2.2
-github.tarball_from archive
-revision            0
 name                py-qstylizer
+version             0.2.4
+revision            0
 
 categories-append   devel
 supported_archs     noarch
@@ -18,15 +16,15 @@ maintainers         {reneeotten @reneeotten} openmaintainer
 description         Qt stylesheet generation utility for PyQt/PySide
 long_description    {*}${description}
 
-checksums           rmd160  c6ba1c5013bbe03740a37f9771f627f7d04d6bb5 \
-                    sha256  95f7666929cc34efbbd9e0640a13f507b8ec35ec34a9604017cf96c24f7f9ea6 \
-                    size    20752
+homepage            https://github.com/blambright/qstylizer
 
-python.versions     38 39 310 311 312
+checksums           rmd160  00cf5003c43f8379edc51f4876f0dee07c521339 \
+                    sha256  4880991d912c9837454832e8e2b58d60b66848d8c4a7cf57ed544fd68b91a23a \
+                    size    25036
+
+python.versions     39 310 311 312
 
 if {${name} ne ${subport}} {
-    patchfiles      patch-test-assert_called_once_with.diff
-
     # workaround for missing version information in metadata
     build.env-append    PBR_VERSION=${version}
     destroot.env-append PBR_VERSION=${version}

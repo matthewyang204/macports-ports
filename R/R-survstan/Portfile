@@ -3,17 +3,17 @@
 PortSystem          1.0
 PortGroup           R 1.0
 
-R.setup             cran fndemarqui survstan 0.0.6.1
-revision            0
+R.setup             cran fndemarqui survstan 0.0.7.1
+revision            2
 categories-append   math
 maintainers         {@barracuda156 gmail.com:vital.had} openmaintainer
 license             MIT
 description         Fit survival regression models via Stan
 long_description    {*}${description}
 homepage            https://fndemarqui.github.io/survstan
-checksums           rmd160  5cf9b1759b6fe63e52cdc6cb4e71ca4860cef5b8 \
-                    sha256  d0f60f50d1c376046e80bd09cf989be8bf817b067d3f809963f4162f0780a6a4 \
-                    size    132254
+checksums           rmd160  7bf80da72509590a2f4d467578e405d2bec2875d \
+                    sha256  cf9a9f006c947fec8152ff0f1e8fd175082b65efc48aababd365e3451419a6f9 \
+                    size    141985
 
 depends_lib-append  port:R-actuar \
                     port:R-BH \

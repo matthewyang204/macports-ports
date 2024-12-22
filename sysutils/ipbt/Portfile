@@ -8,7 +8,7 @@ PortGroup           legacysupport 1.1
 legacysupport.newest_darwin_requires_legacy 15
 
 name                ipbt
-version             20220403.d4e7fcd
+version             20240909.a852474
 categories          sysutils
 maintainers         {khindenburg @kurthindenburg} openmaintainer
 
@@ -24,9 +24,9 @@ license             MIT
 homepage            https://www.chiark.greenend.org.uk/~sgtatham/ipbt/
 master_sites        ${homepage}
 
-checksums           rmd160  8956ffd2a7d383023e903f8c19c82c03998815b8 \
-                    sha256  8c7f325166b86055232cca9d745c6a18dcdcb6d30a0685e07ac0eab677912b05 \
-                    size    302182
+checksums           rmd160  12f1b1b7cb0361f88ac0128284f9009c4575628c \
+                    sha256  89d95b6c806461ac0dc2096732e266dfb288d08cd8cbe68df83cea9fe0895bfe \
+                    size    359455
 
 patchfiles          patch-remove-ncursesw.diff
 
@@ -44,5 +44,9 @@ compiler.c_standard 2011
 variant debug description {Use debug, required here} {}
 
 default_variants +debug
+
+post-destroot {
+    copy ${worksrcpath}/ipbt.1 ${destroot}${prefix}/share/man/man1/
+}
 
 livecheck.regex     ${name}-(\[0-9.a-z\]*)${extract.suffix}

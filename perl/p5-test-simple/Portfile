@@ -4,7 +4,7 @@ PortSystem          1.0
 PortGroup           perl5 1.0
 
 perl5.branches      5.28 5.30 5.32 5.34
-perl5.setup         Test-Simple 1.302198 ../../authors/id/E/EX/EXODIST
+perl5.setup         Test-Simple 1.302206 ../../authors/id/E/EX/EXODIST
 revision            0
 license             {Artistic-1 GPL}
 maintainers         nomaintainer
@@ -14,6 +14,34 @@ long_description    {*}${description}
 platforms           {darwin any}
 supported_archs     noarch
 
-checksums           rmd160  2baa1e41fc3f96ca689eb3b4fc8beac2ecca3530 \
-                    sha256  1dc07bcffd23e49983433c948de3e3f377e6e849ad7fe3432c717fa782024faa \
-                    size    335178
+checksums           rmd160  263a70aa4b19bdf4b1a2aa23d66f18feae2ef60b \
+                    sha256  1823642804d340cfd70b80a4512e6bef186bd36b21ea5869492e6b0472e57777 \
+                    size    566904
+
+if {${perl5.major} != ""} {
+    depends_build-append \
+                    port:p${perl5.major}-json-maybexs
+
+    depends_lib-append \
+                    port:p${perl5.major}-data-dumper \
+                    port:p${perl5.major}-term-table \
+                    port:p${perl5.major}-time-hires
+
+    # https://trac.macports.org/ticket/70547
+    # depends_lib-append \
+    #               port:p${perl5.major}-module-pluggable
+
+    notes-append    "$subport can optionally use\
+                    p${perl5.major}-module-pluggable,\
+                    but does not depend on it to avoid a dependency cycle."
+
+    # As of version 1.302200, Test2::Suite is merged into Test::Simple.
+    # Deactivate obsolete port p${perl5.major}-test2-suite, if active,
+    # to avoid activation conflicts.
+    pre-activate {
+        set pname p${perl5.major}-test2-suite
+        if {![catch {set installed [lindex [registry_active $pname] 0]}]} {
+            registry_deactivate_composite $pname "" [list ports_nodepcheck 1]
+        }
+    }
+}

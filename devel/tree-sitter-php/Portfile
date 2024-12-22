@@ -4,7 +4,7 @@ PortSystem          1.0
 PortGroup           github 1.0
 PortGroup           tree_sitter 1.0
 
-github.setup        tree-sitter tree-sitter-php 0.22.2 v
+github.setup        tree-sitter tree-sitter-php 0.23.11 v
 revision            0
 
 description         A tree-sitter parser for PHP
@@ -15,8 +15,11 @@ categories          devel
 license             MIT
 maintainers         {amake @amake} openmaintainer
 
-checksums           rmd160  4a3017d3aa6ec0075d7e713ef7c617c8da3a7d09 \
-                    sha256  7595df1fa36d3c239cfd577c62ed28edd59a1f4c3d609f14c00eb2e92fe1f662 \
-                    size    541629
+checksums           rmd160  801d129fca917e011788ae75030a2ef17038c656 \
+                    sha256  01f76d55d28550ee2607b638a8ff3848ef0a0f2e6595255ced4b1964d765a563 \
+                    size    581730
 
 worksrcdir          ${worksrcdir}/php/src
+
+# scanner.h: error: ‘for’ loop initial declaration used outside C99 mode
+configure.cflags-append -std=c99

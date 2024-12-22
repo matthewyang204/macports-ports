@@ -9,23 +9,23 @@ PortGroup           legacysupport 1.1
 
 boost.version       1.81
 
-github.setup        m-a-d-n-e-s-s madness 7dabba157b5828c2658ac8d75bfd7374526782bd
-version             2024.01.19
+github.setup        m-a-d-n-e-s-s madness 69d68dd6b002e527e4392c8927411c5c1e507c65
+version             2024.12.06
 revision            0
 categories          science math
 license             GPL-2
-maintainers         {@barracuda156 gmail.com:vital.had} openmaintainer
+maintainers         nomaintainer
 description         Multiresolution Adaptive Numerical Environment for Scientific Simulation
 long_description    MADNESS provides a high-level environment for the solution \
                     of integral and differential equations in many dimensions \
                     using adaptive, fast methods with guaranteed precision \
                     based on multi-resolution analysis and novel separated representations.
-checksums           rmd160  8bdc7e21cfde5b63f3b4a026720a7b17f7e54d59 \
-                    sha256  6fd61cf121ba4a23a0d2ed4a52dd9220ce6914f2c2155c7dc41159acb3fe6f18 \
-                    size    36742800
+checksums           rmd160  1c6027bd2f2676b6bbae3c7397afa2e7d7bf9d71 \
+                    sha256  834a239072f2b8018e1eb5a4c218af5a3c0bcc5768049bf5a3a4e55a32e90a83 \
+                    size    36835952
 github.tarball_from archive
 
-set py_ver          3.11
+set py_ver          3.12
 set py_ver_nodot    [string map {. {}} ${py_ver}]
 depends_build-append \
                     port:python${py_ver_nodot}
@@ -46,7 +46,7 @@ if {(${os.platform} eq "darwin" && ${os.major} < 20) || ${os.platform} ne "darwi
                     -DLAPACK_LIBRARIES=OpenBLAS
 }
 
-patch.pre_args      -p1
+patch.pre_args-replace  -p0 -p1
 # Temporarily avoid building chemistry part:
 # https://github.com/m-a-d-n-e-s-s/madness/issues/459
 patchfiles          0001-CMakeLists-support-ppc.patch \

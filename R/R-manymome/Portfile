@@ -3,17 +3,20 @@
 PortSystem          1.0
 PortGroup           R 1.0
 
-R.setup             github sfcheung manymome 0.1.14 v
+R.setup             github sfcheung manymome 0.2.5 v
 revision            0
 categories-append   math
+platforms           {darwin any}
 maintainers         nomaintainer
 license             GPL-3+
-description         Mediation, moderation and moderated mediation after model fitting
+description         Mediation, moderation and moderated mediation \
+                    after model fitting
 long_description    {*}${description}
 homepage            https://sfcheung.github.io/manymome
-checksums           rmd160  dea28f9d86b76cc9b87b19f6dc8d41b03277353a \
-                    sha256  f075d23e40aab61a207826bc694510350a4a2950e2a58a3ee0341c706e575908 \
-                    size    2288915
+checksums           rmd160  746f3a5a1d1dc98ef66fb5b8c15b1b6014e13965 \
+                    sha256  c2ea11435bec0ca70bcf86288438b24428a9dd296aea4e7f640aa282570205f4 \
+                    size    2408501
+github.tarball_from archive
 supported_archs     noarch
 
 depends_lib-append  port:R-ggplot2 \

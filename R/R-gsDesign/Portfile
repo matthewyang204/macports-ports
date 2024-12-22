@@ -3,16 +3,17 @@
 PortSystem          1.0
 PortGroup           R 1.0
 
-R.setup             github keaven gsDesign 3.6.1 v
+R.setup             github keaven gsDesign 3.6.4 v
 revision            0
 maintainers         nomaintainer
 license             GPL-3+
 description         Group Sequential Design
 long_description    {*}${description}
 homepage            https://keaven.github.io/gsDesign
-checksums           rmd160  fd17136b415dd0dede0a5d5744e2a3e27f9a6e58 \
-                    sha256  41197ce38d37f9fa1c76b258c53908270697d3af51b7776c7ada773bf756e6cd \
-                    size    5382527
+checksums           rmd160  62f396189a923c5ceb43f8de1a7c3ab9693b3b94 \
+                    sha256  2bc15258e9b86436a3ae70cf7ac8f42c86fce7cd419c36d31eaf5bbf46ef01e9 \
+                    size    6267313
+github.tarball_from archive
 
 depends_lib-append  port:R-dplyr \
                     port:R-ggplot2 \

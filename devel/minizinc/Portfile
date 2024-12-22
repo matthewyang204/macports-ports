@@ -5,11 +5,11 @@ PortGroup           cmake   1.1
 PortGroup           github  1.0
 
 # Need strndup()
-PortGroup           legacysupport 1.0
+PortGroup           legacysupport 1.1
 
 legacysupport.newest_darwin_requires_legacy 10
 
-github.setup        MiniZinc libminizinc 2.8.3
+github.setup        MiniZinc libminizinc 2.8.7
 github.tarball_from archive
 name                minizinc
 revision            0
@@ -20,12 +20,12 @@ description         MiniZinc is a free and open-source constraint modeling \
                     language.
 
 long_description    {*}${description} You can use MiniZinc to model \
-                    constraint satisfaction and optimization problems in a \
-                    high-level, solver-independent way, taking advantage of a \
-                    large library of pre-defined constraints. Your model is \
-                    then compiled into FlatZinc, a solver input language that \
-                    is understood by a wide range of solvers. MiniZinc is \
-                    developed at Monash University in collaboration with \
+                    constraint satisfaction and optimization problems \
+                    in a high-level, solver-independent way, taking advantage \
+                    of a large library of pre-defined constraints. Your model \
+                    is then compiled into FlatZinc, a solver input language \
+                    that is understood by a wide range of solvers. MiniZinc \
+                    is developed at Monash University in collaboration with \
                     Data61 Decision Sciences and the University of Melbourne.
 
 categories          devel
@@ -35,9 +35,12 @@ maintainers         {gmail.com:herby.gillot @herbygillot} \
                     openmaintainer
 platforms           darwin linux
 
-checksums           rmd160  09c124a32b914ccc045b47005ce3c1c8d003cc1d \
-                    sha256  151ec26165abfb13d709d89be92b3f9bbb5ba3873b8ecf9d88ac15f31042628f \
-                    size    8029275
+checksums           rmd160  8fa20dfab91c3d403394156db7d79f2a29f38a71 \
+                    sha256  91413c9788d45eb77ecb1da9657c00744312cca4fd5e71ca2583c35a32a3be62 \
+                    size    8059507
+
+# https://github.com/MiniZinc/libminizinc/pulls
+patchfiles-append   0001-file_utils.cpp-add-a-missing-cstdint-include.patch
 
 depends_build-append \
                     port:bison

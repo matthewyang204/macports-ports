@@ -5,9 +5,13 @@ PortGroup                       cmake 1.1
 PortGroup                       github 1.0
 PortGroup                       legacysupport 1.1
 
-github.setup                    AcademySoftwareFoundation imath 3.1.10 v
+github.setup                    AcademySoftwareFoundation imath 3.1.12 v
 github.tarball_from             archive
-revision                        1
+revision                        0
+
+checksums                       rmd160  c8ba063582077302524ac8b49431e73a79c9aa6c \
+                                sha256  8a1bc258f3149b5729c2f4f8ffd337c0e57f09096e4ba9784329f40c4a9035da \
+                                size    604232
 
 categories                      graphics
 license                         BSD
@@ -23,16 +27,9 @@ long_description                Imath is a basic, light-weight, and efficient C+
 
 homepage                        https://www.openexr.com
 
-checksums                       rmd160  b463e098fedccdf4b8ada445bf2db98449698d0e \
-                                sha256  f2943e86bfb694e216c60b9a169e5356f8a90f18fbd34d7b6e3450be14f60b10 \
-                                size    595059
-
 # NOTE: legacysupport needed for 'CLOCK_MONOTONIC'
 
 depends_build-append            port:pkgconfig
-
-# https://github.com/AcademySoftwareFoundation/Imath/issues/367
-patchfiles-append               patch-std-isfinite.diff
 
 compiler.cxx_standard           2014
 

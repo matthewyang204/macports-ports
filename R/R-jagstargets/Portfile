@@ -3,32 +3,37 @@
 PortSystem          1.0
 PortGroup           R 1.0
 
-R.setup             github ropensci jagstargets 1.1.0
-revision            1
+R.setup             github ropensci jagstargets 1.2.2
+revision            0
 categories-append   sysutils math
+platforms           {darwin any}
 maintainers         {@barracuda156 gmail.com:vital.had} openmaintainer
 license             MIT
-description         Reproducible Bayesian data analysis pipelines with targets and JAGS
+description         Reproducible Bayesian data analysis pipelines \
+                    with R-targets and JAGS
 long_description    {*}${description}
 homepage            https://docs.ropensci.org/jagstargets
-checksums           rmd160  e04efe6626b1251c99d9d2d1a1c88e3bfb0b6964 \
-                    sha256  080cc609c915c0d79b413d07a8465961b1fec5c9160f9877c63eb31c88c30b6f \
-                    size    189893
+checksums           rmd160  cc2a465757ca64db22642ae82a19023d71e012a5 \
+                    sha256  cb56333b6730476992fc1115a4441e340b22873e75d0fee7fdcbed514960a435 \
+                    size    191438
+github.tarball_from archive
 supported_archs     noarch
 
 depends_lib-append  port:R-coda \
-                    port:R-digest \
                     port:R-fst \
                     port:R-posterior \
                     port:R-purrr \
-                    port:R-qs \
+                    port:R-qs2 \
                     port:R-R2jags \
                     port:R-rjags \
                     port:R-rlang \
-                    port:R-targets \
+                    port:R-secretbase \
                     port:R-tarchetypes \
+                    port:R-targets \
                     port:R-tibble \
+                    port:R-tidyselect \
                     port:R-withr
+
 depends_run-append  port:jags
 
 depends_test-append port:R-dplyr \

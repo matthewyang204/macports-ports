@@ -4,14 +4,15 @@ PortSystem          1.0
 PortGroup           python 1.0
 
 name                py-fsspec
-version             2024.2.0
+version             2024.10.0
 revision            0
 categories-append   devel
 platforms           {darwin any}
 license             BSD
 supported_archs     noarch
 
-python.versions     38 39 310 311 312
+python.versions     39 310 311 312 313
+python.pep517_backend hatch
 
 maintainers         {stromnov @stromnov} openmaintainer
 
@@ -20,6 +21,11 @@ long_description    ${description}
 
 homepage            https://github.com/intake/filesystem_spec
 
-checksums           rmd160  aafef0d046a540605c4ef559b29887f6c4dddc9d \
-                    sha256  b6ad1a679f760dda52b1168c859d01b7b80648ea6f7f7c7f5a8a91dc3f3ecb84 \
-                    size    169578
+checksums           rmd160  f80cc8f9f316d1a08c1fea1e2da323df93ccf8e8 \
+                    sha256  eda2d8a4116d4f2429db8550f2457da57279247dd930bb12f821b58391359493 \
+                    size    286853
+
+if {${name} ne ${subport}} {
+    depends_build-append \
+                        port:py${python.version}-hatch-vcs
+}

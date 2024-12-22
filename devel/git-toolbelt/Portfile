@@ -3,7 +3,7 @@
 PortSystem          1.0
 PortGroup           github  1.0
 
-github.setup        nvie git-toolbelt 1.9.1 v
+github.setup        nvie git-toolbelt 1.9.3 v
 github.tarball_from archive
 revision            0
 
@@ -23,9 +23,9 @@ supported_archs     noarch
 platforms           any
 
 checksums           ${distname}${extract.suffix} \
-                    rmd160  9dad82e6e3a26e0d4a04635db2dbdd0afddb4415 \
-                    sha256  c695362047780d0117c77cb0f70eba81b4ccc3e4134cb62db6fc3de36d70fade \
-                    size    140507
+                    rmd160  b2feb01b45d4c39761b9a25bd7cff3f2425d77f5 \
+                    sha256  d39e45a9d2a2501bc6f06fc0c5eb8f1fb7a3b372c0ee4d6def4c77541d102c44 \
+                    size    140533
 
 depends_run-append  path:bin/git:git \
                     port:fzf \

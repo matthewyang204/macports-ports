@@ -5,12 +5,13 @@ PortGroup           meson 1.0
 
 name                libxmlxx5
 set gname           libxml++
-version             5.0.3
-revision            0
+version             5.4.0
+revision            1
 
 categories          textproc
 license             LGPL-2+
 maintainers         {mascguy @mascguy} openmaintainer
+
 description         libxml++ is a C++ interface for working with XML files
 long_description    ${description}, using \
                     libxml (gnome-xml) to parse and write the actual XML files. \
@@ -22,9 +23,9 @@ master_sites        gnome:sources/${gname}/${branch}/
 distname            ${gname}-${version}
 use_xz              yes
 
-checksums           rmd160  89b7d3fde473680a6665bbe924cbd02a2528fee8 \
-                    sha256  13074f59e3288a378cafe9e6847df17f764c23fa29bc94f3305b8bf81efb2cf7 \
-                    size    843720
+checksums           rmd160  eb2cbdb2d3a9e9d2ae309c303c2b6e70a962137e \
+                    sha256  e9a23c436686a94698d2138e6bcbaf849121d63bfa0f50dc34fefbfd79566848 \
+                    size    887292
 
 # Disable unexpected download of subprojects
 meson.wrap_mode     nodownload
@@ -46,15 +47,12 @@ variant docs description {Build documentation} {
                     port:docbook-xml \
                     path:bin/doxygen:doxygen \
                     port:fop \
-                    path:bin/dot:graphviz \
                     port:libxslt \
                     port:perl5
 
     configure.args-append \
                     -Dbuild-documentation=true
 }
-
-default_variants    +docs
 
 test.run yes
 

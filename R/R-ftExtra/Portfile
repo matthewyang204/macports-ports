@@ -4,17 +4,18 @@ PortSystem          1.0
 PortGroup           R 1.0
 
 # Revert to GitHub once updated there.
-R.setup             cran atusy ftExtra 0.6.2
+R.setup             cran atusy ftExtra 0.6.4
 revision            0
 maintainers         nomaintainer
 license             MIT
 description         Helper functions for R-flextable package
 long_description    {*}${description}
 homepage            https://ftextra.atusy.net
-checksums           rmd160  133bac655587b10926ba920be161059bb5bbe745 \
-                    sha256  3193f428db8c634e2a50bb99d17f8f25021d4ad40252e3d2a94430a544bd412c \
-                    size    177835
+checksums           rmd160  364fd3d5c5d494d6e244ec7a660ebcd59339d328 \
+                    sha256  d8af59762ba884e806fa9668187bcd93ceeae15fdcbc26f6e77cbdef24864d0b \
+                    size    177993
 supported_archs     noarch
+platforms           {darwin any}
 
 depends_lib-append  port:R-dplyr \
                     port:R-flextable \

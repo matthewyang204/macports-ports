@@ -10,7 +10,7 @@ revision            0
 categories-append   devel
 platforms           {darwin any}
 supported_archs     noarch
-maintainers         {stromnov @stromnov} openmaintainer
+maintainers         nomaintainer
 license             PSF
 
 homepage            https://pypi.python.org/pypi/backports
@@ -18,8 +18,8 @@ homepage            https://pypi.python.org/pypi/backports
 description         Namespace for backported Python features
 long_description    {*}${description}
 
-# keep all Python versions here, indirect dependency of py-virtualenv
-python.versions     27 37 38 39 310 311
+# keep Python 2.7 subport here, as it is an indirect dependency of py-virtualenv
+python.versions     27 39 310 311
 
 if {${name} ne ${subport}} {
     distfiles

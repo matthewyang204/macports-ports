@@ -5,7 +5,7 @@ PortSystem          1.0
 name                dotnet-runtime-devel
 set main_version    9.0.0
 # See patch version in https://dotnet.microsoft.com/en-us/download/dotnet/9.0
-set patch_version   1.24080.9
+set patch_version   6.24327.7
 version             ${main_version}-preview.${patch_version}
 revision            0
 categories          dotnet
@@ -22,21 +22,21 @@ long_description    .NET is a free, cross-platform, open source developer platfo
                     to build for web, mobile, desktop, games, and IoT.
 
 homepage            https://dotnet.microsoft.com/
-platforms           darwin
+platforms           {darwin any} {darwin >= 21}
 supported_archs     x86_64 arm64
 
 switch ${build_arch} {
     x86_64 {
         distname            dotnet-runtime-${version}-osx-x64
-        checksums           rmd160  47ad30a2cc833f2b1bebdc7914dd19db953e61f8 \
-                            sha256  4c5abc95e076b13542aa03b44bd2e5dd7c02060e6460bb3b2e5596ef8e725d3f \
-                            size    31134992
+        checksums           rmd160  7b914c8c24b4030c6b6b7f507a551439b16a0868 \
+                            sha256  5286f076530c93bc60e3e3e5c18696c05e1720defd30d9d9de2db7667255f97a \
+                            size    32222642
     }
     arm64 {
         distname            dotnet-runtime-${version}-osx-arm64
-        checksums           rmd160  bc896c00530f4235da548b5cb7ada919e676d2b0 \
-                            sha256  a2184f5b640a633b668b0dda0563b6b142e01f4873b34ab79c3c737df36fcbcb \
-                            size    29461252
+        checksums           rmd160  2da4d923fb5c7e0d5d5d7bf04e968949fe8fabcd \
+                            sha256  741d1f976b7b2fe5061fa7896f82a1da4fcaf40ac17caa990804d5865718875a \
+                            size    30311031
     }
     default {
         known_fail yes

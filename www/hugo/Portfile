@@ -3,36 +3,38 @@
 PortSystem          1.0
 PortGroup           golang 1.0
 
-go.setup            github.com/gohugoio/hugo 0.123.7 v
+go.setup            github.com/gohugoio/hugo 0.140.0 v
+go.offline_build    no
 github.tarball_from archive
 revision            0
 
-checksums           rmd160  c3d76e3edefc41bcffeca8901c897373ac56274e \
-                    sha256  d95c42f86952067c40d476fbea96b97046b7a657e99aed0c52c542b72cf7aac2 \
-                    size    21046177
+checksums           rmd160  a5b803a3dd364e90ceff70c2308111bba1ade02a \
+                    sha256  dff0c1e8142ca9b477f3c3b001d677ab3d90151674bab248c3685dc4b00f7cad \
+                    size    21504405
 
 categories          www
 installs_libs       no
 license             Apache-2
-maintainers         {isi.edu:calvin @cardi} \
+maintainers         {acm.org:cardi @cardi} \
                     {gmail.com:herby.gillot @herbygillot} \
                     openmaintainer
 
 description         A Fast and Flexible Static Site Generator built with love in GoLang
 long_description    {*}${description}
 
-# FIXME: This port currently can't be built without allowing go mod to fetch
-# dependencies during the build phase. See
-# https://trac.macports.org/ticket/61192
-go.offline_build    no
 
 build.pre_args-append \
-    -ldflags \"-X ${go.package}/common/hugo.vendorInfo=macports\"
+                    -ldflags \"-X ${go.package}/common/hugo.vendorInfo=macports\"
 
 # build hugo extended with Sass/SCSS support by default
-build.args-append   --tags extended
+build.args-append   -tags extended
 
 depends_run-append  path:etc/bash_completion:bash-completion
+
+variant deploy description "Enables support to deploy site directly to Google Cloud Storage, AWS S3, or Azure Storage" {
+    build.args-append \
+                    {-tags extended} {-tags extended,withdeploy}
+}
 
 destroot {
     xinstall -d ${destroot}${prefix}/bin

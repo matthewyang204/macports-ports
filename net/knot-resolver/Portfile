@@ -8,11 +8,11 @@ PortGroup           legacysupport 1.1
 legacysupport.newest_darwin_requires_legacy 15
 
 name                knot-resolver
-version             5.7.1
+version             6.0.9
 revision            0
 categories          net
 license             GPL-3+
-maintainers         {mps @Schamschula} {@catap korins.ky:kirill} openmaintainer
+maintainers         {mps @Schamschula} openmaintainer
 description         The Knot Resolver is a caching DNS resolver scalable from \
                     huge resolver farms down to home network routers.
 long_description    {*}${description}
@@ -22,9 +22,9 @@ master_sites        https://secure.nic.cz/files/knot-resolver/ \
 
 use_xz              yes
 
-checksums           rmd160  fb02305fc54961c2b12edbca3311f5e583ece96d \
-                    sha256  da14b415c61d53747a991f12d6209367ef826a13dc6bf4eeaf5d88760294c3a2 \
-                    size    1928088
+checksums           rmd160  a0e0e2f9de75b9d11ae44808d8ca035836c025b2 \
+                    sha256  4832de4b0ccbf68a9ae3569ac5637e9cd48b9baf5c6450fdf4ee93bdd9a17576 \
+                    size    2127432
 
 depends_build       port:pkgconfig
 
@@ -38,9 +38,6 @@ depends_lib         path:lib/libluajit-5.1.2.dylib:luajit \
                     port:nghttp2 \
                     port:lua51-psl \
                     port:protobuf-c
-
-patchfiles-append   respect-pkgconfig-libdir.diff \
-                    respect-rundir.diff
 
 configure.args      -Dkeyfile_default=${prefix}/var/lib/knot-resolver/root.ds \
                     -Dinstall_kresd_conf=enabled \

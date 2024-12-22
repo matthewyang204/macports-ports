@@ -3,7 +3,8 @@
 PortSystem          1.0
 PortGroup           R 1.0
 
-R.setup             github JacobSeedorff21 BranchGLM 2.1.4 v
+# Revert to GitHub once updated there.
+R.setup             cran JacobSeedorff21 BranchGLM 3.0.1 v
 revision            0
 categories-append   math
 maintainers         {@barracuda156 gmail.com:vital.had} openmaintainer
@@ -11,9 +12,10 @@ license             Apache-2+
 description         Efficient and scalable GLM best subset selection
 long_description    {*}${description} using a novel implementation \
                     of a branch-and-bound algorithm.
-checksums           rmd160  cdb5ac89a950a992cc70c4a35f32ca298bcab2c8 \
-                    sha256  bcd48135dfc6c41a7ee87be74382d5c0af3dba5d54cf0a835ebe7e24a0a3016b \
-                    size    118355
+checksums           rmd160  f06a2f9cebd42e8583dd5cab05780a3065feb6a6 \
+                    sha256  5a869c665cdbff80298d1c23d1a3a1ccef7af342b50fed2575bc5c025dc60cb4 \
+                    size    345950
+# github.tarball_from archive
 
 depends_lib-append  port:R-BH \
                     port:R-Rcpp \

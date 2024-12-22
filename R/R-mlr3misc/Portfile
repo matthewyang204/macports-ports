@@ -4,16 +4,16 @@ PortSystem          1.0
 PortGroup           R 1.0
 
 # Revert to GitHub once updated there.
-R.setup             cran mlr-org mlr3misc 0.14.0
+R.setup             cran mlr-org mlr3misc 0.15.1
 revision            0
 maintainers         nomaintainer
 license             LGPL-3
 description         Helper functions for R-mlr3
 long_description    {*}${description}
 homepage            https://mlr3misc.mlr-org.com
-checksums           rmd160  e50c7dc5fba1623dbed58649f1eef98f7e162a05 \
-                    sha256  dd11dbed50137affd47f0bb5b08b1cd4a378654e043d2ccdcbf4c22b1a0502a7 \
-                    size    89112
+checksums           rmd160  793013a14bb6f1618f075a99128a98cad515e407 \
+                    sha256  a316f75d82aaca30d03e5bd67f26e7d67e4c2e6d18db1d548086c491e3c053f9 \
+                    size    90643
 
 depends_lib-append  port:R-backports \
                     port:R-checkmate \

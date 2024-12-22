@@ -5,26 +5,26 @@ PortGroup           cmake 1.1
 PortGroup           github 1.0
 PortGroup           linear_algebra 1.0
 
-github.setup        icl-utk-edu blaspp 2023.11.05 v
-revision            1
+github.setup        icl-utk-edu blaspp 2024.10.26 v
+revision            0
 categories          math science
 license             BSD
 maintainers         {@barracuda156 gmail.com:vital.had} openmaintainer
 description         C++ API for the Basic Linear Algebra Subroutines
 long_description    {*}${description}
-checksums           rmd160  eebdcad4c306b4b25a8b56f83cdedec57af498e4 \
-                    sha256  a25b155d7be158f2315a453625711c6b7ab6bac2531d7944a329189d5ccd9c50 \
-                    size    226379
+checksums           rmd160  dbb3f21f8a2ed8b1e9c0558eb3a6eaa650d90d73 \
+                    sha256  00668457cee1a91de997b142b31191f09e7c3e0a9966de67b2ad4ae708ef9161 \
+                    size    234342
 github.tarball_from archive
 
 platform darwin {
     if {${os.major} < 13} {
-        depends_build-append    port:git
+        depends_build-append    path:bin/git:git
         git.cmd                 ${prefix}/bin/git
     }
 }
 
-set py_ver          3.11
+set py_ver          3.12
 set py_ver_nodot    [string map {. {}} ${py_ver}]
 configure.python    ${prefix}/bin/python${py_ver}
 
@@ -37,6 +37,7 @@ post-patch {
         reinplace "s,<cblas.h>,<cblas_openblas.h>,g" ${worksrcpath}/config/cblas.cc
         reinplace "s,<cblas.h>,<cblas_openblas.h>," ${worksrcpath}/config/openblas_version.cc
         reinplace "s,<cblas.h>,<cblas_openblas.h>,g" ${worksrcpath}/test/cblas_wrappers.hh
+        reinplace "s,<cblas.h>,<cblas_openblas.h>," ${worksrcpath}/test/test.cc
     }
 }
 
@@ -68,6 +69,12 @@ if {[string match *clang* ${configure.compiler}]} {
     configure.ldflags-append \
                     -L${prefix}/lib/libomp \
                     -lomp
+}
+
+# https://github.com/icl-utk-edu/blaspp/issues/90
+if {[string match *gcc* ${configure.compiler}]} {
+    configure.ldflags-append \
+                    -latomic
 }
 
 depends_test-append port:python${py_ver_nodot}

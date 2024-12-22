@@ -3,7 +3,7 @@
 PortSystem          1.0
 
 name                dotnet-runtime-7
-version             7.0.16
+version             7.0.20
 revision            0
 categories          dotnet
 license             MIT
@@ -19,21 +19,21 @@ long_description    .NET is a free, cross-platform, open source developer platfo
                     to build for web, mobile, desktop, games, and IoT.
 
 homepage            https://dotnet.microsoft.com/
-platforms           darwin
+platforms           {darwin any} {darwin >= 19}
 supported_archs     x86_64 arm64
 
 switch ${build_arch} {
     x86_64 {
         distname            dotnet-runtime-${version}-osx-x64
-        checksums           rmd160  34526ef19cf9a50fbc133206a62436dc99f0b74f \
-                            sha256  e2ea5fe9225185876a87f2a69f0e8e5a28051e1fb92e44ed778b0c0669c4cfaa \
-                            size    30850083
+        checksums           rmd160  5f5cc917b57b4190861b864e33ce4825447e9361 \
+                            sha256  42c3acff2735cc3646e0954f778d40dd5607462e175ba9a6dfbc9dbae74f8b55 \
+                            size    30848718
     }
     arm64 {
         distname            dotnet-runtime-${version}-osx-arm64
-        checksums           rmd160  9a697d3a4158cfda04780cb88acaa2ddea69cce9 \
-                            sha256  113b162abc015d0dbeb580cd3f187b4f04db3268828f8796c5ca93ec90c0ccda \
-                            size    29180416
+        checksums           rmd160  1f5ad390e1195ba90f225b77376b8e5936d33211 \
+                            sha256  166c1df61d1c3de63fc49c9b616ff6fcefc04466db4adf4653b219c71e02ca93 \
+                            size    29182560
     }
     default {
         known_fail yes

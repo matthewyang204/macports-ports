@@ -4,20 +4,21 @@ PortSystem          1.0
 PortGroup           R 1.0
 
 # GitHub version lags behind.
-R.setup             cran ropensci rzmq 0.9.12
+R.setup             cran ropensci rzmq 0.9.14
 revision            0
 categories-append   devel
-maintainers         nomaintainer
+maintainers         {@barracuda156 gmail.com:vital.had} openmaintainer
 license             GPL-3
 description         Interface to the ZeroMQ lightweight messaging kernel
 long_description    {*}${description}
 homepage            https://ropensci.r-universe.dev/rzmq
-checksums           rmd160  3a71e72c7caa37843aa04bf6439d634ef2d29d80 \
-                    sha256  3f6f33800705feb234056bb65f0c4a146040b06d949bac038b1a28ea6f9c6300 \
-                    size    20764
+checksums           rmd160  19c377c4c092f8fea0c4b0ce094779bc3ec9badd \
+                    sha256  eca969e8cd27453341a3344af393b0f229280f0ebca52ff059ca51303295fed9 \
+                    size    20481
 
 depends_build-append \
-                    port:pkgconfig
+                    path:bin/pkg-config:pkgconfig
+
 depends_lib-append  path:lib/libzmq.dylib:zmq
 
 test.run            yes

@@ -3,17 +3,19 @@
 PortSystem          1.0
 PortGroup           R 1.0
 
-R.setup             cran snlab-ch migraph 1.3.2
+R.setup             cran stocnet migraph 1.4.3
 revision            0
 categories-append   math
-maintainers         {@barracuda156 gmail.com:vital.had} openmaintainer
+platforms           {darwin any}
+maintainers         nomaintainer
 license             MIT
 description         Tools for multimodal network analysis
-long_description    {*}${description}
-homepage            https://snlab-ch.github.io/migraph
-checksums           rmd160  133873c3f102370408f237fd4789bc61f3540c90 \
-                    sha256  6a2e384d3a2d5fbedb3b17bd51969a5c2f18ddd4fa32cd377c70e05fe856ecd1 \
-                    size    2006421
+long_description    Univariate and multivariate tests for multimodal \
+                    and other networks.
+homepage            https://stocnet.github.io/migraph
+checksums           rmd160  21f6e48c6af57169e593722479a5a278a2b2a631 \
+                    sha256  489e54a79b7286af2a0e6346acd04ead7f67c5e720ea59e26c033a1c1f4cd264 \
+                    size    2536185
 supported_archs     noarch
 
 depends_lib-append  port:R-dplyr \
@@ -21,26 +23,11 @@ depends_lib-append  port:R-dplyr \
                     port:R-future \
                     port:R-generics \
                     port:R-ggplot2 \
-                    port:R-igraph \
                     port:R-manynet \
-                    port:R-network \
-                    port:R-pillar \
-                    port:R-purrr \
-                    port:R-rlang \
-                    port:R-sna \
-                    port:R-tidygraph \
-                    port:R-tidyr
-
-# Unless this is fixed: https://github.com/joelgombin/concaveman/issues/18
-patchfiles          patch-no-concaveman.diff
+                    port:R-purrr
 
 depends_test-append port:R-covr \
-                    port:R-ggdendro \
-                    port:R-minMSE \
-                    port:R-oaqc \
                     port:R-roxygen2 \
-                    port:R-rsconnect \
-                    port:R-testthat \
-                    port:R-xml2
+                    port:R-testthat
 
 test.run            yes

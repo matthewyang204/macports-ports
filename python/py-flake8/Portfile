@@ -5,7 +5,7 @@ PortGroup           python 1.0
 PortGroup           select 1.0
 
 name                py-flake8
-version             7.0.0
+version             7.1.1
 revision            0
 
 categories-append   devel
@@ -24,11 +24,11 @@ long_description    \
 
 homepage            https://flake8.readthedocs.org/
 
-checksums           rmd160  c55b34b842eeaf5886582d74a2686fb3f8fd5379 \
-                    sha256  33f96621059e65eec474169085dc92bf26e7b2d47366b70be2f67ab80dc25132 \
-                    size    48219
+checksums           rmd160  471ece8737b7eec74a2ce47c647ca434918fd599 \
+                    sha256  049d058491e228e03e67b390f311bbf88fce2dbaa8fa673e7aea87b7198b8d38 \
+                    size    48054
 
-python.versions     38 39 310 311 312
+python.versions     38 39 310 311 312 313
 
 if {${name} ne ${subport}} {
     depends_lib-append      port:py${python.version}-codestyle \

@@ -12,15 +12,14 @@ PortGroup           conflicts_build 1.0
 PortGroup           muniversal 1.0
 
 name                cryptlib
-version             3.4.6
+version             3.4.8
 revision            0
-checksums           rmd160  64b6ad73150b2dd30521cd25064786918adba4ed \
-                    sha256  c72cfd103eb9fa9f205c14c84ce4fbdf3ead1e2447e830b164dc335141f747bd \
-                    size    6826568
+checksums           rmd160  81b08bff5f48586788d5fcfa6677a84794df4dae \
+                    sha256  ba34d50be7061b59d3cd49ff36c6c12603c3e23b9354b61d818ff8fd8843893a \
+                    size    7170491
 
 set branch          [join [lrange [split ${version} .] 0 1] .]
 categories          devel security crypto
-platforms           darwin
 maintainers         {ryandesign @ryandesign} openmaintainer
 license             {Sleepycat Restrictive}
 
@@ -51,12 +50,18 @@ extract.mkdir       yes
 patchfiles-append   compiler.patch
 patchfiles-append   patch-makefile.diff
 
+# cert/certrev.c: error: implicit declaration of function 'static_assert'
+patchfiles-append   patch-static_assert.diff
+
 # Build fails when compiler is gcc or llvm-gcc; warnings are printed when compiler is clang.
 conflicts_build     unixODBC
 
 use_configure       no
 
 configure.ldflags-append -lz
+
+# crypt/chacha20.c:21: error: redefinition of typedef ‘chacha_ctx’
+compiler.c_standard 2011
 
 build.target        default shared
 build.args          CC="${configure.cc}" \

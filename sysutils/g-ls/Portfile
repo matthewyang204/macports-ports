@@ -3,32 +3,42 @@
 PortSystem              1.0
 PortGroup               golang 1.0
 
-go.setup                github.com/Equationzhao/g 0.26.0 v
+go.setup                github.com/Equationzhao/g 0.29.0 v
 name                    g-ls
-revision                0
+revision                1
 categories              sysutils
 license                 MIT
-platforms               {darwin >= 14}
+platforms               {darwin >= 18}
 installs_libs           no
-maintainers             {@therealketo gmail.com:therealketo} openmaintainer
+maintainers             {@TheRealKeto gmail.com:therealketo} openmaintainer
 
 description             Powerful and cross-platform ls
 long_description        {*}${description}. Built for the modern terminal.
 
 homepage                https://g.equationzhao.space
 
-checksums               rmd160  1645d8d4cbcd49db13bf984f799b8afabe122e47 \
-                        sha256  1cb9e0e0334635e67766986981b7fc6acc326a92c390a45ac782109e81edd61a \
-                        size    407263
+checksums               rmd160  17b744d40cd4f7944300a066e98a256e8549b254 \
+                        sha256  7c128bb72d763bf513b7c3d5dedba10a4249a467a5da5d0d823b0fea1725d3a4 \
+                        size    412976
 
 # Vendored libraries cause failure, fetch them at build time
 go.offline_build        no
 
-build.args-append       -ldflags="-s -w"
+build.args-append       -ldflags \"-s -w\"
 
 destroot {
-    xinstall -m 0755 ${worksrcpath}/g ${destroot}${prefix}/bin/g
-    xinstall -d ${destroot}${prefix}/share/zsh/site-functions
-    xinstall -m 0644 ${worksrcpath}/completions/zsh/_g \
-        ${destroot}${prefix}/share/zsh/site-functions
+    xinstall -m 755 ${worksrcpath}/g ${destroot}${prefix}/bin/g
+    xinstall -m 644 ${worksrcpath}/man/g.1.gz ${destroot}${prefix}/share/man/man1
+
+    set zsh_comp_path ${destroot}${prefix}/share/zsh/site-functions
+    xinstall -d ${zsh_comp_path}
+    xinstall -m 644 ${worksrcpath}/completions/zsh/_g ${zsh_comp_path}
+
+    set bash_comp_path ${destroot}${prefix}/share/bash-completion/completions
+    xinstall -d ${bash_comp_path}
+    xinstall -m 644 ${worksrcpath}/completions/bash/g-completion.bash ${bash_comp_path}/g
+
+    set fish_comp_path ${destroot}${prefix}/share/fish/vendor_completions.d
+    xinstall -d ${fish_comp_path}
+    xinstall -m 644 ${worksrcpath}/completions/fish/g.fish ${fish_comp_path}
 }

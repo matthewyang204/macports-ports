@@ -4,7 +4,7 @@ PortSystem          1.0
 PortGroup           python 1.0
 
 name                py-sybil
-version             6.0.2
+version             9.0.0
 revision            0
 maintainers         {khindenburg @kurthindenburg} openmaintainer
 supported_archs     noarch
@@ -20,19 +20,15 @@ long_description    This library provides a way to test examples in your \
 
 homepage            https://github.com/simplistix/sybil
 
-checksums           rmd160  62a1ca87a531890a5b05494172b3b079f1f0ec9a \
-                    sha256  8dd4d9675551482a25a0b3a0c0f602a7de4903718305253d56f9b7c3e663a81c \
-                    size    39833
+checksums           rmd160  0f5d393b70249699205fe8190c5b1798eb8d1f92 \
+                    sha256  0856c253e40d448d6e15d89044ef34c8b5d1f63f685f9371f4bbc9f75f072fa5 \
+                    size    42529
 
-python.versions     38 39 310 311 312
+python.versions     39 310 311 312 313
 
 if {${name} ne ${subport}} {
     depends_build-append \
                     port:py${python.version}-setuptools
-
-    # some failures due to missing packages
-    depends_test-append     port:py${python.version}-pytest
-    test.run                yes
 
     livecheck.type  none
 }

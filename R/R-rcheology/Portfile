@@ -3,15 +3,18 @@
 PortSystem          1.0
 PortGroup           R 1.0
 
-R.setup             github hughjonesd rcheology 4.3.3.0 v
+R.setup             github hughjonesd rcheology 4.4.2.0 v
 revision            0
+platforms           {darwin any}
 maintainers         nomaintainer
 license             public-domain
-description         Data on base packages for current and previous versions of R
+description         Data on base packages for current and previous \
+                    versions of R
 long_description    {*}${description}
-checksums           rmd160  8ad198d8c2f815c77351d976618d7f71cdb26aa5 \
-                    sha256  40e28b2e603ca98650eb14929dc72e7c320302aaa34c10f6ee6137df8d738c7b \
-                    size    9540154
+checksums           rmd160  c7d0b2c2c5c7b09fb32e25b2d79cf3fe16f88511 \
+                    sha256  711bd15167c8e22520b8cc54d2598f127098447245b6a2cd94f009bb2314950b \
+                    size    9800245
+github.tarball_from archive
 supported_archs     noarch
 
 depends_test-append port:R-testthat

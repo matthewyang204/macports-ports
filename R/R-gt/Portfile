@@ -3,17 +3,20 @@
 PortSystem          1.0
 PortGroup           R 1.0
 
-R.setup             github rstudio gt 0.10.1 v
+R.setup             github rstudio gt 0.11.1 v
 revision            0
 categories-append   office
+platforms           {darwin any}
 maintainers         nomaintainer
 license             MIT
-description         Build display tables from tabular data with an easy-to-use set of functions
+description         Build display tables from tabular data \
+                    with an easy-to-use set of functions
 long_description    {*}${description}
 homepage            https://gt.rstudio.com
-checksums           rmd160  11bb65232d8a7df98d580a8d1b4c7353c839f680 \
-                    sha256  e42ca77e5f99faa280a5646cd90f04b8a18d29181bf9fd617dbe0dcbe05c634c \
-                    size    114606457
+checksums           rmd160  4ee93bed97e9aff00ee53865f89864b5f2b1e11e \
+                    sha256  78855b2cd56c625d745586826335f0daf7bdf2673ff71bdf539457176b97af43 \
+                    size    136657327
+github.tarball_from archive
 supported_archs     noarch
 
 depends_lib-append  port:R-base64enc \
@@ -32,27 +35,30 @@ depends_lib-append  port:R-base64enc \
                     port:R-rlang \
                     port:R-sass \
                     port:R-scales \
-                    port:R-tibble \
                     port:R-tidyselect \
                     port:R-vctrs \
                     port:R-xml2
 
 # FIXME: https://github.com/rstudio/gt/issues/1284
-patchfiles          patch-no-juicyjuice-webshot2.diff
+patchfiles          patch-no-juicyjuice-etc.diff
 
+# Some optional deps are omitted.
 depends_test-append port:R-covr \
                     port:R-digest \
                     port:R-fontawesome \
                     port:R-ggplot2 \
+                    port:R-gtable \
                     port:R-knitr \
                     port:R-lubridate \
                     port:R-magick \
                     port:R-paletteer \
                     port:R-RColorBrewer \
                     port:R-rmarkdown \
+                    port:R-rsvg \
                     port:R-rvest \
                     port:R-shiny \
                     port:R-testthat \
-                    port:R-tidyr
+                    port:R-tidyr \
+                    port:R-withr
 
 test.run            yes

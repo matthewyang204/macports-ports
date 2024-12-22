@@ -4,7 +4,7 @@ PortSystem          1.0
 
 name                clojure
 epoch               20110929
-version             1.11.1.1435
+version             1.12.0.1488
 revision            0
 license             EPL-1
 categories          lang java
@@ -21,9 +21,9 @@ supported_archs     noarch
 master_sites        https://download.clojure.org/install/
 distname            clojure-tools-${version}
 worksrcdir          clojure-tools
-checksums           rmd160  c56d7cc6ba7261e0a5d365a8a66a11bec00e73a3 \
-                    sha256  452fc579b2040fc45861745704a5d93d144e3b41eac83a34ce16fea784399bc0 \
-                    size    15109793
+checksums           rmd160  5067d162faac8a4ddfabfcdb541dbc4e1e80a03a \
+                    sha256  bc19be0010bef0421c26fd3bec7bc3bca08c192828d59a151845422dc4420742 \
+                    size    15180244
 use_configure       no
 build               {}
 

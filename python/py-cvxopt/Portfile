@@ -9,7 +9,7 @@ linalg.setup        noveclibfort
 name                py-cvxopt
 python.rootname     cvxopt
 version             1.3.2
-revision            2
+revision            3
 categories-append   math
 license             GPL-3+
 maintainers         {gmail.com:jjstickel @jjstickel} openmaintainer
@@ -33,7 +33,7 @@ checksums           rmd160  e181f9ef9224136835a34f6142c9974335d95ebf \
                     sha256  3461fa42c1b2240ba4da1d985ca73503914157fc4c77417327ed6d7d85acdbe6 \
                     size    4108454
 
-python.versions     27 37 38 39 310 311
+python.versions     39 310 311
 
 if {${subport} ne ${name}} {
     # ignore empty BLAS and LAPACK inputs
@@ -42,7 +42,7 @@ if {${subport} ne ${name}} {
     build.env-append \
         CVXOPT_BLAS_LIB_DIR=${prefix}/lib \
         CVXOPT_LAPACK_LIB=
-    
+
     pre-build {
         set blas_lib {}
         set blas_extra_link_args {}

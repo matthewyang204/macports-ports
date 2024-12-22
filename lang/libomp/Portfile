@@ -19,7 +19,6 @@ long_description        {*}${description} is intended to contain all of the\
                         with +openmp variant for clang-3.7.)
 
 categories              lang
-platforms               darwin
 supported_archs         arm64 i386 x86_64
 license                 {MIT NCSA}
 
@@ -30,7 +29,7 @@ subport                 libomp-devel {}
 
 if {${os.platform} eq "darwin" && ${configure.cxx_stdlib} ne "libstdc++"} {
 
-    version             17.0.6
+    version             19.1.4
     revision            0
 
     if { ${subport} eq "libomp-devel" } {
@@ -46,19 +45,26 @@ if {${os.platform} eq "darwin" && ${configure.cxx_stdlib} ne "libstdc++"} {
 
     checksums \
         openmp-${version}.src.tar.xz \
-                    rmd160  2c0c70b0cb662f2d74a53d90be72986723f4d221 \
-                    sha256  74334cbb4dc8b73a768448a7561d5a3540404940b2267b1fb9813a6464b320de \
-                    size    1273412 \
+                    rmd160  70e89a7ab95cb0f2a343d1a5a815e568e1eaa9c0 \
+                    sha256  88359996537b0fe7191869f7a1ec8b5a0e7e284294c09202965efcce1e571ccb \
+                    size    1089816 \
         cmake-${version}.src.tar.xz \
-                    rmd160  025868efa2006d5b7365b279169c52fe28f8060e \
-                    sha256  807f069c54dc20cb47b21c1f6acafdd9c649f3ae015609040d6182cab01140f4 \
-                    size    8712
+                    rmd160  99d79bda168d56cef6d5d6ae109e12da059ea083 \
+                    sha256  dd13ce8eba6ece85cad567f028b8e16d72f3e142cdcbbd693ac23a88b4013803 \
+                    size    9296
 
     if {${os.major} <= 12} {
         # kmp_alloc.c includes <atomic> but libc++ is not the default on
         # these systems. https://trac.macports.org/ticket/52554
         configure.cflags-append -stdlib=libc++
     }
+
+    # Last python version to not require C11 (and thus a clang
+    # dependency on some OS versions). Used by libpsl (which is a
+    # dependency of cmake) for the same reason.
+    depends_build-append    port:python310
+    depends_skip_archcheck-append python310
+    configure.args-append   -DPython3_EXECUTABLE=${prefix}/bin/python3.10
 
     # Build requires std::atomic
     configure.cxxflags-append -std=c++11
@@ -94,11 +100,12 @@ if {${os.platform} eq "darwin" && ${configure.cxx_stdlib} ne "libstdc++"} {
         depends_build-replace  \
                         path:bin/cmake:cmake port:cmake-bootstrap
         configure.cmd   ${prefix}/libexec/cmake-bootstrap/bin/cmake
+
+        depends_build-append    port:perl5
     }
     livecheck.type      none
 }
 
-depends_build-append    port:perl5
 cmake.out_of_source     yes
 
 # According to documentation builds with clang >= 3.3
@@ -139,7 +146,7 @@ if {${os.major} <= 10} {
     set hnames              {omp.h}
     configure.args-append   -DLIBOMP_OMPT_SUPPORT=FALSE
 } else {
-    set hnames              {omp-tools.h omp.h ompt.h}
+    set hnames              {omp-tools.h omp.h ompt.h ompx.h}
 }
 
 variant top_level description \
@@ -147,8 +154,6 @@ variant top_level description \
 
 post-extract {
     # Patch tool for build with CMAKE_INSTALL_PREFIX
-    reinplace "/bulk.*compatibility/s/s\+/s+.*/" \
-        ${rtpath}tools/check-depends.pl
     if {[vercmp ${version} 15.0.0] >= 0} {
         system -W ${workpath} "mv cmake*.src/Modules/* openmp*/cmake/"
     }
@@ -195,4 +200,3 @@ notes "
 
 test.run                yes
 test.target             libomp-micro-tests
-

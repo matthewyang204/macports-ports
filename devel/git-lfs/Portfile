@@ -3,7 +3,7 @@
 PortSystem              1.0
 PortGroup               golang 1.0
 
-go.setup                github.com/git-lfs/git-lfs 3.4.1 v
+go.setup                github.com/git-lfs/git-lfs 3.6.0 v
 revision                0
 maintainers             {raimue @raimue} {judaew @judaew} \
                         openmaintainer
@@ -14,12 +14,12 @@ long_description        {*}${description} is an extension for versioning large f
 homepage                https://git-lfs.github.com/
 license                 MIT
 
-checksums               rmd160  05c75a703322094bb5c134bc193bfda992da2aff \
-                        sha256  f279317f1c10c956440c9859b9bfe24c33e7df9dabb7b693f0b78f89248e755d \
-                        size    674234
+checksums               rmd160  977bed5db4d1720d753b656e2a60095b2b49a2e5 \
+                        sha256  7a6efbc1fe68b969c2e0614c90928342e1a29fb1d1572a5325f54972b1fc8a9b \
+                        size    694692
 
 depends_build-append    port:asciidoctor \
-                        port:rb31-ronn-ng
+                        port:rb33-ronn-ng
 depends_run             port:git
 
 if {${os.platform} eq "darwin" && ${os.major} < 16} {

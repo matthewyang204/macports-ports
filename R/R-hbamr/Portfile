@@ -3,7 +3,7 @@
 PortSystem          1.0
 PortGroup           R 1.0
 
-R.setup             cran jbolstad hbamr 2.2.0
+R.setup             cran jbolstad hbamr 2.3.2
 revision            0
 categories-append   math
 maintainers         {@barracuda156 gmail.com:vital.had} openmaintainer
@@ -13,11 +13,12 @@ long_description    Perform hierarchical Bayesian Aldrich–McKelvey scaling usi
                     Aldrich–McKelvey (AM) scaling is a method for estimating the ideological positions \
                     of survey respondents and political actors on a common scale using positional survey data.
 homepage            https://jbolstad.github.io/hbamr
-checksums           rmd160  4913b651e16550c9459ce93bc2849cfa9ca26202 \
-                    sha256  f418713ce072f79b2f8e8250371154f07b12182a4393cd7f682e25070333258f \
-                    size    645263
+checksums           rmd160  9233d3ea040e86d52dbeef3d091b61b3896d60b4 \
+                    sha256  b5d1d7d49e9ff58828346d350fca1dd9faaff96b8a7e36630df3866c48d381e6 \
+                    size    671349
 
 depends_lib-append  port:R-BH \
+                    port:R-colorspace \
                     port:R-dplyr \
                     port:R-future \
                     port:R-future.apply \

@@ -4,7 +4,7 @@ PortSystem          1.0
 PortGroup           github 1.0
 PortGroup           legacysupport 1.1
 
-github.setup        rakudo rakudo 2023.12
+github.setup        rakudo rakudo 2024.07
 revision            0
 description         Raku compiler
 long_description    Rakudo is a compiler for the Raku language \
@@ -19,12 +19,12 @@ homepage            https://rakudo.org/
 
 github.tarball_from releases
 
-checksums           rmd160  928c1b72a8db1aab04fbc708497e89d6e584847c \
-                    sha256  01a4131fb79a63a563b71a40f534d4f3db15cc71c72f8ae19f965b786e98baea \
-                    size    6865345
+checksums           rmd160  d8ed2e27b46b3f3984218e69d2cb9e590a6d99ae \
+                    sha256  e1a92f19c3e987c84bf089947e5f17b498069949bcad1163cff516586764ae3c \
+                    size    6941542
 
 depends_build-append \
-                    port:perl5
+                    path:bin/perl:perl5
 
 depends_lib-append  port:MoarVM \
                     port:nqp

@@ -3,20 +3,22 @@
 PortSystem          1.0
 PortGroup           R 1.0
 
-R.setup             cran snlab-ch manynet 0.4.1
+R.setup             cran snlab-ch manynet 1.3.2
 revision            0
 categories-append   math
+platforms           {darwin any}
 maintainers         nomaintainer
 license             MIT
 description         Many ways to make, manipulate and map myriad networks
 long_description    {*}${description}
 homepage            https://snlab-ch.github.io/manynet
-checksums           rmd160  3fa69bd16c95f9ec26a799e872e344da413f0126 \
-                    sha256  bd829db26ea9d5d8f634e4ff80adbfc9e609f0521fe6b38e6bc9ac4bc8e3e599 \
-                    size    1309565
+checksums           rmd160  5a30ce46fe8e9f86147f0f135c76defa8cafdeef \
+                    sha256  729b8a956e9e0628b062694633aa38a8c61a7c7f4fc97a0d2fd9028401ff57db \
+                    size    1592927
 supported_archs     noarch
 
-depends_lib-append  port:R-dplyr \
+depends_lib-append  port:R-cli \
+                    port:R-dplyr \
                     port:R-ggplot2 \
                     port:R-ggraph \
                     port:R-igraph \
@@ -24,9 +26,8 @@ depends_lib-append  port:R-dplyr \
                     port:R-pillar \
                     port:R-tidygraph
 
-# R-concaveman needs V8: https://github.com/joelgombin/concaveman/issues/18
-patchfiles          patch-remove-unavailable-suggests.diff
-
+# Some suggested deps are dropped:
+# https://github.com/joelgombin/concaveman/issues/18
 depends_test-append port:R-BiocManager \
                     port:R-furrr \
                     port:R-future \
@@ -34,17 +35,16 @@ depends_test-append port:R-BiocManager \
                     port:R-ggforce \
                     port:R-graphlayouts \
                     port:R-knitr \
-                    port:R-migraph \
-                    port:R-minMSE \
-                    port:R-multiplex \
+                    port:R-netdiffuseR \
                     port:R-patchwork \
-                    port:R-png \
                     port:R-readxl \
                     port:R-Rgraphviz \
                     port:R-rmarkdown \
-                    port:R-roxygen2 \
                     port:R-RSiena \
+                    port:R-sna \
                     port:R-testthat \
+                    port:R-tibble \
+                    port:R-tidyr \
                     port:R-xml2
 
 # One test fails: https://github.com/snlab-ch/manynet/issues/20

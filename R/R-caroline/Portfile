@@ -3,15 +3,17 @@
 PortSystem          1.0
 PortGroup           R 1.0
 
-R.setup             cran cran caroline 0.9.0
+R.setup             cran anthropoidea caroline 0.9.9
 revision            0
 maintainers         nomaintainer
+platforms           {darwin any}
 license             Artistic-2
-description         Collection of database, data structure, visualization and utility functions for R
+description         Collection of database, data structure, visualization \
+                    and utility functions for R
 long_description    {*}${description}
-checksums           rmd160  e4cfab212c32d5982cfa9a2e9ebb98fb112cf0f5 \
-                    sha256  7231daacf2f0e89d9363ea919071f8352ae487011f56e84a4054de11a9243ac8 \
-                    size    34770
+checksums           rmd160  460660febed73bc071dfe8dac0e0d7b2d0fc9c5c \
+                    sha256  93867fa8130093670108daa46089a1ea92a1f44b2a674e4a15224eea95cf8f7a \
+                    size    43354
 supported_archs     noarch
 
 depends_test-append port:R-DBI \

@@ -5,16 +5,16 @@ PortGroup           github 1.0
 PortGroup           ocaml 1.1
 
 name                ocaml-ocamlformat
-github.setup        ocaml-ppx ocamlformat 0.26.1
+github.setup        ocaml-ppx ocamlformat 0.27.0
 revision            0
 categories          ocaml devel
-maintainers         {@barracuda156 gmail.com:vital.had} openmaintainer
+maintainers         nomaintainer
 license             {LGPL-2.1 MIT}
 description         Auto-formatter for OCaml code
 long_description    {*}${description}
-checksums           rmd160  c1810db6b62d36b16e3dda0053c8de067b35c4cf \
-                    sha256  aabc1eb5d54460f66add9797dbd0481e4120a818d3ed79f318d4960f063f819d \
-                    size    899538
+checksums           rmd160  48c22b6729574a2008e95ff1bafca418f92747bf \
+                    sha256  914c474549489a25b796579dc08f548ac28cbd1a4eaf512d1e9498232e026616 \
+                    size    1161305
 github.tarball_from archive
 
 ocaml.build_type    dune
@@ -27,6 +27,8 @@ if {${subport} eq ${name} } {
 }
 
 subport ocaml-ocamlformat-lib {
+    revision        0
+
     depends_lib-append \
                     port:ocaml-astring \
                     port:ocaml-base \

@@ -3,19 +3,21 @@
 PortSystem          1.0
 PortGroup           R 1.0
 
-R.setup             github ropensci xslt 1.4.4 v
+# Revert to GitHub once updated there.
+R.setup             cran ropensci xslt 1.4.6 v
 revision            0
-maintainers         {@barracuda156 gmail.com:vital.had} openmaintainer
+maintainers         nomaintainer
 license             GPL-2+
 description         Extensible style-sheet language transformations
 long_description    {*}${description}
 homepage            https://docs.ropensci.org/xslt
-checksums           rmd160  dda9705244fcda7e1eb169f737f0bd77bceae868 \
-                    sha256  334f34cb68f80a6348cb5741f675c1a36ed73636c1d5ee8ab3ea6744893e62ce \
-                    size    18688
+checksums           rmd160  6655a1f0030ebb2f9c8ed07c3c949e487044ab86 \
+                    sha256  1c59a8109ae54b79d8d6ae23abd05c47a1d967d3eaf6d724325256cc68fdb6ed \
+                    size    18348
 
 depends_build-append \
-                    port:pkgconfig
+                    path:bin/pkg-config:pkgconfig
+
 depends_lib-append  port:libxslt \
                     port:R-Rcpp \
                     port:R-xml2

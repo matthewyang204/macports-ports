@@ -3,7 +3,7 @@
 PortSystem          1.0
 
 name                oilshell
-version             0.20.0
+version             0.24.0
 revision            0
 
 homepage            https://www.${name}.org
@@ -24,9 +24,9 @@ license             {Apache-2 PSF}
 maintainers         {gmail.com:herby.gillot @herbygillot} \
                     openmaintainer
 
-checksums           rmd160  377e812174087c1f42d2757de0503eb4d6b8c40a \
-                    sha256  f19e055679571e7c3da32d53c479e5a9acc8547ae28c2e03983109cc7b84fdca \
-                    size    1929221
+checksums           rmd160  b0264e9af5c38d6247e61543eed778af452d5180 \
+                    sha256  f199f5384e72c53eeb8a159ee7ac1b92819adc13a6dc5644ccae33e7ceaa9c72 \
+                    size    2097001
 
 master_sites        ${homepage}/download/
 distname            oil-${version}
@@ -49,3 +49,5 @@ destroot {
     xinstall -m 0444 \
         ${worksrcpath}/doc/osh.1 ${destroot}${prefix}/share/man/man1/
 }
+
+livecheck.regex     "oil-(\[0-9.\]+)${extract.suffix}"

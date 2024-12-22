@@ -4,7 +4,7 @@ PortSystem          1.0
 PortGroup           R 1.0
 
 R.setup             cran ecpolley SuperLearner 2.0-29
-revision            0
+revision            1
 categories-append   math
 maintainers         nomaintainer
 license             GPL-3
@@ -16,6 +16,7 @@ checksums           rmd160  34508ea5e24c8713166cb813c1b20e69d046ddbe \
                     sha256  236b03f969f4880680abb7f818bbbd92926ac3cb30b55560e3ee4d25d1572b3c \
                     size    528103
 supported_archs     noarch
+platforms           {darwin any}
 
 depends_lib-append  port:R-cvAUC \
                     port:R-gam \

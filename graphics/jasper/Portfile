@@ -4,7 +4,7 @@ PortSystem      1.0
 PortGroup       cmake 1.0
 PortGroup       github 1.0
 
-github.setup    jasper-software jasper 4.2.0 version-
+github.setup    jasper-software jasper 4.2.4 version-
 categories      graphics
 license         JasPer-2
 maintainers     {jmr @jmroot} openmaintainer
@@ -18,8 +18,8 @@ long_description \
 homepage        http://www.ece.uvic.ca/~mdadams/jasper/
 
 github.tarball_from releases
-checksums       rmd160 371aae9282abf7a8af8ddd606abd207c53de3c4a \
-                sha256 69f0b08a0cc281a06eaf7feed510736854bbff9af89ab1d01b77382ad57ec957
+checksums       rmd160 361d20dce0c46c039fd0336e7210e844adcfcee8 \
+                sha256 6a597613d8d84c500b5b83bf0eec06cd3707c23d19957f70354ac2394c9914e7
 
 depends_lib     path:include/turbojpeg.h:libjpeg-turbo
 

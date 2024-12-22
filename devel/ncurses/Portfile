@@ -2,8 +2,7 @@ PortSystem 1.0
 PortGroup  clang_dependency 1.0
 
 name            ncurses
-version         6.4
-revision        1
+version         6.5
 categories      devel
 platforms       darwin freebsd
 license         MIT
@@ -18,8 +17,8 @@ long_description \
 
 homepage        https://invisible-island.net/ncurses/
 master_sites    gnu https://invisible-mirror.net/archives/ncurses/
-checksums       rmd160 a8b6ef8fe778c87ffdd3e0f3199c156c47b8dc39 \
-                sha256 6931283d9ac87c5073f30b6290c4c75f21632bb4fc3603ac8100812bed248159
+checksums       rmd160 f8b26cee31b1156da483551ed291cc91c94f7970 \
+                sha256 136d91bc269a9a5785e5f9e980bc76ab57428f604ce3e5a5a90cebc767971cc6
 
 # hex.diff from https://opensource.apple.com/source/ncurses/ncurses-57/patches.applied/
 patchfiles      hex.diff \
@@ -45,11 +44,6 @@ configure.args  --enable-widec \
                 --with-pkg-config-libdir="${prefix}/lib/pkgconfig" \
                 --disable-mixed-case
 
-if {${os.platform} eq "darwin" && ${os.major} < 10} {
-    # See: https://trac.macports.org/ticket/62994
-    configure.args-append   gl_cv_func_getcwd_path_max=yes
-}
-
 if {[string match *clang* ${configure.cxx}] && ${configure.cxx_stdlib} ne ""} {
     configure.env-append    CXXLIBS=-stdlib=${configure.cxx_stdlib}
 }
@@ -63,20 +57,24 @@ post-configure {
 }
 
 post-destroot {
-    set major [lindex [split $version .] 0]
-    set archflags [get_canonical_archflags ld]
+    ln -s ncurses6-config ${destroot}${prefix}/bin/ncursesw6-config
     foreach f {form menu ncurses ncurses++ panel} {
-        ln -s lib${f}.${major}.dylib ${destroot}${prefix}/lib/lib${f}w.dylib
-        ln -s lib${f}.${major}.dylib ${destroot}${prefix}/lib/lib${f}w.${major}.dylib
         ln -s lib${f}.a ${destroot}${prefix}/lib/lib${f}w.a
         ln -s ${f}.pc ${destroot}${prefix}/lib/pkgconfig/${f}w.pc
-        reinplace "s|-Wl,-syslibroot,${configure.sdkroot}||" ${destroot}${prefix}/lib/pkgconfig/${f}.pc
-        reinplace "s|${archflags}||" ${destroot}${prefix}/lib/pkgconfig/${f}.pc
     }
-    ln -s libncurses.${major}.dylib ${destroot}${prefix}/lib/libtermcap.dylib
-    ln -s ncurses6-config ${destroot}${prefix}/bin/ncursesw6-config
-    reinplace "s|-Wl,-syslibroot,${configure.sdkroot}||" ${destroot}${prefix}/bin/ncurses6-config
-    reinplace "s|${archflags}||" ${destroot}${prefix}/bin/ncurses6-config
+    platform darwin {
+        set major [lindex [split $version .] 0]
+        set archflags [get_canonical_archflags ld]
+        foreach f {form menu ncurses ncurses++ panel} {
+            ln -s lib${f}.${major}.dylib ${destroot}${prefix}/lib/lib${f}w.dylib
+            ln -s lib${f}.${major}.dylib ${destroot}${prefix}/lib/lib${f}w.${major}.dylib
+            reinplace "s|-Wl,-syslibroot,${configure.sdkroot}||" ${destroot}${prefix}/lib/pkgconfig/${f}.pc
+            reinplace "s|${archflags}||" ${destroot}${prefix}/lib/pkgconfig/${f}.pc
+        }
+        ln -s libncurses.${major}.dylib ${destroot}${prefix}/lib/libtermcap.dylib
+        reinplace "s|-Wl,-syslibroot,${configure.sdkroot}||" ${destroot}${prefix}/bin/ncurses6-config
+        reinplace "s|${archflags}||" ${destroot}${prefix}/bin/ncurses6-config
+    }
 }
 
 livecheck.regex ${name}-(\[\\d.-\]+)${extract.suffix}

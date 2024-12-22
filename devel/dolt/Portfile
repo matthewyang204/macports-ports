@@ -3,7 +3,8 @@
 PortSystem          1.0
 PortGroup           golang 1.0
 
-go.setup            github.com/dolthub/dolt 1.34.0 v
+go.setup            github.com/dolthub/dolt 1.39.1 v
+go.offline_build    no
 github.tarball_from archive
 revision            0
 
@@ -23,11 +24,9 @@ license             Apache-2
 maintainers         {gmail.com:herby.gillot @herbygillot} \
                     openmaintainer
 
-checksums           rmd160  d35117598b02d471ffffaf963fe6f5b6c48193a8 \
-                    sha256  97f1b5289a350d4e2be98211aff539cb4f122be3b28372472c2635656c61f3cb \
-                    size    7487859
-
-go.offline_build no
+checksums           rmd160  d6cf77f9aad637f054d997868d6b98619ed5bc14 \
+                    sha256  90101700b18cd4af781e359605b44b97413a53a5af70154e6d2a38ad6e0ac042 \
+                    size    7289222
 
 build.dir           ${worksrcpath}/go
 build.target        ./cmd/dolt

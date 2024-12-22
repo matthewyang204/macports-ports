@@ -3,15 +3,15 @@
 PortSystem          1.0
 PortGroup           R 1.0
 
-R.setup             cran y.chen101 breakfast 2.3
+R.setup             cran y.chen101 breakfast 2.5
 revision            0
 maintainers         nomaintainer
 license             GPL-2
 description         Methods for fast multiple change-point detection and estimation
 long_description    {*}${description}
-checksums           rmd160  f90dd3706b1ea2e553b49e3ba91dc67821841307 \
-                    sha256  2d5b7d3456b14977e775b30b8a79e7cdb830d04743fa3b012bb73f97e952130f \
-                    size    140844
+checksums           rmd160  9688d86cc375c71bd6fd753da1c710f93f5a11a8 \
+                    sha256  f5e6b941f4f739dbc25268b2fa1f571f2b868532f662a25091b47b8c1349f808 \
+                    size    177438
 
 depends_lib-append  port:R-ggplot2 \
                     port:R-plyr \

@@ -4,7 +4,7 @@ PortSystem          1.0
 PortGroup           python 1.0
 
 name                py-spyder-kernels
-version             2.5.1
+version             3.0.2
 revision            0
 epoch               1
 
@@ -19,11 +19,13 @@ long_description    {*}${description}
 
 homepage            https://github.com/spyder-ide/spyder-kernels
 
-checksums           rmd160  9ad679e841998923f7d256d568310dc0a74fc6b0 \
-                    sha256  05042a3f97b25f17cdfa8d75011fd79aaf027523348a9dfff0f5a20bddb0b9b0 \
-                    size    99906
+distname            spyder_kernels-${version}
 
-python.versions     38 39 310 311 312
+checksums           rmd160  79920a75e015e1040b9c68112f3e0454dd968d7e \
+                    sha256  a5300a0cc18d9201c006827c170b0ec08cfc943f775f083abfb6bdf672feb561 \
+                    size    81912
+
+python.versions     39 310 311 312
 
 if {${name} ne ${subport}} {
     depends_lib-append \

@@ -3,17 +3,19 @@
 PortSystem          1.0
 PortGroup           R 1.0
 
-R.setup             github dreamRs shinyWidgets 0.8.2 v
+# Revert to GitHub once updated there.
+R.setup             cran dreamRs shinyWidgets 0.8.7 v
 revision            0
 categories-append   devel
+platforms           {darwin any}
 maintainers         nomaintainer
 license             GPL-3
 description         Custom inputs widgets for Shiny
 long_description    {*}${description}
 homepage            https://dreamrs.github.io/shinyWidgets
-checksums           rmd160  9346402abf625d3487939bd8fd4825b4e1a32b17 \
-                    sha256  fb339385d0676c49b1ca15e7d6964195b242bc257c52069b20beac70529337fd \
-                    size    905696
+checksums           rmd160  2cb03e1a9d44f2bdad1cb5904c3e899795f235ba \
+                    sha256  add4b4c5125c4242f6439700fce7aceec3062d1faf4c99f03eddcfab51727722 \
+                    size    839950
 supported_archs     noarch
 
 depends_lib-append  port:R-anytime \

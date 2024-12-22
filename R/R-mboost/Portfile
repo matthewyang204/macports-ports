@@ -3,16 +3,17 @@
 PortSystem          1.0
 PortGroup           R 1.0
 
-R.setup             cran boost-R mboost 2.9-9
+R.setup             cran boost-R mboost 2.9-11
 revision            0
 categories-append   math
 maintainers         nomaintainer
 license             GPL-2
 description         Model-based boosting
 long_description    {*}${description}
-checksums           rmd160  dca8a0e8277ec85f22009a42d5a25b8c7af81eb6 \
-                    sha256  bf3a83f124d28bd9167a6aafa4cd25f107d3db8a1e7e1d5ca13065dd416aecaa \
-                    size    2383423
+homepage            https://github.com/boost-R/mboost
+checksums           rmd160  8983abaf31ce113aec0509f6d406a1d4e1de5cc2 \
+                    sha256  9f37a50c7ff594b8332a31725ae144c48f50c1c9891d44b721cd37e895bfbc58 \
+                    size    1821915
 
 depends_lib-append  port:R-nnls \
                     port:R-partykit \

@@ -3,11 +3,11 @@
 PortSystem              1.0
 PortGroup               github 1.0
 
-github.setup            samtools bcftools 1.19
+github.setup            samtools bcftools 1.21
 revision                0
-checksums               rmd160  f4d2f72bdf005165a565419d3e069201f416f9d0 \
-                        sha256  782b5f1bc690415192231e82213b3493b047f45e630dc8ef6f154d6126ab3e68 \
-                        size    7906216
+checksums               rmd160  b0803d293d580a71c6c90bacd574804f8468af70 \
+                        sha256  528a4cc1d3555368db75a700b22a3c95da893fd1827f6d304716dfd45ea4e282 \
+                        size    7982173
 
 categories              science
 maintainers             {ryandesign @ryandesign} openmaintainer

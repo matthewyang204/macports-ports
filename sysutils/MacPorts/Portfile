@@ -1,7 +1,7 @@
 PortSystem          1.0
 PortGroup           github 1.0
 
-github.setup        macports macports-base 2.9.1 v
+github.setup        macports macports-base 2.10.5 v
 name                MacPorts
 
 categories          sysutils macports
@@ -24,8 +24,8 @@ github.tarball_from releases
 #dist_subdir         ${name}/testing
 use_bzip2           yes
 
-checksums           rmd160 745c1d741a39490bf32369a17d6dd8830153ef86 \
-                    sha256 ab8e271d34f5fce11697eaa106296f6ad6e508514ce0e3404068ec0603bd032a
+checksums           rmd160 043c163f97730252af50c2254b5698d330d4103a \
+                    sha256 cc5563fc9bd458e402122fcb162024c15ff6d43918a359064908af1be30f024e
 
 variant keep_prefix description "Use configured prefix instead of enforcing /opt/local" {}
 if {![variant_isset keep_prefix]} {
@@ -50,6 +50,7 @@ configure.ld_archflags
 compiler.cpath
 compiler.library_path
 configure.cxx_stdlib
+configure.install
 
 # MacPorts' configure removes ${prefix}/bin from $PATH,
 # so better do not use ccache, to avoid problems.

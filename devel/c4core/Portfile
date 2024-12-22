@@ -2,9 +2,10 @@
 
 PortSystem          1.0
 PortGroup           cmake   1.1
+PortGroup           compiler_blacklist_versions 1.0
 PortGroup           github  1.0
 
-github.setup        biojppm c4core 0.1.11 v
+github.setup        biojppm c4core 0.2.2 v
 github.tarball_from releases
 revision            0
 
@@ -25,11 +26,17 @@ license             {MIT Boost-1}
 maintainers         {gmail.com:herby.gillot @herbygillot} \
                     openmaintainer
 
-checksums           rmd160  81422472c3763959ae9298cd5294c121c9943445 \
-                    sha256  67f4443f3742424f42453594e26e656f616dddfcf225a1d810e00473a741408c \
-                    size    1633769
+checksums           rmd160  e420821e42c79b4cdf050e277cd0cbee1c2b0d1d \
+                    sha256  beea43a5bdc64616d897cc0af728f408e35e2d75a8bb6014e6e25e90e0484578 \
+                    size    1683271
 
 distname            ${name}-${version}-src
 extract.suffix      .tgz
 
+# https://github.com/biojppm/c4core/issues/131
+depends_build-append \
+                    bin:git:git
+
 compiler.cxx_standard 2017
+# https://github.com/biojppm/c4core/issues/130
+compiler.blacklist  {clang < 1100}

@@ -3,17 +3,18 @@
 PortSystem          1.0
 PortGroup           R 1.0
 
-R.setup             cran Paul-Haimerl BTtest 0.10.1
+R.setup             cran Paul-Haimerl BTtest 0.10.3
 revision            0
 categories-append   math
 maintainers         {@barracuda156 gmail.com:vital.had} openmaintainer
 license             MIT
-description         Estimate the number of factors in large non-stationary datasets
+description         Estimate the number of factors \
+                    in large non-stationary datasets
 long_description    {*}${description}
 homepage            https://github.com/Paul-Haimerl/BTtest
-checksums           rmd160  36db7d55efbdf57bc4c19f52336c2b9a2fd06c68 \
-                    sha256  86309f5dbac6fadbcf195daaa05945bcb0b4398b54c00d82b7d2a460565ea863 \
-                    size    10967
+checksums           rmd160  0942209456ee0bfe93c30d061ff490dec21612e8 \
+                    sha256  71cbc16c143bd5ff05e5b85a630dd7ee824f379841228cd4d3cd4e3664eae7ae \
+                    size    176189
 
 depends_lib-append  port:R-Rcpp \
                     port:R-RcppArmadillo

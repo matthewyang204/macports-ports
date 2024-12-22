@@ -3,8 +3,8 @@
 PortSystem          1.0
 PortGroup           github 1.0
 
-github.setup        jgm pandoc 3.1.12
-revision            0
+github.setup        jgm pandoc 3.4
+revision            1
 categories          textproc haskell
 license             GPL-3
 maintainers         {judaew @judaew} openmaintainer
@@ -27,12 +27,39 @@ homepage            https://pandoc.org
 
 installs_libs       no
 
-checksums           rmd160  941a905dafbc79f959c218ff65508100b5fe15a2 \
-                    sha256  709629f264455f73da7afbcae1138e97cb375a7563cf9c251c059f54bb777259 \
-                    size    7651793
+checksums           rmd160  03d9812d75711b4cacc37568667a8b0af71d284f \
+                    sha256  be82c28cea23b9f4bf98d4f2bb9e311414d5950f88bb7cce52f3304c5417f798 \
+                    size    7783256
 
-# See https://trac.macports.org/ticket/48971
-notes-append       "For PDF support, please install the texlive-latex and texlive-fonts-recommended packages."
+depends_lib-append  port:zlib
+
+depends_run-append  port:groff
+
+# https://github.com/jgm/pandoc/blob/main/tools/latex-package-dependencies.lua
+# comm -23 <(pandoc lua ${worksrcpath}/tools/latex-package-dependencies.lua | xargs -I{} find ${prefix}/share/texmf-texlive -name {} | sort -u | xargs -I{} find {} -depth 1 -type f | xargs port provides | awk '{print $NF}' | sort -u) <(port echo rdepof:texlive-xetex rdepends:texlive-fonts-recommended | grep texlive | sort -u)
+variant texlive \
+    description {Use TeXLive; see "port notes" for more information.} {
+    depends_run-append \
+                    port:latexmk \
+                    port:texlive-fonts-recommended \
+                    port:texlive-xetex
+}
+
+variant full_latex_dependencies \
+    requires texlive \
+    description {Install all LaTeX dependencies.} {
+    depends_run-append \
+                    port:texlive-bin-extra \
+                    port:texlive-context \
+                    port:texlive-latex-extra \
+                    port:texlive-luatex
+}
+
+notes-append       "${name} uses LaTeX to create PDFs.
+
+The (minimized) variant +texlive uses MacPorts TeXLive.
+
+For full LaTeX PDF support, please use the variant +full_latex_dependencies."
 
 set minimum_major_version_for_source 20
 
@@ -47,6 +74,7 @@ if {(${os.platform} eq {darwin}
         description {Use stack to build.} {}
     if { [variant_isset "stack"] } {
         PortGroup   haskell_stack 1.0
+
     } else {
         PortGroup   haskell_cabal 1.0
 
@@ -97,26 +125,23 @@ if {(${os.platform} eq {darwin}
     # binary support for older macOS versions
     github.tarball_from releases
     use_zip         yes
-
-    set worksrcpath         ${workpath}/pandoc-${version}-${build_arch}
+    distfiles       pandoc-${version}-${build_arch}-macOS${extract.suffix}
+    set worksrcpath ${workpath}/pandoc-${version}-${build_arch}
 
     # set build_arch/os.arch/os.major to get binary arm64/x86_64 checksums
-    # sudo port -d checksum pandoc os.arch=arm os.major=19 build_arch=arm64
-    # sudo port -d checksum pandoc os.arch=i386 os.major=19 build_arch=x86_64
+    # sudo port -d checksum pandoc os.arch=arm os.major=18 build_arch=arm64
+    # sudo port -d checksum pandoc os.arch=i386 os.major=18 build_arch=x86_64
     # run `sudo port clean --all pandoc` afterwards
-
     switch ${build_arch} {
         arm64 {
-            distfiles       pandoc-${version}-arm64-macOS${extract.suffix}
-            checksums       rmd160  67c278baea2088b2a243495693325e9e1f8e4a57 \
-                            sha256  5267cec23889e55a56335616e59734ffb80391c5a1db7c341c83e20bd9cc745c \
-                            size    35116143
+            checksums       rmd160  7788802a963a696e37ca7f6b128579d9466d1557 \
+                            sha256  2bc48ef152d5404cc7d5b98ee01f11af8bd91e503a6e888d2537bd261a578d02 \
+                            size    35849240
         }
         x86_64 {
-            distfiles       pandoc-${version}-x86_64-macOS${extract.suffix}
-            checksums       rmd160  cbf9fbaae5a5b5bacf4437425978700ab93f31b0 \
-                            sha256  2ca867f52987765fa1676ffd9d8b04ba0cf2dc3a3c6c16c48b5b057878225099 \
-                            size    21547315
+            checksums       rmd160  05ac3649d76cbb17577e1f6c29aabeb291634c4d \
+                            sha256  fb342213ce16af4a81565f1f106a808574f993900ac914a5737649ba8cedb2b3 \
+                            size    21926889
         }
         default {
             known_fail  yes

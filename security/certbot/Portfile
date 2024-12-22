@@ -4,7 +4,7 @@ PortSystem          1.0
 PortGroup           github 1.0
 PortGroup           python 1.0
 
-github.setup        certbot certbot 2.9.0 v
+github.setup        certbot certbot 3.0.1 v
 revision            0
 categories          security
 license             Apache-2
@@ -17,9 +17,9 @@ homepage            https://certbot.eff.org/
 supported_archs     noarch
 platforms           {darwin any}
 
-checksums           rmd160  59eb0177b4b6765c41ba37f2cb1a940f9b49a0ba \
-                    sha256  a1055bd784a95fde5aea565295407aa512addfe8490a675bc707e40c2446b67e \
-                    size    1346413
+checksums           rmd160  2dfd9fe2d017666c8c54fbdc9ba6c11820ad486c \
+                    sha256  0c977ad7b4cbd5e8dc3becdc9332a5a6ff3299bd54b99fe699228d0de1387580 \
+                    size    2325097
 
 variant python38 conflicts python39 python310 python311 python312 description {Use Python 3.8} {}
 variant python39 conflicts python38 python310 python311 python312 description {Use Python 3.9} {}
@@ -239,6 +239,7 @@ subport ${name}-dns-route53 {
                         TXT records using the Amazon Web Services Route 53 API. \
                         https://certbot-dns-route53.readthedocs.io/
     build.dir           ${worksrcpath}/${name}-dns-route53
+    depends_lib-append  port:py${python.version}-boto3
 }
 
 subport ${name}-dns-sakuracloud {

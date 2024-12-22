@@ -3,16 +3,16 @@
 PortSystem          1.0
 PortGroup           R 1.0
 
-R.setup             cran jeroen unix 1.5.6
+R.setup             cran jeroen unix 1.5.9
 revision            0
 categories-append   sysutils
-maintainers         {@barracuda156 gmail.com:vital.had} openmaintainer
+maintainers         nomaintainer
 license             MIT
 description         POSIX system utilities
 long_description    {*}${description}
-checksums           rmd160  3237fc612bd03dcada7511c49ec9fcbe4952cdf9 \
-                    sha256  576172d667598245413374121bdcefe6445773aedbb6ce3baf0be2ad5a9a19b9 \
-                    size    20679
+checksums           rmd160  036a11ec348fd70984049b31e5b768467053308d \
+                    sha256  520882a7cdfa63920471b710261c059c09252bf9c38995073b7c84c5726e6b49 \
+                    size    20651
 
 depends_test-append port:R-testthat
 

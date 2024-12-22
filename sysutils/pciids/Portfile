@@ -3,12 +3,12 @@
 PortSystem          1.0
 PortGroup           github 1.0
 
-github.setup        pciutils pciids 94487d523be7bc7574b6c11d89cb52b9300270de
-version             2023.06.19
+github.setup        pciutils pciids 4756a2fe9e6d8555e765236a9be5c6d778954780
+version             2024.09.19
 revision            0
-checksums           rmd160  b28db3704eeb91baf055845ae6e3904d6c42e072 \
-                    sha256  5c06339283b2716336982c4ab39f251c5ca32f69b4440adfd93a308e682c3fbb \
-                    size    319097
+checksums           rmd160  c29ad7e010ab90c4524fe35c84503240a583dffe \
+                    sha256  0d87359bc11152eb12d9d0b2d07e3fec83e4413838fa603c0125fd05e6df6197 \
+                    size    340769
 
 categories          sysutils
 license             {GPL-2+ BSD}

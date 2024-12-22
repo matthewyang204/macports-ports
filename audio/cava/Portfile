@@ -1,0 +1,39 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+
+PortSystem          1.0
+PortGroup           github 1.0
+
+github.setup        karlstav cava 0.10.3
+github.tarball_from releases
+revision            0
+categories          audio
+license             MIT
+maintainers         {makr @mohd-akram} openmaintainer
+
+description         Cross-platform Audio Visualizer
+
+long_description    Cava is a bar spectrum audio visualizer for terminal \
+                    (ncurses) or desktop (SDL).
+
+checksums           rmd160  b2974020e7665f4c530729c335d57e8c0ea8b6c9 \
+                    sha256  bd198b6a0d0a24c0732b3c825b20e948976b1a5d38212f8d9419733aebac7c89 \
+                    size    424270
+
+depends_build       path:bin/pkg-config:pkgconfig
+
+depends_lib         port:fftw-3 \
+                    port:iniparser \
+                    port:pulseaudio \
+                    port:portaudio \
+                    port:libsdl2 \
+                    port:ncurses
+
+compiler.blacklist-append   *gcc-4.0 *gcc-4.2
+
+configure.cppflags-append   -I${prefix}/include/iniparser
+
+if {${os.platform} eq "darwin" && ${os.major} < 11} {
+    # https://github.com/karlstav/cava/issues/570
+    configure.args-append \
+                    --disable-output-sdl-glsl
+}

@@ -4,14 +4,14 @@ PortSystem          1.0
 
 set my_name         gnupg
 name                ${my_name}2
-version             2.4.4
+version             2.4.7
 revision            0
 
 # Putting the SHA1 hash because that is published on the website
-checksums           rmd160  eab66d5a87e6e99cbf0586c289f13c85a4bf987f \
-                    sha1    228b3984325fdeebc5e3f2d165c6419a5ebc28de \
-                    sha256  67ebe016ca90fa7688ce67a387ebd82c6261e95897db7b23df24ff335be85bc6 \
-                    size    7886036
+checksums           rmd160  bdc1884629c651e74bdd02d8f2cb8e746f030e83 \
+                    sha1    2d510a1a7294f2f9ef3f2e280c93c3ad9b0cdb68 \
+                    sha256  7b24706e4da7e0e3b06ca068231027401f238102c41c909631349dcc3b85eb46 \
+                    size    8010244
 
 # https://trac.macports.org/ticket/63552
 epoch               1
@@ -58,7 +58,7 @@ platform darwin {
 compiler.c_standard 2011
 
 depends_build       port:gettext \
-                    port:pkgconfig
+                    path:bin/pkg-config:pkgconfig
 
 depends_lib         port:libiconv           \
                     port:gettext-runtime    \

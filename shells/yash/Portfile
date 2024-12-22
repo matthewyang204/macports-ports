@@ -6,7 +6,7 @@ PortSystem          1.0
 PortGroup           github      1.0
 PortGroup           muniversal  1.0
 
-github.setup        magicant yash 2.55
+github.setup        magicant yash 2.57
 github.tarball_from releases
 revision            0
 
@@ -21,15 +21,17 @@ long_description    Yet another shell (yash) is a POSIX-compliant \
                     command line shell, featuring more strict POSIX \
                     compliance than those of other shells, as well as \
                     powerful command line editing.
-homepage            https://yash.osdn.jp
+homepage            https://magicant.github.io/${name}
 
-depends_build       port:asciidoc
-depends_lib         port:gettext port:ncurses
+depends_build-append \
+                    port:asciidoc
+depends_lib-append  port:gettext \
+                    port:ncurses
 
 use_xz              yes
-checksums           rmd160  1aa1c1d84157319452906e30028aa74df2abf02e \
-                    sha256  97cd809d5e216b3c4afae42379f1bd4f5082b7c16d51e282d60a5014fbc9e1f6 \
-                    size    761184
+checksums           rmd160  23fb8d541f6e33ad95fdff1d802d144b69d5b1ef \
+                    sha256  f5ff3334dcfa0fdde3882f5df002623f46a0a4f2b2335e7d91715520d8fb1dab \
+                    size    771228
 
 patchfiles          respect-destdir.patch
 

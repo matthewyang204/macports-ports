@@ -5,7 +5,7 @@ PortGroup           perl5 1.0
 
 name                p5-cgi
 perl5.branches      5.28 5.30 5.32 5.34
-perl5.setup         CGI 4.62 ../../authors/id/L/LE/LEEJO
+perl5.setup         CGI 4.66 ../../authors/id/L/LE/LEEJO
 revision            0
 license             Artistic-2
 maintainers         nomaintainer
@@ -17,9 +17,9 @@ long_description    {*}${description} CGI is considered to be a legacy \
 platforms           {darwin any}
 supported_archs     noarch
 
-checksums           rmd160  52730088c0baefe27b2e955214cbee576d668cd5 \
-                    sha256  b3619821c7aeba3fe1235985fc18f515049a2422ebfc680799cc30007faa80c5 \
-                    size    208782
+checksums           rmd160  805470616fb8870564926d73571de587d3aef345 \
+                    sha256  4697437688a193e3f02556e1d223015590c1f2800b40becf83dc12d5cc5ed8e1 \
+                    size    207571
 
 if {${perl5.major} != ""} {
     depends_build-append \
@@ -30,6 +30,12 @@ if {${perl5.major} != ""} {
     depends_lib-append \
                     port:p${perl5.major}-html-parser \
                     port:p${perl5.major}-uri
+
+    # https://github.com/leejo/CGI.pm/issues/264
+    if {${os.platform} eq "darwin" && ${os.major} <= 18} {
+        depends_extract port:libarchive
+        extract.post_args | ${prefix}/bin/bsdtar -xf -
+    }
 }
 
 livecheck.type      regex

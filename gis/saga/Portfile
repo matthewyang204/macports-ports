@@ -10,7 +10,7 @@ wxWidgets.use       wxWidgets-3.2
 name                saga
 categories          gis
 license             GPL
-version             9.3.1
+version             9.6.2
 revision            0
 maintainers         {vince @Veence} {yahoo.com:n_larsson @nilason} openmaintainer
 
@@ -26,25 +26,25 @@ homepage            https://saga-gis.sourceforge.io/en/index.html
 set master_sites_in sourceforge:project/saga-gis/SAGA%20-%20[lindex [split ${version} "."] 0]/SAGA%20-%20${version}
 master_sites        ${master_sites_in}
 
-checksums           rmd160  7584f2e80757ecd4ec947c59769d351c4ed9c409 \
-                    sha256  42ba446dbf33374d3701f9eef546546a7584d25222cbde4f39259dd6307c12d0 \
-                    size    9111578
+checksums           rmd160  6b7e6fbbf0ea698a9e2c96e9b323c2762deaccc9 \
+                    sha256  4d79c148895e51da137a4f06a49a91ff5d0eb95bd5ed4c47c61a397d7afc8e09 \
+                    size    9818613
 
 cmake.source_dir    ${worksrcpath}/saga-gis
 
-patchfiles-append   shape_cpp.diff
-patchfiles-append   python_cmake.diff
+patchfiles-append   shape_cpp.diff \
+                    python_cmake.diff \
+                    patch-findpostgres-cmake.diff
 
 depends_build-append \
                     port:pkgconfig \
                     port:swig
 
 if {${subport} eq ${name}} {
-# SAGA 9.1.0 do not support PROJ 8+ API
     depends_lib-append  \
                     port:${wxWidgets.port} \
                     port:gdal \
-                    port:proj7 \
+                    port:proj \
                     port:opencv4 \
                     port:pdal \
                     port:curl \
@@ -53,7 +53,7 @@ if {${subport} eq ${name}} {
     depends_build-append \
                     port:${wxWidgets.port} \
                     port:gdal \
-                    port:proj7 \
+                    port:proj \
                     port:opencv4 \
                     port:pdal \
                     port:curl \
@@ -72,8 +72,8 @@ configure.args              -DwxWidgets_CONFIG_EXECUTABLE=${wxWidgets.wxconfig} 
                             -DWITH_SYSTEM_GEOTRANS=OFF \
                             -DWITH_CLIPPER_ONE=OFF \
                             -DWITH_MRMR=OFF \
-                            -DPROJ_INCLUDE_DIR=${prefix}/lib/proj7/include \
-                            -DPROJ_LIBRARY=${prefix}/lib/proj7/lib/libproj.dylib
+                            -DPROJ_INCLUDE_DIR=${prefix}/lib/proj9/include \
+                            -DPROJ_LIBRARY=${prefix}/lib/proj9/lib/libproj.dylib
                             
 configure.args-append       -DWITH_TOOLS=ON \
                             -DWITH_TOOLS_OPENCV=ON \
@@ -138,7 +138,7 @@ if {${subport} eq ${name}} {
     }
 
     # Set PostgreSQL variant
-    set postgresql_suffixes {12 13 14 15}
+    set postgresql_suffixes {12 13 14 15 16}
     set postgresql_variants {}
     foreach suffix ${postgresql_suffixes} {
         lappend postgresql_variants postgresql${suffix}
@@ -159,7 +159,7 @@ if {${subport} eq ${name}} {
         set pgdefault "${pgdefault}!\[variant_isset postgresql${suffix}\] && "
     }
     set pgdefault [string range ${pgdefault} 0 end-4]
-    set pgdefault "${pgdefault}} { default_variants +postgresql15 }"
+    set pgdefault "${pgdefault}} { default_variants +postgresql16 }"
     eval ${pgdefault}
 }
 
@@ -204,9 +204,6 @@ if {[string match "py*" ${subport}]} {
     }
 
     post-destroot {
-        xinstall -d ${destroot}${python.pkgd}
-        move ${destroot}${prefix}/lib/python${python.branch}/site-packages/PySAGA \
-            ${destroot}${python.pkgd}
         delete --force ${destroot}${prefix}/bin
         delete --force ${destroot}${prefix}/include
         delete --force ${destroot}${prefix}/lib

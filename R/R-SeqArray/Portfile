@@ -3,16 +3,17 @@
 PortSystem          1.0
 PortGroup           R 1.0
 
-R.setup             bioconductor zhengxwen SeqArray 1.42.0
+R.setup             bioconductor zhengxwen SeqArray 1.44.2
 revision            0
+categories-append   bioconductor
 maintainers         nomaintainer
 license             GPL-3
 description         Data management of large-scale whole-genome sequence variant calls
 long_description    {*}${description}
 homepage            https://github.com/zhengxwen/SeqArray
-checksums           rmd160  3649acebd7e4ada9c5b5f853266468399bd15109 \
-                    sha256  acc791bd9d36ca58b8330fd665b8e03c15be01202d04fba3f16f9a3ea007467f \
-                    size    3592241
+checksums           rmd160  ee6ee3ba759be9a3c23fdbc7425502652aa0b2ad \
+                    sha256  5cd2c880634622b939126067bbf50e25b1746fab00b8cc484a3a32c2cbdd1054 \
+                    size    3583528
 
 depends_lib-append  port:R-Biostrings \
                     port:R-gdsfmt \

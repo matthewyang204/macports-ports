@@ -3,7 +3,7 @@
 PortSystem          1.0
 PortGroup           golang 1.0
 
-go.setup            github.com/fullstorydev/grpcurl 1.8.9 v
+go.setup            github.com/fullstorydev/grpcurl 1.9.2 v
 go.offline_build    no
 github.tarball_from archive
 revision            0
@@ -27,9 +27,9 @@ license             MIT
 maintainers         {gmail.com:herby.gillot @herbygillot} \
                     openmaintainer
 
-checksums           rmd160  23003ff286a11098920bd974dc63b8486a65119c \
-                    sha256  962fe7d3da7653519d2975e130244af9286db32041b0745613aebf89949a9009 \
-                    size    122084
+checksums           rmd160  80e452c90db00b90d20b3c5a3372f0739ba56887 \
+                    sha256  9259935b6ef86d701caef60be338600798348368c0f4dca063a45cf88d8186a8 \
+                    size    123698
 
 build.pre_args      -ldflags \"-X 'main.version=${github.tag_prefix}${version}'\"
 build.args          ./cmd/${name}

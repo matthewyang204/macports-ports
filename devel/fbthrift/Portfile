@@ -10,11 +10,11 @@ PortGroup           openssl 1.0
 
 boost.version       1.81
 
-github.setup        facebook fbthrift 2024.01.22.00 v
+github.setup        facebook fbthrift 2024.09.23.00 v
 revision            0
-checksums           rmd160  a03861b9f5ef568565ff73586bcb303ae1c96164 \
-                    sha256  928cbabaa25b70b7998a452269e5d53cd003b5d5fe0fb104cc5c30af4054c883 \
-                    size    14217550
+checksums           rmd160  3278b6182d12a97c0bd070ee19cdc63d11ac6428 \
+                    sha256  109cc46b64844f51c0b5e35140da48fc4c58e1a78be8f589227a5d02633e2d68 \
+                    size    15041175
 
 categories          devel
 license             Apache-2
@@ -26,7 +26,7 @@ long_description    {*}${description}
 
 github.tarball_from archive
 
-set port_libfmt     libfmt10
+set port_libfmt     libfmt11
 cmake.module_path-append \
                     ${prefix}/lib/${port_libfmt}/cmake
 
@@ -56,6 +56,9 @@ if {[string match *clang* ${configure.compiler}]} {
     legacysupport.use_mp_libcxx yes
 }
 
+configure.args-append \
+                    -Dthriftpy=OFF
+
 platform darwin {
     # Disable aligned_alloc support for 10.13 and earlier
     if {${os.major} < 18} {
@@ -65,8 +68,10 @@ platform darwin {
                             -fno-aligned-allocation
         }
     }
-    if {[string match *gcc* ${configure.compiler}]} {
-        configure.ldflags-append \
+}
+
+if {[string match *gcc* ${configure.compiler}] \
+    && (${configure.build_arch} in [list i386 ppc])} {
+    configure.ldflags-append \
                             -latomic
-    }
 }

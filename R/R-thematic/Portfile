@@ -3,23 +3,25 @@
 PortSystem          1.0
 PortGroup           R 1.0
 
-R.setup             cran rstudio thematic 0.1.4
+R.setup             cran rstudio thematic 0.1.6
 revision            0
 categories-append   graphics
+platforms           {darwin any}
 maintainers         nomaintainer
 license             MIT
-description         Unified and automatic theming of R-ggplot2, R-lattice and base R graphics
+description         Unified and automatic theming of R-ggplot2, \
+                    R-lattice and base R graphics
 long_description    {*}${description}
 homepage            https://rstudio.github.io/thematic
-checksums           rmd160  8c86c8f40fb6ee2615546fbba354b093ea4c50c2 \
-                    sha256  6ec3cc59711a431618115296a5157fb5ca7b446fce71a17bf19e7149cd74e482 \
-                    size    2755162
+checksums           rmd160  dff17ddee63d247cb289c46239a1543b840a6b50 \
+                    sha256  509476d1c1a134aa52dbf4040351a574a5f3067e722119b9c1ac086de94ad503 \
+                    size    2746840
 supported_archs     noarch
 
 depends_lib-append  port:R-farver \
                     port:R-ggplot2 \
-                    port:R-rlang \
                     port:R-rappdirs \
+                    port:R-rlang \
                     port:R-rstudioapi \
                     port:R-scales
 
@@ -33,8 +35,8 @@ depends_test-append port:R-bslib \
                     port:R-knitr \
                     port:R-ragg \
                     port:R-rmarkdown \
-                    port:R-showtext \
                     port:R-shiny \
+                    port:R-showtext \
                     port:R-svglite \
                     port:R-sysfonts \
                     port:R-systemfonts \

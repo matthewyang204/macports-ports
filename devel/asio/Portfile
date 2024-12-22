@@ -6,12 +6,12 @@ PortGroup                   github 1.0
 PortGroup                   muniversal 1.0
 PortGroup                   openssl 1.0
 
-github.setup                chriskohlhoff asio 1-29-0 asio-
+github.setup                chriskohlhoff asio 1-32-0 asio-
 version                     [string map {- .} ${github.version}]
 revision                    0
-checksums                   rmd160  61472e9ce2df636f02f594cf0ff994b261866eb6 \
-                            sha256  44305859b4e6664dbbf853c1ef8ca0259d694f033753ae309fcb2534ca20f721 \
-                            size    2878653
+checksums                   rmd160  0423632d026775525907daac33d66adbc0b11317 \
+                            sha256  f1b94b80eeb00bb63a3c8cef5047d4e409df4d8a3fe502305976965827d95672 \
+                            size    2857719
 github.tarball_from         archive
 
 license                     Boost-1
@@ -33,7 +33,7 @@ autoconf.cmd                ./autogen.sh
 depends_build-append        port:autoconf \
                             port:automake \
                             port:libtool \
-                            port:pkgconfig
+                            path:bin/pkg-config:pkgconfig
 
 compiler.cxx_standard       2014
 compiler.blacklist-append   {clang < 800}

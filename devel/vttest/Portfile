@@ -3,7 +3,7 @@
 PortSystem          1.0
 
 name                vttest
-version             20240218
+version             20241204
 revision            0
 
 categories          devel
@@ -23,9 +23,9 @@ master_sites        https://invisible-island.net/archives/${name}/ \
 
 extract.suffix      .tgz
 
-checksums           rmd160  ccd3b0f4f990e422b399e769e072f3d8841d68ae \
-                    sha256  625b292f8052ffbbefe7d9d6fbdf9c8d1fc18b5c85568f2547097d97c540bd75 \
-                    size    231019
+checksums           rmd160  6aeb9c5ab62c65aa74285d3f503fa910ad3f2fea \
+                    sha256  7010c32b6425968ecd7eec43d89f2c6c674494f73b22c8e7c66dadf21c231bff \
+                    size    241572
 
 livecheck.url       https://invisible-island.net/vttest/CHANGES
 livecheck.regex     ^(20\\d\\d\\d\\d\\d\\d)

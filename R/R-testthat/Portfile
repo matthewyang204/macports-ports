@@ -3,17 +3,18 @@
 PortSystem          1.0
 PortGroup           R 1.0
 
-R.setup             github r-lib testthat 3.2.1 v
+R.setup             github r-lib testthat 3.2.2 v
 revision            0
 categories-append   devel
-maintainers         {@barracuda156 gmail.com:vital.had} openmaintainer
+maintainers         nomaintainer
 license             MIT
 description         Unit Testing for R
 long_description    {*}${description}
 homepage            https://testthat.r-lib.org
-checksums           rmd160  7cf33221ea422612207a7fb98ecdfdea7ae1f3b8 \
-                    sha256  285750f93871b07185f3471383d41d98e3de9335879b1c23d6efec61403b40f0 \
-                    size    547074
+checksums           rmd160  43679c5a3e7b5fbb982e398a3c0ef4cf6dac714a \
+                    sha256  eca7d103a834b4230ea56947a33f093bfd46393829abdeb09bc85ef1140beb17 \
+                    size    541235
+github.tarball_from archive
 
 depends_lib-append  port:R-brio \
                     port:R-callr \

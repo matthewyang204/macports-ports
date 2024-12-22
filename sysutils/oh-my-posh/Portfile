@@ -3,7 +3,8 @@
 PortSystem          1.0
 PortGroup           golang 1.0
 
-go.setup            github.com/JanDeDobbeleer/oh-my-posh 17.5.1 v
+go.setup            github.com/JanDeDobbeleer/oh-my-posh 24.16.1 v
+go.offline_build    no
 github.tarball_from archive
 revision            0
 
@@ -16,18 +17,18 @@ categories          sysutils shells
 installs_libs       no
 license             GPL-3
 maintainers         {gmail.com:herby.gillot @herbygillot} \
+                    {duck.com:ihj3s1wy @PinoTucana} \
                     openmaintainer
 
-checksums           rmd160  5a985aeb45bb895d86f912dcddcc32c39d2981f2 \
-                    sha256  29abe3604ae034be278c13b2d698a7c3336fcd0fb19ff20afbdc080b3a54bb29 \
-                    size    2710516
+checksums           rmd160  520c5d2552d1310038357c49c94fb16f53e91595 \
+                    sha256  b561a8d9f3cf04c6a422de8965d9e184731eeace9c0bc5f2df15f3e9acc67e91 \
+                    size    6704705
 
 build.dir           ${worksrcpath}/src
 
-# Allow Go to fetch dependencies at build time
-go.offline_build no
 build.pre_args-append \
-    -ldflags \"-X main.Version=${version}\" -o ${name}
+    -ldflags \"-X github.com/jandedobbeleer/oh-my-posh/src/build.Version=${version} \
+    -X github.com/jandedobbeleer/oh-my-posh/src/build.Date="2024-12-20"\" -o ${name}
 
 set omp_share_path  ${prefix}/share/${name}
 

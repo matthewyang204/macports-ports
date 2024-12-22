@@ -4,7 +4,7 @@ PortSystem          1.0
 PortGroup           python 1.0
 
 name                py-psygnal
-version             0.10.0
+version             0.11.1
 revision            0
 license             BSD
 platforms           {darwin any}
@@ -15,14 +15,13 @@ long_description    {*}${description}, with (optional) signature and type checki
                     support for threading.
 homepage            https://github.com/tlambert03/psygnal
 
-python.versions     38 39 310 311 312
+python.versions     38 39 310 311 312 313
 
-checksums           rmd160  4b985776e233778aeac1fcdf12bd7b8653fdc722 \
-                    sha256  db51c7efb8d92873ea2113356c0cbdca75383684d3e55c315a84071c46d0a0b0 \
-                    size    93599
+checksums           rmd160  1aa9589597586fb562de91d6857a028a0af0996f \
+                    sha256  f9b02ca246ab0adb108c4010b4a486e464f940543201074591e50370cd7b0cc0 \
+                    size    102103
 
 if {${name} ne ${subport}} {
-    python.pep517           yes
     python.pep517_backend   hatch
 
     depends_build-append \

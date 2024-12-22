@@ -4,7 +4,7 @@ PortSystem          1.0
 PortGroup           python 1.0
 
 name                py-itemadapter
-version             0.8.0
+version             0.10.0
 revision            0
 maintainers         {khindenburg @kurthindenburg} openmaintainer
 platforms           {darwin any}
@@ -19,8 +19,8 @@ long_description    The `ItemAdapter` class is a wrapper for data \
 
 homepage            https://pypi.python.org/pypi/${python.rootname}
 
-checksums           rmd160  fe6c1891f4cc3f25db516e92e0e2ed6922d5d95f \
-                    sha256  77758485fb0ac10730d4b131363e37d65cb8db2450bfec7a57c3f3271f4a48a9 \
-                    size    18791
+checksums           rmd160  62dc8d1f9efe0e4987c1649c79d569c51447a237 \
+                    sha256  2655c8c50f1a8405c9fa74b8cdc4da7fec541ca217bc821b90acc8451c98a9d2 \
+                    size    22190
 
-python.versions     38 39 310 311
+python.versions     39 310 311 312 313

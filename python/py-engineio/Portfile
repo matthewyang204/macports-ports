@@ -4,7 +4,7 @@ PortSystem          1.0
 PortGroup           github 1.0
 PortGroup           python 1.0
 
-github.setup        miguelgrinberg python-engineio 4.9.0 v
+github.setup        miguelgrinberg python-engineio 4.10.1 v
 name                py-engineio
 revision            0
 
@@ -17,11 +17,11 @@ description         Python Engine.IO server and client
 long_description    \
     Python implementation of the Engine.IO realtime client and server.
 
-checksums           rmd160  53d84615df0379012df91164f25a481ebc04a3f5 \
-                    sha256  07ddde1ddc54ef3b02c5718cd14f0e4158035b3e99b310b2374abe5b45e934ad \
-                    size    314293
+checksums           rmd160  a472280fa638acfc305b9528983d8c47c8bd9845 \
+                    sha256  cf416185026c3d60bc45eb1529059d669b67af007dbe1734a80ed9dce2e39a07 \
+                    size    317249
 
-python.versions     38 39 310 311
+python.versions     39 310 311
 
 if {${name} ne ${subport}} {
     depends_build-append \

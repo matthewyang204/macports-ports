@@ -9,12 +9,13 @@ PortGroup           legacysupport 1.1
 legacysupport.newest_darwin_requires_legacy 10
 
 name                erlang
-version             26.1
+version             27.1.2
 revision            0
+
+set doc_version     ${version}
 
 categories          lang erlang
 maintainers         {ciserlohn @ci42} openmaintainer
-platforms           darwin
 license             Apache-2
 
 description         The Erlang Programming Language
@@ -35,29 +36,27 @@ long_description    Erlang is a programming language designed at the        \
                     Ericsson ATM switch.
 
 homepage            https://www.erlang.org/
-master_sites        https://www.erlang.org/download/
-
-# Parallel build doesn't work as per R13B01
-use_parallel_build  no
+master_sites        https://www.erlang.org/download/ \
+                    https://github.com/erlang/otp/releases/download/OTP-${version}/
 
 universal_variant   no
 
 distfiles           otp_src_${version}${extract.suffix}                    \
-                    otp_doc_man_${version}${extract.suffix}                \
-                    otp_doc_html_${version}${extract.suffix}
+                    otp_doc_man_${doc_version}${extract.suffix}                \
+                    otp_doc_html_${doc_version}${extract.suffix}
 
 checksums           otp_src_${version}.tar.gz \
-                    rmd160  5ec57e988c19b97873618941bbacc256359dfc7e \
-                    sha256  df0c3a08978bda26cdf51b3d2176b953a783f49e45c3f6271aed20b77255ff7f \
-                    size    107409138 \
-                    otp_doc_man_${version}.tar.gz \
-                    rmd160  aa1427c5c0cd8a44ce07bc10853e3a6470c795f3 \
-                    sha256  2320a0af58119497bc3c0e6d8f08fbb0c6db5778a841b96a7f984e40c321b3ee \
-                    size    1745090 \
-                    otp_doc_html_${version}.tar.gz \
-                    rmd160  215c536fad110fa14cbbedba91f1034677882c0a \
-                    sha256  1cb9017ae517c83a2f33ec5c7e9f205807b199e109405ab06bc96d8254481d2b \
-                    size    41512493
+                    rmd160  81fd4dce5ef82df0e986a0299ce27c871cb211fe \
+                    sha256  1772e9fa07b2b020ed5911d6ce78b251dfb6ed8509ed7de9d372e96b87251d14 \
+                    size    101338359 \
+                    otp_doc_man_${doc_version}.tar.gz \
+                    rmd160  9bae6ac9e6cdb09e0f1e7de8acfa504513f7c271 \
+                    sha256  76f01e6833d841e614929a2b7426b0b08b32daae985ee3e81f2dedb17d367048 \
+                    size    45065 \
+                    otp_doc_html_${doc_version}.tar.gz \
+                    rmd160  a9c21d599f5de594a67b5005234c23c773634f7f \
+                    sha256  a46eea48eab01404eddd649f044bd30f5e4fb432df94be26345410590d1c3f53 \
+                    size    29910123
 
 worksrcdir          otp_src_${version}
 
@@ -81,12 +80,11 @@ depends_lib-append  port:ncurses
 compiler.blacklist  {clang < 300} *gcc-4.*
 
 post-destroot   {
-    system "tar -C ${destroot}${prefix}/lib/erlang -zxvf [shellescape ${distpath}/otp_doc_html_${version}${extract.suffix}]"
-    system "tar -C ${destroot}${prefix}/lib/erlang -zxvf [shellescape ${distpath}/otp_doc_man_${version}${extract.suffix}]"
+    system "tar -C ${destroot}${prefix}/lib/erlang -zxvf [shellescape ${distpath}/otp_doc_html_${doc_version}${extract.suffix}]"
+    system "tar -C ${destroot}${prefix}/lib/erlang -zxvf [shellescape ${distpath}/otp_doc_man_${doc_version}${extract.suffix}]"
 
-    set erts_dir            erts-12.2
-    set erl_interface_dir   erl_interface-5.1
-    set wx_dir              wx-2.1.1
+    set erts_dir            [glob -tails -directory ${destroot}${prefix}/lib/erlang/lib/ erts-*]
+    set erl_interface_dir   [glob -tails -directory ${destroot}${prefix}/lib/erlang/lib/ erl_interface-*]
 
     foreach x {dialyzer ear ecc elink epmd erl erlc escript run_erl start to_erl typer} {
         delete ${destroot}${prefix}/bin/${x}
@@ -112,15 +110,23 @@ platform darwin {
     if {${configure.build_arch} in [list arm64 ppc64 x86_64]} {
         configure.args-append   --enable-darwin-64bit
     } else {
-        configure.args-append   --disable-darwin-64-bit
+        # https://github.com/erlang/otp/issues/8506
+        configure.args-append   --disable-darwin-64-bit \
+                                --disable-year2038
     }
     # TODO: not sure about the minimum version
     if {${os.major} >= 10} {
         # also "-framework Appkit"?
         configure.ldflags-append -framework CoreFoundation
     }
+
+    # asmjit fix for Sonoma annoying popup with JIT on amd64
+    # Upstream didn't want to include it yet
+    patchfiles-append           patch-asmjit-dualmap.diff
 }
 
+# FIXME: allow building with wxGTK on older systems.
+# See: https://github.com/erlang/otp/issues/8370
 variant wxwidgets description {Build wxWidgets support} {
     wxWidgets.use               wxWidgets-3.2
     depends_lib-append          port:${wxWidgets.port}
@@ -132,7 +138,7 @@ variant wxwidgets description {Build wxWidgets support} {
 variant ssl description {Build SSL support} {
     PortGroup                   openssl 1.0
 
-    openssl.branch              1.1
+    openssl.branch              3
     configure.args-delete       --without-ssl
     configure.args-append       --with-ssl=[openssl::install_area]
     configure.ldflags-append    -lz
@@ -148,5 +154,5 @@ default_variants    +ssl
 
 livecheck.type      regex
 livecheck.version   ${version}
-livecheck.url       ${homepage}download/
+livecheck.url       ${homepage}downloads/
 livecheck.regex     "otp_src_(\[0-9\]+\\.\[0-9\]+(\\.\[0-9\])?)\\.tar\\.gz"

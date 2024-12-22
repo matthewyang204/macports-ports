@@ -3,17 +3,19 @@
 PortSystem          1.0
 PortGroup           R 1.0
 
-R.setup             cran dusadrian QCA 3.21
+R.setup             cran dusadrian QCA 3.23
 revision            0
 maintainers         {@barracuda156 gmail.com:vital.had} openmaintainer
 license             GPL-3+
 description         Qualitative Comparative Analysis
 long_description    {*}${description}
-checksums           rmd160  1334625f4137070dfb730318dffd1ba60e2a47cb \
-                    sha256  dd04037309524974c13c319cf0cd0794f9c0fa361f8659105377cd7eedbbb2fc \
-                    size    1176095
+homepage            https://github.com/dusadrian/QCA
+checksums           rmd160  d41cae27e75abb7a26a159be232d52ad2ba10088 \
+                    sha256  d5cfb08c721ae493a57b2fab70a6da7f539352dcb7ccb14ba1a1605e09dddd04 \
+                    size    1178240
 
 depends_lib-append  port:R-admisc \
+                    port:R-declared \
                     port:R-lpSolve \
                     port:R-shiny \
                     port:R-venn

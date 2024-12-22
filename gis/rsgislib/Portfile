@@ -7,11 +7,15 @@ PortGroup           compiler_blacklist_versions 1.0
 PortGroup           boost 1.0
 PortGroup           active_variants   1.1
 
-github.setup        remotesensinginfo rsgislib 5.1.1
-revision            0
+# Fails to build with gcc and old Boost.
+# Same std::__and_ error as in: https://trac.macports.org/ticket/68014
+boost.version       1.81
+
+github.setup        remotesensinginfo rsgislib 5.1.7
+revision            2
 categories          gis
 license             GPL-3
-maintainers         {vince @Veence}
+maintainers         {vince @Veence} {yahoo.com:n_larsson @nilason} openmaintainer
 description         RSGISlib - Remote Sensing and GIS Library
 long_description    The {*}${description} provides a lot of advanced tools \
                     to perform image analysis and feature detection in \
@@ -20,9 +24,9 @@ homepage            http://www.rsgislib.org
 
 github.tarball_from archive
 
-checksums           rmd160  101f2f3433323ef5aed48ea6ad1a7012e6366447 \
-                    sha256  bcf5d83b4ab43f70ce44581e576b827b6833f6fb72f7647b95ca55cb0e3a946c \
-                    size    126172124
+checksums           rmd160  5e0c2a9ce2a5a273eb4f48a48d57c2525c3b2a33 \
+                    sha256  22750fc1023492e0349703202ae6c8c20644a64bcb81ee9656702d97590aec8c \
+                    size    126214481
 
 depends_lib-append  port:gdal
 depends_lib-append  port:gsl
@@ -84,7 +88,7 @@ if {${name} eq ${subport}} {
 }
 
 # create Python subports
-set python_versions {38 39 310 311 312}
+set python_versions {39 310 311 312}
 foreach v ${python_versions} {
     subport py${v}-${github.project} {
         PortGroup           python 1.0

@@ -3,29 +3,33 @@
 PortSystem          1.0
 PortGroup           R 1.0
 
-R.setup             github mikeblazanin gcplyr 1.8.0 v
+R.setup             github mikeblazanin gcplyr 1.10.0 v
 revision            0
+platforms           {darwin any}
 maintainers         nomaintainer
 license             MIT
 description         Manipulate and analyze growth curve data
 long_description    {*}${description}
 homepage            https://mikeblazanin.github.io/gcplyr
-checksums           rmd160  0b6860c3300424151dd7bf4d49d80e1a9b6c1b28 \
-                    sha256  dec6d22927ab852569e17605e2bdf053fd9e4bb1902cad1e3181579748ac03a5 \
-                    size    3453143
+checksums           rmd160  1dfc3ec69a99259fbb9c3dfd4283a843490735d1 \
+                    sha256  7755b9a4ed6f243e1713790714d63213309b38e5022925f634aa32852b2a69e9 \
+                    size    3817583
+github.tarball_from archive
 supported_archs     noarch
 
 depends_lib-append  port:R-dplyr \
+                    port:R-rlang \
                     port:R-tidyr
 
-patchfiles          patch-no-xlsx.diff
-
-depends_test-append port:R-cowplot \
+# R-rJava and R-xlsx are omitted for now.
+depends_test-append port:R-caret \
+                    port:R-cowplot \
                     port:R-ggplot2 \
                     port:R-knitr \
                     port:R-lubridate \
                     port:R-readxl \
                     port:R-rmarkdown \
+                    port:R-sf \
                     port:R-testthat
 
 test.run            yes

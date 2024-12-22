@@ -4,7 +4,7 @@ PortSystem          1.0
 PortGroup           R 1.0
 
 # GitHub version lags behind.
-R.setup             cran pedrohcgs DRDID 1.0.6
+R.setup             cran pedrohcgs DRDID 1.2.0
 revision            0
 categories-append   math
 maintainers         nomaintainer
@@ -12,12 +12,13 @@ license             GPL-3
 description         Doubly Robust Difference-in-Differences Estimators
 long_description    {*}${description}
 homepage            https://psantanna.com/DRDID
-checksums           rmd160  feb5e23c11c4138cb5c9c99c9978f85dca894a68 \
-                    sha256  e7cb0bafbec2be0eeda72303c22775c33a61c94ad9d5934818ac6cb3c0b430bf \
-                    size    484102
-supported_archs     noarch
+checksums           rmd160  23defe8d622e20b3c42e3614febb5d436fd7019f \
+                    sha256  9ec099debe9028f8faa4d58b02c059054aa1d196606ade87b288609a2279526a \
+                    size    492419
 
 depends_lib-append  port:R-BMisc \
+                    port:R-fastglm \
+                    port:R-Rcpp \
                     port:R-trust
 
 depends_test-append port:R-knitr \

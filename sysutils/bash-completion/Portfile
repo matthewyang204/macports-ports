@@ -3,7 +3,7 @@
 PortSystem      1.0
 PortGroup       github 1.0
 
-github.setup    scop bash-completion 2.12.0
+github.setup    scop bash-completion 2.15.0
 revision        0
 epoch           1
 categories      sysutils
@@ -19,14 +19,13 @@ long_description \
 github.tarball_from releases
 use_xz yes
 
-checksums       rmd160  a50bd759024416d583f20c26bc40935431457d06 \
-                sha256  3eb05b1783c339ef59ed576afb0f678fa4ef49a6de8a696397df3148f8345af9 \
-                size    417272
+checksums       rmd160  41618e54b00099aef9eb3aad61a95e4ba4f9a8bf \
+                sha256  976a62ee6226970283cda85ecb9c7a4a88f62574c0a6f9e856126976decf1a06 \
+                size    457836
 
 depends_run     port:bash
 
 patchfiles      patch-vpnc.diff \
-                patch-remove-pkgutil.diff \
                 patch-xine-add-more-formats.diff \
                 patch-xpdf-support-compressed-pdf.diff
 

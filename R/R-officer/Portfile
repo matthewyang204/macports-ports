@@ -4,29 +4,30 @@ PortSystem          1.0
 PortGroup           R 1.0
 
 # Revert to GitHub once a new version is out there.
-R.setup             cran davidgohel officer 0.6.5
+R.setup             cran davidgohel officer 0.6.7
 revision            0
 categories-append   office
+platforms           {darwin any}
 maintainers         nomaintainer
 license             MIT
 description         Manipulation of Microsoft Word and PowerPoint documents
 long_description    {*}${description}
 homepage            https://ardata-fr.github.io/officeverse
-checksums           rmd160  a091aec5ad3bda090667b7b96e23f115222c91fb \
-                    sha256  ebb270100cf943897f5f2fc900effbab886cce18c4e2b4c218a3f3dcee52f7d3 \
-                    size    701035
+checksums           rmd160  79ee570b79c2f6b9eb286e3111ffc62edd903a8c \
+                    sha256  f02fafff3adad784fb7f8d3f1ef7555a78e754179f5e531c4171479f71d92ba9 \
+                    size    881895
 supported_archs     noarch
 
-depends_lib-append  port:R-openssl \
+depends_lib-append  port:R-cli \
+                    port:R-openssl \
                     port:R-R6 \
                     port:R-ragg \
                     port:R-uuid \
                     port:R-xml2 \
                     port:R-zip
 
-patchfiles          patch-no-doconv.diff
-
 depends_test-append port:R-devEMF \
+                    port:R-doconv \
                     port:R-ggplot2 \
                     port:R-knitr \
                     port:R-magick \

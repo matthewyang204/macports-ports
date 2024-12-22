@@ -4,8 +4,8 @@ PortSystem          1.0
 PortGroup           haskell_cabal 1.0
 
 name                haskell-language-server
-version             2.6.0.0
-revision            1
+version             2.9.0.0
+revision            0
 categories          devel haskell
 maintainers         nomaintainer
 license             GPL-3
@@ -28,9 +28,9 @@ long_description    The haskell-language-server (HLS) project is an \
 
 homepage            https://github.com/haskell/haskell-language-server
 
-checksums           rmd160  66c0d520c28d2a8e4a1ca0e3665f2aa73ed75582 \
-                    sha256  3655b8d741616f8e32d0181274f80a48d9b8dca47d3fd22675cadfa01ca80e48 \
-                    size    80146
+checksums           rmd160  515a329ffd47d3978291e3ad2cbb456509d1cb4b \
+                    sha256  d20902536a7a6e0136f8cc8bd9a68b75f94d1c6c9555438503000ab26db13c9c \
+                    size    492989
 
 set name_underscore [string map {- _} ${name}]
 set paths_name_underscore   src/Paths_${name_underscore}.hs

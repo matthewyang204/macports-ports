@@ -3,28 +3,32 @@
 PortSystem          1.0
 PortGroup           R 1.0
 
-R.setup             cran takuya.yanagida misty 0.6.2
+R.setup             cran takuya.yanagida misty 0.6.8
 revision            0
+platforms           {darwin any}
 maintainers         nomaintainer
 license             MIT
 description         Miscellaneous functions for descriptive statistics
 long_description    {*}${description}
-checksums           rmd160  9cfd9293ab24d45e5909e807383efef7c0f91120 \
-                    sha256  455bee0dfa1b720e980e17e2f6d005a622c1dd3f17f1683ac73e040b0dbf15ca \
-                    size    602159
+checksums           rmd160  44733dc79a468576970cbe51d5f21bbb92aa1443 \
+                    sha256  71051967de060edcbb0e800821e9382cd0d32732f0d3a72976e7e97d66aa8334 \
+                    size    767609
 supported_archs     noarch
 
-depends_lib-append  port:R-ggplot2 \
+depends_lib-append  port:R-data.table \
+                    port:R-ggplot2 \
                     port:R-haven \
                     port:R-lavaan \
                     port:R-lme4 \
-                    port:R-norm \
-                    port:R-readxl \
-                    port:R-rstudioapi \
-                    port:R-writexl
+                    port:R-rstudioapi
 
-depends_test-append port:R-mnormt \
+depends_test-append port:R-hdf5r \
+                    port:R-mice \
+                    port:R-mnormt \
+                    port:R-mvnmle \
                     port:R-patchwork \
-                    port:R-plyr
+                    port:R-plyr \
+                    port:R-readxl \
+                    port:R-writexl
 
 test.run            yes

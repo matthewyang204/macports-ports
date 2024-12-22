@@ -4,16 +4,17 @@ PortSystem          1.0
 PortGroup           R 1.0
 
 # Revert to GitHub once updated there.
-R.setup             cran tidymodels censored 0.3.0 v
+R.setup             cran tidymodels censored 0.3.2 v
 revision            0
+platforms           {darwin any}
 maintainers         nomaintainer
 license             MIT
 description         R-parsnip engines for survival models
 long_description    {*}${description}
 homepage            https://censored.tidymodels.org
-checksums           rmd160  d6d783c6955de2b4b910324e784bdecffea60bb8 \
-                    sha256  5ee6939448a6336facc7ba17d55f32af41b361577ec2df477d98fdc38e5a7a83 \
-                    size    110218
+checksums           rmd160  a5a9bc639c095b748aa67c7bff4c9c91643d2103 \
+                    sha256  3f7bac6a67609a3a2bce717f29ec862fad1a4b18b282dd058ae8a246bc752b9c \
+                    size    111692
 supported_archs     noarch
 
 depends_lib-append  port:R-cli \

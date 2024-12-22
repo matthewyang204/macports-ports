@@ -2,9 +2,13 @@
 
 PortSystem          1.0
 PortGroup           cmake 1.1
+PortGroup           compiler_blacklist_versions 1.0
+PortGroup           legacysupport 1.1
 PortGroup           mpi 1.0
 PortGroup           muniversal 1.0
-PortGroup           compiler_blacklist_versions 1.0
+
+# strnlen
+legacysupport.newest_darwin_requires_legacy 10
 
 # Require C++11
 compiler.cxx_standard 2011
@@ -14,16 +18,14 @@ compiler.cxx_standard 2011
 compiler.blacklist-append {clang < 900}
 
 name                vtk
-version             9.3.0
+version             9.4.0
 revision            0
 categories          graphics devel
-platforms           darwin
 license             BSD
 
 set branch          [join [lrange [split ${version} .] 0 1] .]
 
-maintainers         {stromnov @stromnov} \
-                    {@Dave-Allured noaa.gov:dave.allured} \
+maintainers         {@Dave-Allured noaa.gov:dave.allured} \
                     openmaintainer
 
 description         Visualization Toolkit (VTK)
@@ -32,37 +34,21 @@ long_description    Visualization Toolkit (VTK) is an open-source, freely \
                     available software system for 3D computer graphics, \
                     image processing and visualization.
 
-homepage            http://www.vtk.org
-master_sites        http://www.vtk.org/files/release/${branch}
+homepage            https://www.vtk.org
+master_sites        ${homepage}/files/release/${branch}
 
 distname            VTK-${version}
 
-checksums           rmd160  8e45c2178c4c7890fdb1a1d7840698cbcdd7ab16 \
-                    sha256  fdc7b9295225b34e4fdddc49cd06e66e94260cb00efee456e0f66568c9681be9 \
-                    size    99932810
+checksums           rmd160  b265f1752ab0be2687ada62e2376177f54ccbbf0 \
+                    sha256  16f3ffd65fafd68fab469bcb091395bf5432617c7db27cbce86a737bf09ec5b0 \
+                    size    118611659
 
 mpi.setup
 
-depends_lib-append \
-    port:double-conversion \
-    path:share/pkgconfig/eigen3.pc:eigen3 \
-    port:expat \
-    port:freetype \
-    port:gl2ps \
-    port:glew \
-    port:hdf5 \
-    path:include/turbojpeg.h:libjpeg-turbo \
-    port:jsoncpp \
-    port:libharu \
-    port:libogg \
-    port:libtheora \
-    port:lz4 \
-    port:netcdf-cxx \
-    port:pugixml \
-    port:tiff \
-    port:zlib
-
-mpi.enforce_variant hdf5
+# Re restoring support for legacy macOS, see:
+# https://gitlab.kitware.com/vtk/vtk/-/merge_requests/11171
+# https://gitlab.kitware.com/vtk/vtk/-/issues/19352
+patchfiles-append   patch-MACH_TASK_BASIC_INFO.diff
 
 configure.pre_args-delete \
                     -DCMAKE_BUILD_WITH_INSTALL_RPATH:BOOL=ON
@@ -76,14 +62,62 @@ configure.args-append \
                     -DVTK_WRAP_JAVA:BOOL=OFF \
                     -DVTK_USE_COCOA:BOOL=ON
 
-# As proposed at #46890
-if {${os.major} <= 10} {
+# Support for Cocoa of 10.6 has been dropped in
+# https://github.com/Kitware/VTK/commit/f2e249c0a6a93f12808822cc5e5dddda35a09a35
+# However it is an optional module. Instead of breaking the port,
+# just disable what is broken. Notice, it may also be possible
+# to build with SDL2 backend (VTK_USE_SDL2) or X-less Mesa.
+if {${os.platform} eq "darwin" && ${os.major} < 11} {
+    # Avoid hardcoded failure:
+    patchfiles-append   patch-vtkApple.cmake.diff
+    # Fix for pthreads, only relevant for < 10.7:
+    patchfiles-append   patch-pthread_threadid_np.diff
+    # Ensure Cocoa does not get picked and fix GL linking:
+    patchfiles-append   patch-use-x11.diff
+    # With legacysupport getentropy is detected, but sys/random.h is not.
+    # This breaks the build, since we need sys/random.h included.
+    # dict.c:970:17: error: implicit declaration of function 'getentropy'
+    # Once that is fixed, u_int is not recognized:
+    # /usr/include/sys/random.h:37:32: error: unknown type name 'u_int'; did you mean 'int'?
+    # Adding sys/types.h fixes that.
+    patchfiles-append   patch-libxml2-getentropy.diff
+    # https://trac.macports.org/ticket/71421
+    # https://gitlab.kitware.com/vtk/vtk/-/issues/19547
+    # Patch from upstream:
+    patchfiles-append   patch-fix-DataObjectBackendInterface.diff
+    # Fix 32-bit builds with gcc:
+    if {[string match *gcc* ${configure.compiler}] \
+        && ${configure.build_arch} in [list arm i386 ppc]} {
+        patchfiles-append \
+                        patch-DataModel.diff
+    }
+
+    depends_lib-append  port:mesa \
+                        port:xorg-libX11 \
+                        port:xorg-libXcursor
+
+    configure.args-append \
+                        -DVTK_USE_X:BOOL=ON
+    configure.args-replace \
+                        -DVTK_USE_COCOA:BOOL=ON -DVTK_USE_COCOA:BOOL=OFF
+
+    # As proposed at #46890
     configure.args-append \
                         -DIOKit:FILEPATH=/System/Library/Frameworks/IOKit.framework
 }
 
+# loguru.cpp:576:90: error: invalid conversion from 'long unsigned int'
+# to 'size_t*' {aka 'long unsigned int*'} [-fpermissive]
+# loguru.cpp:580:68: error: invalid conversion from 'const char*'
+# to 'char*' [-fpermissive]. Perhaps specific to older SDKs,
+# but gcc is not used by default elsewhere anyway.
+if {[string match *gcc* ${configure.compiler}]} {
+    configure.cxxflags-append \
+                        -fpermissive
+}
+
 variant ffmpeg description {Add support for ffmpeg} {
-    depends_lib-append path:lib/libavcodec.dylib:ffmpeg
+    depends_lib-append port:ffmpeg
     configure.args-append \
         -DModule_vtkIOFFMPEG:BOOL=ON
 }
@@ -102,7 +136,7 @@ variant qt5 description {Add Qt5 support.} {
 }
 
 # Supported pythons
-set python_versions {27 36 37 38 39 310 311}
+set python_versions {39 310 311 312}
 
 foreach pyver ${python_versions} {
     # Conflicting python versions
@@ -136,6 +170,17 @@ foreach pyver ${python_versions} {
                 configure.args-append \
                     -DVTK_USE_SYSTEM_MPI4PY:BOOL=ON
             }
+
+            post-destroot {
+                # generate setup.py and other necessary files to create .dist-info folder
+                system -W ${workpath}/build \"cmake -DVTK_WHEEL_BUILD:BOOL=ON -DVTK_VERSION_SUFFIX= ${worksrcpath}\"
+                set site_pack_dir Library/Frameworks/Python.framework/Versions/${python_branch}/lib/python${python_branch}/site-packages
+                delete -force ${workpath}/build/vtkmodules
+                copy ${workpath}/build/\${site_pack_dir}/vtkmodules ${workpath}/build
+                # create the .dist-info folder and contents
+                system -W ${workpath}/build \"${prefix}/bin/python${python_branch} setup.py dist_info\"
+                copy ${workpath}/build/${name}-${version}.dist-info ${destroot}${prefix}/\${site_pack_dir}
+            }
     "
 }
 
@@ -155,15 +200,6 @@ variant xdmf description {Add XDMF readers} {
 if {[mpi_variant_isset]} {
     configure.args-append \
         -DVTK_Group_MPI:BOOL=ON
-
-}
-
-if {${os.platform} eq "darwin" && ${os.major} < 11} {
-    known_fail yes
-    pre-fetch {
-        ui_error "${name} @${version} requires macOS 10.7 or greater."
-        return -code error "incompatible macOS X version"
-    }
 }
 
 livecheck.type      regex

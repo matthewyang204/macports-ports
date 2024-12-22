@@ -3,26 +3,27 @@
 PortSystem          1.0
 PortGroup           R 1.0
 
-R.setup             cran YuLab-SMU yulab.utils 0.1.4
+R.setup             cran YuLab-SMU yulab.utils 0.1.8
 revision            0
+platforms           {darwin any}
 maintainers         nomaintainer
 license             Artistic-2
 description         Miscellaneous functions commonly used by YuLab-SMU
 long_description    {*}${description}
 homepage            https://yulab-smu.top
-checksums           rmd160  edd2fcb88ca43e7fc1d8c19aa8bab2a7c6b035c1 \
-                    sha256  32d4e1b0bfe94b9c051615e65d90fc2bd14e1d6019706cbc483f84c3cd8d3154 \
-                    size    15750
+checksums           rmd160  d93c51055bd42ea612d775ca8e451e943d112a60 \
+                    sha256  1c492439f7083d67cebead1b3504f781f126f741642a462519bb2818896912b6 \
+                    size    24528
 supported_archs     noarch
 
 depends_lib-append  port:R-cli \
                     port:R-digest \
                     port:R-fs \
-                    port:R-memoise \
                     port:R-rlang
 
-depends_test-append port:R-httr \
+depends_test-append port:R-httr2 \
                     port:R-jsonlite \
-                    port:R-openssl
+                    port:R-openssl \
+                    port:R-rappdirs
 
 test.run            yes

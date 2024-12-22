@@ -2,19 +2,17 @@
 
 PortSystem          1.0
 PortGroup           muniversal 1.0
-PortGroup           compiler_blacklist_versions 1.0
 PortGroup           legacysupport 1.1
 
 # error: 'TARGET_OS_OSX' is not defined
 legacysupport.newest_darwin_requires_legacy 14
 
 name                libressl-devel
-version             3.8.1
+version             3.9.0
 revision            0
 distname            libressl-${version}
 
 categories          security devel
-platforms           darwin
 license             OpenSSL SSLeay
 maintainers         {@artkiver gmail.com:artkiver} {cal @neverpanic} openmaintainer
 
@@ -30,9 +28,9 @@ homepage            https://www.libressl.org
 conflicts           openssl libressl
 
 master_sites        openbsd:LibreSSL
-checksums           rmd160  76905e950b3d51f0b8a821bfc1986f9d098b3e0e \
-                    sha256  c29bd6d9522746773cb9e4126d5a9a2c35ea5505f6fd49b679173f2b46e57372 \
-                    size    4436064
+checksums           rmd160  1ed857bc5a017ca1476858981e58ebe923b2b8cb \
+                    sha256  1cc232418498de305e6d5cb80c94a16415c01dcb3cd98f2e8c3a2202091a3420 \
+                    size    4360845
 
 patchfiles \
     openssldir-cert.pem.patch
@@ -45,11 +43,26 @@ post-patch {
     reinplace "s|@OPENSSLDIR@|${prefix}/etc/ssl|" ${worksrcpath}/include/openssl/opensslconf.h
 }
 
-# aesni-macosx-x86_64.S:890:2: error: invalid
-# instruction mnemonic 'endbr64'
-# uses newer assembly features on Intel
-compiler.blacklist-append \
-                     {clang < 1001}
+# https://github.com/macports/macports-ports/pull/26250#issuecomment-2437709579
+# https://trac.macports.org/ticket/69490
+# LibreSSL 3.8 (and later in OpenSSL 3.4) implements new intrinsic code
+# that increases compiler requirements. We can only use bootstrap Clang
+# because the newer one depends on openssl and causes a dependency cycle.
+if {${os.platform} eq "darwin" && ${os.major} < 18 && ${os.major} > 8} {
+    if {${configure.build_arch} in {"x86_64" "i386"}} {
+        depends_build-append port:clang-11-bootstrap
+        depends_skip_archcheck-append clang-11-bootstrap
+        configure.cc ${prefix}/libexec/clang-11-bootstrap/bin/clang
+        configure.cxx ${prefix}/libexec/clang-11-bootstrap/bin/clang++
+        # https://trac.macports.org/ticket/71201
+        # https://trac.macports.org/ticket/71246
+        # cctools is only needed for Snow Leopard i386/x86_64 and older.
+        # On Yosemite and newer systems it triggers the dependency cycle again.
+        if {${os.major} < 11} {
+            depends_build-append port:cctools
+        }
+    }
+}
 
 # HOST_ASM_MACOSX_X86_64 gets set when building i386 on x86_64
 set merger_configure_args(i386)     --disable-asm

@@ -3,7 +3,7 @@
 PortSystem          1.0
 PortGroup           R 1.0
 
-R.setup             cran ecmerkle blavaan 0.5-3
+R.setup             cran ecmerkle blavaan 0.5-6
 revision            0
 categories-append   math economics
 maintainers         {@barracuda156 gmail.com:vital.had} openmaintainer
@@ -11,11 +11,13 @@ license             GPL-3+
 description         Bayesian latent variable analysis
 long_description    {*}${description}
 homepage            https://ecmerkle.github.io/blavaan
-checksums           rmd160  7e0e50371a535d78ceb9afca2184100be4b6b94c \
-                    sha256  47d56ed890d0f25539d3ae1b1b11e863f5d87b4d42167e75f01cadbcb5668df6 \
-                    size    1625254
+checksums           rmd160  172aea3afc9df0982e0a3763f7378897947080b3 \
+                    sha256  1e1f3c9debdc14b39a9ae98ef4269457cac19b9015aa6f7b0196a865d4d37b51 \
+                    size    1639321
 
 # See: https://github.com/stan-dev/rstan/issues/1095
+# This is a safe choice. Possibly, on some 32-bit configurations
+# it may work without a patch as well.
 if {${configure.build_arch} in [list i386 ppc]} {
     # We cannot patch Makevars directly, since it is overwritten by rstantools.
     # Instead, patch configure to pass the flag.

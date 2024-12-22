@@ -5,17 +5,30 @@ PortGroup           muniversal 1.0
 PortGroup           mpi 1.0
 PortGroup           legacysupport 1.1
 PortGroup           compiler_blacklist_versions 1.0
+PortGroup           github 1.0
 
-name                hdf5
-version             1.14.3
-set mainversion     [lrange [split ${version} -] 0 0]
-revision            4
-set shortversion    [join [lrange [split ${mainversion} .] 0 1] .]
+github.setup        HDFGroup hdf5 1.14.5 hdf5_
+set distversion     1.14.5
+revision            0
+
+# A temporary fix for non-MPI version.
+# Please remove this with the next update.
+# https://trac.macports.org/ticket/67893
+if {${os.platform} eq "darwin" && ${configure.cxx_stdlib} ne "libc++"} {
+    if {![mpi_variant_isset]} {
+        incr revision
+    }
+}
+
+#set mainversion     [lindex [split ${distversion} -] 0]
+#set shortversion    [join [lrange [split ${mainversion} .] 0 1] .]
+
 categories          science
 maintainers         {eborisch @eborisch} openmaintainer
 
 description         HDF5 general purpose library and file format for storing\
                     scientific data
+
 long_description    HDF5 is a data model, library, and file format for storing\
                     and managing data. It supports an unlimited variety of\
                     datatypes, and is designed for flexible and efficient I/O\
@@ -24,19 +37,18 @@ long_description    HDF5 is a data model, library, and file format for storing\
                     of HDF5. The HDF5 Technology suite includes tools and\
                     applications for managing, manipulating, viewing, and\
                     analyzing data in the HDF5 format.
-homepage            https://www.hdfgroup.org/solutions/hdf5/
-platforms           darwin
 
-distfiles           ${name}-${version}.tar.bz2
-master_sites \
-    https://support.hdfgroup.org/ftp/HDF5/releases/hdf5-${shortversion}/hdf5-${mainversion}/src
+homepage            https://www.hdfgroup.org/solutions/hdf5/
+github.tarball_from releases
+distname            ${name}-${distversion}
+
 checksums \
-    rmd160  4038e67868ffa4d5bde3ed02a5cd03f24056b072 \
-    sha256  9425f224ed75d1280bb46d6f26923dd938f9040e7eaebf57e66ec7357c08f917 \
-    size    16320137
+    rmd160  c76f89f3d1055a2c81f35865ce313f38bc371c2a \
+    sha256  ec2e13c52e60f9a01491bb3158cb3778c985697131fc6a342262d32a26e58e44 \
+    size    37879624
+
 mpi.setup           -gcc44 -gcc45
 
-use_bzip2           yes
 depends_lib         port:zlib port:libaec
 use_parallel_build  yes
 
@@ -139,6 +151,9 @@ variant cxx description {
 } {
     configure.args-delete       --disable-cxx
     configure.args-append       --enable-cxx
+
+    # See: https://github.com/ubarsc/kealib/issues/42
+    compiler.cxx_standard       2011
 }
 
 variant fortran description {
@@ -210,6 +225,7 @@ Otherwise errors such as "unable to open file" or "HDF5 error" may be\
 encountered.
 }
 
-livecheck.type      regex
-livecheck.url       https://www.hdfgroup.org/downloads/hdf5
-livecheck.regex     hdf5-(\[0-9.-\]+)-Std
+# Now attempting livecheck via github portgroup.
+#livecheck.type      regex
+#livecheck.url       https://www.hdfgroup.org/downloads/hdf5
+#livecheck.regex     hdf5-(\[0-9.-\]+)-Std

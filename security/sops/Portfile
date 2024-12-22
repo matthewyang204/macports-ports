@@ -3,8 +3,9 @@
 PortSystem          1.0
 PortGroup           golang 1.0
 
-go.setup            github.com/mozilla/sops 3.8.1 v
+go.setup            github.com/mozilla/sops 3.9.2 v
 go.package          go.mozilla.org/sops/v3
+go.offline_build    no
 github.tarball_from archive
 revision            0
 
@@ -20,15 +21,15 @@ license             MPL-2
 maintainers         {gmail.com:herby.gillot @herbygillot} \
                     openmaintainer
 
-checksums           rmd160  818f57d40e04f61d71e658da03390df34a34f524 \
-                    sha256  5ca70fb4f96797d09012c705a5bb935835896de7bcd063b98d498912b0e645a0 \
-                    size    229477
-
-# Allow Go to download dependencies at build time for now.
-# https://trac.macports.org/ticket/61192
-go.offline_build no
+checksums           rmd160  ceffa5b651adbac89b21ef2fe114b6265d283018 \
+                    sha256  8d4cbb30afacc88b5b55d1f7c9b22c82e2dde68905dc8e797a52aafe2c96f466 \
+                    size    251323
 
 build.target        ./cmd/sops
+
+pre-build {
+    system -W ${worksrcpath} "${go.bin} mod tidy"
+}
 
 destroot {
     xinstall -m 0755 ${worksrcpath}/${name} ${destroot}${prefix}/bin/

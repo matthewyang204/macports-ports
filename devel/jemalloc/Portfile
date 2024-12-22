@@ -33,12 +33,12 @@ if {${subport} eq ${name}} {
 }
 
 subport jemalloc-devel {
-    github.setup        jemalloc jemalloc 1aba4f41a3fef53fa913e655444dbba53a0c82df
-    version             2024.02.16
+    github.setup        jemalloc jemalloc b82333fdec6e5833f88780fcf1fc50b799268e1b
+    version             2024.11.09
     conflicts           jemalloc
-    checksums           rmd160  07d83abdd0a3985f77458d4d6f7d10c1dacb1ad4 \
-                        sha256  172be6ff5538281b8073057c579f7182e698691da1d7fd65e5aee3a0df1da1a5 \
-                        size    834502
+    checksums           rmd160  549ccb21289a1ef87e1bca317d8fc4c158b3d26c \
+                        sha256  b804a1fcabf4943ddf1740b810d7f2e66ead74a0287e30afaeb8c5ff0b617002 \
+                        size    858359
     github.tarball_from archive
 
     use_autoreconf      yes

@@ -4,9 +4,9 @@ PortSystem          1.0
 PortGroup           active_variants 1.1
 
 name                gretl
-version             2023c
+version             2024d
 revision            0
-categories          math
+categories          math economics
 license             GPL-3
 maintainers         nomaintainer
 
@@ -21,16 +21,18 @@ homepage            https://gretl.sourceforge.net/
 master_sites        sourceforge
 use_xz              yes
 
-checksums           rmd160  4cf4f6fe4323debb48b2545f884843ffcb26b7a8 \
-                    sha256  bd3c42987ad3a584e8f4220fa2eb140a7a5c6a54ba70dd6ef1b45a389caee8c2 \
-                    size    14359624
+checksums           rmd160  d1087b2c68c2f2c022c6ce9b67df44f26ec39dc1 \
+                    sha256  9903568c273db09b6931bc2077408d8c08b2bda4e783a0ea5b2cbc59b5b5dbac \
+                    size    14778224
 
-depends_build       port:pkgconfig \
-                    port:gmake
-
-depends_lib         port:curl \
-                    port:fftw-3 \
+depends_build-append \
                     port:gettext \
+                    port:gmake \
+                    path:bin/pkg-config:pkgconfig
+
+depends_lib-append  port:curl \
+                    port:fftw-3 \
+                    port:gettext-runtime \
                     path:lib/pkgconfig/glib-2.0.pc:glib2 \
                     port:gmp \
                     port:json-glib \
@@ -39,6 +41,9 @@ depends_lib         port:curl \
                     port:mpfr \
                     port:readline
 
+# 2024c added code which assumes OpenMP without checking if it is enabled.
+patchfiles-append   patch-fix-gretl_matrix.c.diff
+
 configure.args-append \
                     --disable-avx \
                     --disable-gui \
@@ -46,6 +51,7 @@ configure.args-append \
                     --disable-xdg \
                     --disable-xdg-utils \
                     --enable-gmp \
+                    --enable-json \
                     --enable-www \
                     --without-libR \
                     --without-mpi \
@@ -57,6 +63,7 @@ configure.args-append \
                     --with-readline-prefix=${prefix}
 
 compiler.c_standard 1999
+
 configure.cflags-append -std=c99
 
 build.cmd           gmake

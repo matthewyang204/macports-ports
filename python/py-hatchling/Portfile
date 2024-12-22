@@ -5,7 +5,7 @@ PortGroup           python 1.0
 PortGroup           select 1.0
 
 name                py-hatchling
-version             1.21.1
+version             1.27.0
 revision            0
 supported_archs     noarch
 platforms           {darwin any}
@@ -15,14 +15,13 @@ description         This is the extensible, standards compliant build backend us
 long_description    {*}${description}
 homepage            https://hatch.pypa.io/latest/
 
-checksums           rmd160  fb5d42531a346ea999a3b5ab1dffb9ce5999038c \
-                    sha256  bba440453a224e7d4478457fa2e8d8c3633765bafa02975a6b53b9bf917980bc \
-                    size    58059
+checksums           rmd160  201c9cd8d9d82d2040d89aad3e6b82d9a5839356 \
+                    sha256  971c296d9819abb3811112fc52c7a9751c8d381898f36533bb16f9791e941fd6 \
+                    size    54983
 
-python.versions     37 38 39 310 311 312
+python.versions     37 38 39 310 311 312 313
 
 if {${name} ne ${subport}} {
-    python.pep517   yes
     # Bootstraps itself, no backend dependencies needed
     python.pep517_backend
 

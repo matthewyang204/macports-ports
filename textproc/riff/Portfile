@@ -4,7 +4,7 @@ PortSystem          1.0
 PortGroup           cargo   1.0
 PortGroup           github  1.0
 
-github.setup        walles riff 3.0.0
+github.setup        walles riff 3.3.7
 github.tarball_from archive
 revision            0
 
@@ -20,9 +20,9 @@ maintainers         {gmail.com:herby.gillot @herbygillot} \
                     openmaintainer
 
 checksums           ${distname}${extract.suffix} \
-                    rmd160  7a40ff588cc9f5853277a6530ddaba482839e8c3 \
-                    sha256  693821b00a95aa0d6b215ab96f3bca5c1a5fc9cf07e7bd80261941a0afb81a4e \
-                    size    1057456
+                    rmd160  84b440deba8911df7c705c372e83760996172b51 \
+                    sha256  5b3a17e98fd134e3b803125ab0e2ecfb0f55b7a2a26e8f401d9ed7c1c43beb12 \
+                    size    2172918
 
 patchfiles          patch-src-main-rs-moar-pager.diff
 
@@ -58,7 +58,6 @@ cargo.crates \
     colorchoice                      1.0.0  acbf1af155f9b9ef647e42cdc158db4b64a1b61f743629225fde6f3e0be2a7c7 \
     ctor                            0.1.16  7fbaabec2c953050352311293be5c6aba8e141ba19d6811862b232d6fd020484 \
     difference                       2.0.0  524cbf6897b527295dff137cec09ecf3a05f4fddffd7dfcd1585403449e74198 \
-    diffus                          0.10.0  3c0ff24a73b51d9009c40897faf87d31b77345c90ffbf4dc3a1d2957032c5653 \
     either                           1.6.1  e78d4f1cc4ae33bbfc157ed5d5a5ef3bc29227303d595861deb238fcec4e9457 \
     errno                            0.3.5  ac3e13f66a2f95e32a39eaa81f6b95d42878ca0e1db0c7543723dfe12557e860 \
     fastrand                         1.9.0  e51093e27b0797c359783294ca4f0a911c270184cb10f85783b118614a1501be \
@@ -73,6 +72,7 @@ cargo.crates \
     lazy_static                      1.4.0  e2abad23fbc42b3700f2f279844dc832adb2b2eb069b2df918f455c4e18cc646 \
     libc                           0.2.140  99227334921fae1a979cf0bfdfcc6b3e5ce376ef57e16fb6fb3ea2ed6095f80c \
     linux-raw-sys                    0.1.4  f051f77a7c8e6957c0696eac88f26b0117e54f52d3fc682ab19397a8812846a4 \
+    log                             0.4.21  90ed8c1e510134f979dbc4f070f87d4313098b704861a105fe34231c70a3901c \
     memchr                           2.5.0  2dffe52ecf27772e601905b7522cb4ef790d2cc203488bbd0e2fe85fcb74566d \
     miniz_oxide                      0.4.3  0f2d26ec3309788e423cfbf68ad1800f061638098d76a83681af979dc4eda19d \
     num_cpus                        1.13.0  05499f3756671c15885fee9034446956fff3f243d6077b91e5767df161f766b3 \
@@ -87,6 +87,8 @@ cargo.crates \
     regex-syntax                    0.6.26  49b3de9ec5dc0a3417da371aab17d729997c15010e7fd24ff707773a33bddb64 \
     rustc-demangle                  0.1.18  6e3bad0ee36814ca07d7968269dd4b7ec89ec2da10c4bb613928d3077083c232 \
     rustix                         0.36.16  6da3636faa25820d8648e0e31c5d519bbb01f72fdf57131f0f5f7da5fed36eab \
+    rustversion                     1.0.18  0e819f2bc632f285be6d7cd36e25940d45b2391dd6d9b939e79de557f7014248 \
+    similar                          2.6.0  1de1d4f81173b03af4c0cbed3c898f6bff5b870e4a7f5d6f4057d62a7a4b686e \
     strsim                          0.10.0  73473c0e59e6d5812c5dfe2a064a6444949f089e20eec9a2e5506596494e4623 \
     syn                             1.0.48  cc371affeffc477f42a221a1e4297aedcea33d47d19b61455588bd9d8f6b19ac \
     syn                             2.0.30  0ddc1f908d32ec46858c2d3b3daa00cc35bf4b6841ce4355c7bb3eedf2283a68 \

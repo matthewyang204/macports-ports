@@ -3,17 +3,18 @@
 PortSystem          1.0
 PortGroup           R 1.0
 
-R.setup             cran cran sasLM 0.10.1
+R.setup             cran r-project sasLM 0.10.4
 revision            0
 categories-append   math
 maintainers         nomaintainer
 license             GPL-3
 description         SAS Linear Model
 long_description    {*}${description}
-checksums           rmd160  1c2ec5300341b72ee730c9999876e95cb9bb2e0e \
-                    sha256  b554f7c947c5e5d0b772342502d4ba964060049484957f8d07c2311f03e256b2 \
-                    size    1078074
+checksums           rmd160  f27d09b79a3733c61ecf0da976bd64345a5b0d78 \
+                    sha256  783a87139b6944d96cc6dfdb3c10eb0fce48e6138fdc6da51283fb60811d5c69 \
+                    size    835995
 supported_archs     noarch
+platforms           {darwin any}
 
 depends_lib-append  port:R-mvtnorm
 

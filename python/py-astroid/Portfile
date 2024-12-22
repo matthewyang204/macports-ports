@@ -4,7 +4,7 @@ PortSystem          1.0
 PortGroup           python 1.0
 
 name                py-astroid
-version             3.0.3
+version             3.3.5
 revision            0
 
 categories-append   devel
@@ -12,7 +12,7 @@ license             LGPL-2.1+
 supported_archs     noarch
 platforms           {darwin any}
 
-python.versions     38 39 310 311 312
+python.versions     39 310 311 312 313
 
 maintainers         {stromnov @stromnov} openmaintainer
 
@@ -26,20 +26,12 @@ long_description    The aim of this module is to provide a common \
 
 homepage            https://github.com/pylint-dev/astroid
 
-checksums           rmd160  c67c67a96bf68cd266746bac466b605da0857c86 \
-                    sha256  4148645659b08b70d72460ed1921158027a9e53ae8b7234149b1400eddacbb93 \
-                    size    395183
+checksums           rmd160  dbd64f108e606e28f6368d0a917dd7a9a4d303f4 \
+                    sha256  5cfc40ae9f68311075d27ef68a4841bdc5cc7f6cf86671b49f00607d30188e2d \
+                    size    397229
 
 if {${name} ne ${subport}} {
-    depends_lib-append  port:py${python.version}-lazy_object_proxy \
-                        port:py${python.version}-wrapt
-
     if {${python.version} < 311} {
         depends_lib-append  port:py${python.version}-typing_extensions
-    }
-
-    post-patch {
-        reinplace "s|setuptools~=62.6|setuptools|g" ${worksrcpath}/pyproject.toml
-        reinplace "s|wheel~=0.37.1|wheel|g" ${worksrcpath}/pyproject.toml
     }
 }

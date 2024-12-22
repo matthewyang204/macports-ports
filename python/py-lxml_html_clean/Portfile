@@ -1,0 +1,28 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+
+PortSystem          1.0
+PortGroup           python 1.0
+
+name                py-lxml_html_clean
+version             0.4.1
+revision            0
+license             BSD
+maintainers         {mps @Schamschula} openmaintainer
+description         HTML cleaner is blocklist-based. 
+long_description    {*}${description} This project was initially a part of lxml, but \
+                    many reports about possible security vulnerabilities were filed \
+                    for lxml and that make the project problematic for \
+                    security-sensitive environments. Therefore we decided to extract \
+                    the problematic part to a separate project.
+homepage            https://github.com/fedora-python/lxml_html_clean/
+
+checksums           rmd160  57bacc7803d5f8baa5166478c3ef6fae27bb21d7 \
+                    sha256  40c838bbcf1fc72ba4ce811fbb3135913017b27820d7c16e8bc412ae1d8bc00b \
+                    size    21378
+
+python.versions     39 310 311 312 313
+
+if {${name} ne ${subport}} {
+    depends_lib-append  \
+                    port:py${python.version}-lxml
+}

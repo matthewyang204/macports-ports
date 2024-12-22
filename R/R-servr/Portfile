@@ -3,16 +3,18 @@
 PortSystem          1.0
 PortGroup           R 1.0
 
-R.setup             github yihui servr 0.29 v
+R.setup             github yihui servr 0.32 v
 revision            0
 categories-append   www
+platforms           {darwin any}
 maintainers         nomaintainer
 license             GPL
 description         Simple HTTP server to serve static files or dynamic documents
 long_description    {*}${description}
-checksums           rmd160  8943271809c06d0ff3d114b54819f6abc59be51b \
-                    sha256  a8163c6e0b35c99219d91c8fbcfd611c6d3baa959bbcbe0b8c488967c2b6a812 \
-                    size    30999
+checksums           rmd160  52bf121eb4fb387140b8ea4c95b52131b21e8c59 \
+                    sha256  0a9227b9b1a0e22d4f944b28de98578830007047d83e0bb5b90a3a78eb0208d8 \
+                    size    31572
+github.tarball_from archive
 supported_archs     noarch
 
 depends_lib-append  port:R-httpuv \

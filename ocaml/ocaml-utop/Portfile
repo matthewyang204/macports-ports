@@ -5,7 +5,7 @@ PortGroup           github 1.0
 PortGroup           ocaml 1.1
 
 name                ocaml-utop
-github.setup        ocaml-community utop 2.13.1
+github.setup        ocaml-community utop 2.15.0
 revision            0
 categories          ocaml devel editors
 maintainers         {@barracuda156 gmail.com:vital.had} openmaintainer
@@ -14,9 +14,9 @@ description         Universal toplevel (i.e. REPL) for OCaml
 long_description    utop is an improved toplevel (i.e. Read-Eval-Print Loop) for OCaml. It can run in a terminal or in Emacs. \
                     It supports line editing, history, real-time and context sensitive completion, colors and more.
 
-checksums           rmd160  cd4469e57daba177ee254c8a65c2242bb9a5d629 \
-                    sha256  df98761c50905ec6351b6bf92377e1d9d14784a282bfd3575d9494bce16d5e61 \
-                    size    417122
+checksums           rmd160  6095c2ee01ee635d691b269efe58f6ada20200dd \
+                    sha256  7659dea0a7f7a5b16e30024ee681445179f8c0f87630e5cdae554280dacd6fac \
+                    size    418750
 github.tarball_from archive
 
 depends_lib-append  port:ocaml-cppo \
@@ -30,3 +30,7 @@ depends_lib-append  port:ocaml-cppo \
                     port:ocaml-xdg
 
 ocaml.build_type    dune
+
+depends_test-append port:ocaml-alcotest
+
+test.run            yes

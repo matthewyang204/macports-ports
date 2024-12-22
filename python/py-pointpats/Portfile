@@ -4,7 +4,7 @@ PortSystem          1.0
 PortGroup           python 1.0
 
 name                py-pointpats
-version             2.4.0
+version             2.5.1
 revision            0
 
 categories-append   gis
@@ -21,22 +21,34 @@ long_description    The PySAL {*}${description} package is an open-source \
 
 homepage            https://pysal.org/pointpats/
 
-checksums           rmd160  964b6b5519669a3f2694158b995280d897407a22 \
-                    sha256  df6344e19136d7256abc99aaac404be961ae6f5c316fa05ca1b6e17892c59e27 \
-                    size    4269592
+checksums           rmd160  fe3ee52c35a28b551a79e015a497f92e312294a9 \
+                    sha256  1eedb30a17e59746ed9ac68283f419dee5a07c17cd53ed2bc2dadba2b77973ff \
+                    size    4270216
 
 python.versions     39 310 311 312
-python.pep517       yes
 
 if {${name} ne ${subport}} {
     depends_build-append \
-                    port:py${python.version}-setuptools \
                     port:py${python.version}-setuptools_scm
 
     depends_run-append \
-                    port:py${python.version}-scipy \
+                    port:py${python.version}-geopandas \
+                    port:py${python.version}-libpysal \
+                    port:py${python.version}-matplotlib \
                     port:py${python.version}-numpy \
                     port:py${python.version}-pandas \
-                    port:py${python.version}-matplotlib \
-                    port:py${python.version}-libpysal
+                    port:py${python.version}-scipy \
+                    port:py${python.version}-shapely
+
+    if {${python.version} == 39} {
+        version         2.4.0
+        revision        0
+        checksums       rmd160  964b6b5519669a3f2694158b995280d897407a22 \
+                        sha256  df6344e19136d7256abc99aaac404be961ae6f5c316fa05ca1b6e17892c59e27 \
+                        size    4269592
+
+        depends_run-delete \
+                    port:py${python.version}-geopandas \
+                    port:py${python.version}-shapely
+    }            
 }

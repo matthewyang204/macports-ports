@@ -4,7 +4,7 @@ PortSystem              1.0
 PortGroup               python 1.0
 
 name                    hg-git
-version                 1.1.0
+version                 1.1.4
 revision                0
 
 categories              devel
@@ -21,10 +21,11 @@ long_description        This is the Hg-Git plugin for Mercurial, adding the abil
                         or use a Git server as a collaboration point for a team with \
                         developers using both Git and Mercurial.
 
-checksums               rmd160  0611c428e88be04f473da2f8a8c0a176b8e79a0d \
-                        sha256  6ed11a9862ea082e4f4628311db7b8f7f6e724d5469ba0b37fce7625a01d077f \
-                        size    218228
+checksums               rmd160  bfdf652506deda7e1cd908ddea9888f4f59a0872 \
+                        sha256  5c5f6f02dbd42b9c913f83b166ff37fc00368dd7b9b7bcdade3aa0cae5dce5e5 \
+                        size    219977
 
+distname                [string map {- _} ${python.rootname}]-${version}
 python.default_version  311
 python.pep517           yes
 

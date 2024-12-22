@@ -2,39 +2,44 @@
 
 PortSystem          1.0
 
-name                openjdk11
-# See https://github.com/openjdk/jdk11u/tags for the version and build number that matches the latest tag that ends with '-ga'
-version             11.0.22
-set build 7
+set feature 11
+name                openjdk${feature}
+# See https://openjdk-sources.osci.io/openjdk11/ for the version and build number that matches the latest '-ga' version
+version             ${feature}.0.25
+set build 9
 revision            0
 categories          java devel
 supported_archs     x86_64 arm64
 license             GPL-2+
 maintainers         {outlook.com:usersword123 @usersxx} openmaintainer
-description         OpenJDK 11
-long_description    JDK 11 builds of OpenJDK, the Open-Source implementation \
+description         OpenJDK ${feature}
+long_description    JDK ${feature} builds of OpenJDK, the Open-Source implementation \
                     of the Java Platform, Standard Edition, and related projects.
-homepage            https://openjdk.org/projects/jdk/11/
-master_sites        https://github.com/openjdk/jdk11u/archive/refs/tags
-distname            jdk-${version}-ga
-worksrcdir          jdk11u-${distname}
+homepage            https://openjdk.org/projects/jdk/${feature}/
+master_sites        https://openjdk-sources.osci.io/openjdk${feature}/
+distname            openjdk-${version}-ga
+use_xz              yes
+worksrcdir          jdk-${version}+${build}
 
-checksums           rmd160  99ff7e4128c9082f7da5e29059015fe4a6604c69 \
-                    sha256  5ed47173679cdfefa0cb9fc92d443413e05ab2e157a29bb86e829d7f6a80913a \
-                    size    116235391
+checksums           rmd160  b0edf71371b1e0114ca6fe8de4b111e09b80ea48 \
+                    sha256  6eaf2248b50c1d46b6405d26018ba6fa975c60f7682a85909a9f466282e39ca2 \
+                    size    72344244
 
 depends_lib         port:freetype \
                     port:libiconv
 depends_build       port:autoconf \
                     port:gmake \
                     port:bash \
-                    port:openjdk11-bootstrap
+                    port:openjdk${feature}-bootstrap
 
 pre-patch {
     reinplace "s|libffi.so.?|libffi.?.dylib|g" ${worksrcpath}/make/autoconf/lib-ffi.m4
     reinplace "s|xmacosx|xwindows|g" ${worksrcpath}/make/autoconf/lib-freetype.m4
     reinplace "s|assert|vmassert|g" ${worksrcpath}/src/hotspot/share/jfr/periodic/jfrNetworkUtilization.cpp
 }
+
+# Temporary workaround for clang 16: https://trac.macports.org/ticket/70819
+patchfiles          JDK-8340341-clang-16-workaround.patch
 
 set tpath ${prefix}/Library/Java
 use_configure    yes
@@ -50,7 +55,7 @@ configure.args      --with-debug-level=release \
                     --with-extra-cflags="${configure.cflags}" \
                     --with-extra-cxxflags="${configure.cxxflags}" \
                     --with-extra-ldflags="${configure.ldflags}" \
-                    --with-boot-jdk=/Library/Java/JavaVirtualMachines/openjdk11-bootstrap/Contents/Home \
+                    --with-boot-jdk=/Library/Java/JavaVirtualMachines/openjdk${feature}-bootstrap/Contents/Home \
                     --with-freetype=system \
                     --with-freetype-include=${prefix}/include/freetype2 \
                     --with-freetype-lib=${prefix}/lib \
@@ -60,7 +65,7 @@ configure.args      --with-debug-level=release \
                     --with-vendor-url="https://www.macports.org" \
                     --with-vendor-bug-url="${bug_url}" \
                     --with-vendor-vm-bug-url="${bug_url}" \
-                    --with-conf-name=openjdk11
+                    --with-conf-name=openjdk${feature}
 
 if {[option configure.ccache]} {
     # replace MacPorts ccache integration into JDK
@@ -144,7 +149,7 @@ build.type          gnu
 build.target        images
 use_parallel_build  no
 set jdkn jdk-${version}.jdk
-set bundle_dir build/openjdk11/images/jdk-bundle/${jdkn}/Contents
+set bundle_dir build/openjdk${feature}/images/jdk-bundle/${jdkn}/Contents
 
 test.run            yes
 test.cmd            ${bundle_dir}/Home/bin/java
@@ -174,6 +179,6 @@ export JAVA_HOME=${jdk}/Contents/Home
 "
 
 livecheck.type      regex
-livecheck.url       https://github.com/openjdk/jdk11u/tags
-livecheck.regex     jdk-(\[0-9.\]+)-ga
+livecheck.url       https://openjdk-sources.osci.io/openjdk${feature}/
+livecheck.regex     openjdk-(\[0-9.\]+)-ga
 

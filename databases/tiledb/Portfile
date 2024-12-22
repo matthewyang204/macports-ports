@@ -13,7 +13,7 @@ legacysupport.newest_darwin_requires_legacy 19
 # See discussion in: https://github.com/macports/macports-ports/pull/19686
 legacysupport.use_mp_libcxx yes
 
-github.setup        TileDB-Inc TileDB 2.20.1
+github.setup        TileDB-Inc TileDB 2.26.2
 name                tiledb
 revision            0
 categories          databases
@@ -22,9 +22,9 @@ maintainers         {@barracuda156 gmail.com:vital.had} openmaintainer
 description         The universal storage engine
 long_description    {*}${description}
 homepage            https://tiledb.com
-checksums           rmd160  55536b56429c847788560897f528bc4280e8dde8 \
-                    sha256  d9d52de7eef25c9e358f0dd6e696dc11a08d5b4d6c4ede88f11afffd32ec31c2 \
-                    size    4416428
+checksums           rmd160  0ea41be4be02e96076913da47ee868736a89f4c2 \
+                    sha256  255218aebd3ef5af4b8deb3be58f877fda335d5abc1c097a33f6741bf259a68d \
+                    size    4220193
 github.tarball_from archive
 
 # Notice that 32-bit platforms are not supported by upstream, and there are reports elsewhere
@@ -39,15 +39,13 @@ set libfmt_ver      10
 cmake.module_path-append \
                     ${prefix}/lib/libfmt${libfmt_ver}/cmake
 
-depends_lib-append  port:blosc \
-                    port:bzip2 \
-                    port:curl \
+depends_lib-append  port:bzip2 \
+                    port:file \
                     port:libfmt${libfmt_ver} \
-                    port:libpng \
                     port:lz4 \
                     port:spdlog \
                     port:zlib \
-                    port:zstd
+                    port:zstdConfig.cmake
 
 depends_build-append \
                     port:gmake
@@ -61,18 +59,9 @@ if {${os.platform} eq "darwin" && ${os.major} < 13} {
 
 if {${os.platform} eq "darwin" && ${os.major} < 20} {
     # This trickery is intended. Normal passing of flags to CMake fails to have a desired effect.
-    # Non-Apple OS on ppc will need libatomic linking too, but leave it until tested.
     patchfiles-append \
                     patch-linking.diff
-
-    post-patch {
-        reinplace "s,@PREFIX@,${prefix},g" ${worksrcpath}/cmake/Modules/FindMagic_EP.cmake
-    }
 }
-
-# Verify if still broken in the next release. Relevant only for build with +tests:
-# https://github.com/TileDB-Inc/TileDB/issues/4590
-patchfiles-append   patch-unit_capi_error_tree.cc-temporary-fix.diff
 
 # Can be rewritten unconditionally, but no point in making a patch more complex:
 if {[string match *gcc* ${configure.compiler}] && ${configure.build_arch} in [list arm i386 ppc]} {
@@ -83,6 +72,10 @@ if {[string match *gcc* ${configure.compiler}] && ${configure.build_arch} in [li
 compiler.cxx_standard       2020
 # https://github.com/TileDB-Inc/TileDB/issues/4566
 compiler.blacklist-append   {clang < 1400}
+# https://github.com/TileDB-Inc/TileDB/issues/5164
+# Update this later once fixed. Also avoid accidental change of compiler
+# being chosen, since clang fails to maintain consistency between its versions.
+compiler.blacklist-append   {macports-clang-1[8-9]} {macports-clang-2[0-9]}
 
 # config modules are defunct.
 # https://github.com/TileDB-Inc/TileDB/issues/4070
@@ -92,13 +85,18 @@ configure.args-append \
                     -DTILEDB_AZURE=OFF \
                     -DTILEDB_CPP_API=ON \
                     -DTILEDB_EXPERIMENTAL_FEATURES=OFF \
+                    -DTILEDB_GCS=OFF \
+                    -DTILEDB_HDFS=OFF \
                     -DTILEDB_SERIALIZATION=OFF \
                     -DTILEDB_TESTS=OFF \
                     -DTILEDB_TOOLS=OFF \
-                    -DTILEDB_VCPKG=OFF \
                     -DTILEDB_VERBOSE=ON \
                     -DTILEDB_WEBP=OFF \
                     -DTILEDB_WERROR=OFF
+
+# Disable auto-downloading of vcpkg. All dependencies will be provided by MacPorts.
+configure.env-append \
+                    TILEDB_DISABLE_AUTO_VCPKG=1
 
 configure.cflags-append \
                     -DSPDLOG_FMT_EXTERNAL=1
@@ -118,8 +116,6 @@ if {${build_arch} eq "i386" && [string match *clang* ${configure.compiler}]} {
                     -Wno-c++11-narrowing
 }
 
-destroot.target     install-tiledb
-
 # FIXME: ppc32 tests build, but fail to pass. Possibly size of bool issue?
 # ppc64 tests are much better, though not clean. See above.
 variant tests description "Enable testing" {
@@ -135,7 +131,8 @@ variant tests description "Enable testing" {
     # https://github.com/TileDB-Inc/TileDB/issues/4590
     # https://github.com/TileDB-Inc/TileDB/issues/4095
     depends_build-append \
-                    port:catch2
+                    port:catch2 \
+                    port:libpng
     # As of 2.19.1, bundled one is broken:
     # :info:build Undefined symbols:
     # :info:build   "__ZN5Catch29formatReconstructedExpressionERSoRKSsNS_9StringRefES2_", referenced from:

@@ -2,8 +2,9 @@
 
 PortSystem                  1.0
 PortGroup                   github 1.0
+PortGroup                   compiler_blacklist_versions 1.0
 
-github.setup                danmar cppcheck 2.13.2
+github.setup                danmar cppcheck 2.16.2
 revision                    0
 
 categories                  devel
@@ -20,9 +21,9 @@ long_description            Cppcheck is an analysis tool for C and C++ code. Unl
 
 github.tarball_from         archive
 
-checksums                   rmd160  62930d28a6b93ac5fc4174a9de5b90280494c9c3 \
-                            sha256  918e34ec10c54ca06b5e3db617816ff29389816752ef7f3f95a5f3d6ed7cd6c7 \
-                            size    3644386
+checksums                   rmd160  03d89adfc12afa2b695c62c699e28f53f9e963e8 \
+                            sha256  521b996cb56b0c30f89e022abcb50aef85d7219cb7a7162fa81fe40fe6394206 \
+                            size    3846122
 
 set python_branch   3.12
 set python_version  [string map {"." ""} ${python_branch}]
@@ -45,6 +46,9 @@ post-patch {
 
 compiler.cxx_standard       2011
 compiler.thread_local_storage yes
+# build/valueflow.cpp:10973:124: error: call
+# to deleted function 'toString' on macOS <10.12
+compiler.blacklist-append   {clang < 900}
 
 use_configure               no
 

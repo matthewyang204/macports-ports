@@ -3,7 +3,7 @@
 PortSystem          1.0
 PortGroup           R 1.0
 
-R.setup             cran cran tm 0.7-11
+R.setup             cran r-project tm 0.7-15
 revision            0
 categories-append   textproc
 maintainers         {@barracuda156 gmail.com:vital.had} openmaintainer
@@ -11,9 +11,9 @@ license             GPL-3
 description         Text Mining
 long_description    A framework for text mining applications within R.
 homepage            https://tm.r-forge.r-project.org
-checksums           rmd160  6444435abbfa99d22ff0f2ea54d5f427194ea4bb \
-                    sha256  9aab8b8493df4c62cff8adbba53be72295673ba8c546cdb129cdc52aabeae742 \
-                    size    312543
+checksums           rmd160  5b0b770f1f8d3861cdc3429dc454e72e4f90dba9 \
+                    sha256  7ca52b47f6d8958dfe40499a87add5f20063b08c686685f4ff773ad5076a5be5 \
+                    size    320466
 
 depends_lib-append  port:R-BH \
                     port:R-NLP \
@@ -21,8 +21,7 @@ depends_lib-append  port:R-BH \
                     port:R-slam \
                     port:R-xml2
 
-patchfiles          patch-missing-deps.diff
-
+# Some optional deps are omitted.
 depends_test-append port:R-antiword \
                     port:R-filehash \
                     port:R-pdftools \

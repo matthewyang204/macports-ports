@@ -3,22 +3,23 @@
 PortSystem          1.0
 PortGroup           R 1.0
 
-R.setup             cran RobinHankin frab 0.0-3
+R.setup             cran RobinHankin frab 0.0-6
 revision            0
 categories-append   math
 maintainers         {@barracuda156 gmail.com:vital.had} openmaintainer
 license             GPL-2+
 description         Alternative interpretation of named vectors
 long_description    {*}${description}
-checksums           rmd160  3e648e345399a3c1b0f15ec74218dd4bb9ece073 \
-                    sha256  9b03487d866e8d6b412b7717a7cfeccf3ee97d3f07d10d065ae8aff1a086d422 \
-                    size    280522
+homepage            https://github.com/RobinHankin/frab
+checksums           rmd160  1718b9f0da79573a1dbe1da717bbac9c1adebf54 \
+                    sha256  ac749f212838ccfde89d468ec09b95ba02db935965972ec97caea390158ba7f0 \
+                    size    111070
 
 depends_lib-append  port:R-disordR \
-                    port:R-mathjaxr \
                     port:R-Rcpp
 
-depends_test-append port:R-knitr \
+depends_test-append port:R-covr \
+                    port:R-knitr \
                     port:R-markdown \
                     port:R-mvtnorm \
                     port:R-rmarkdown \

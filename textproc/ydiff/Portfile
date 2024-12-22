@@ -4,9 +4,9 @@ PortSystem          1.0
 PortGroup           github  1.0
 PortGroup           python  1.0
 
-github.setup        ymattw ydiff 1.2
+github.setup        ymattw ydiff 1.4.2
 github.tarball_from archive
-revision            1
+revision            0
 
 description         \
     View colored, incremental diff in workspace or from stdin with side by \
@@ -21,8 +21,14 @@ maintainers         {gmail.com:herby.gillot @herbygillot} \
 supported_archs     noarch
 platforms           {darwin any}
 
-checksums           rmd160  bc818cfa4fc7e3f1e927103cbbfb540dc33817ed \
-                    sha256  0a0acf326b1471b257f51d63136f3534a41c0f9a405a1bbbd410457cebfdd6a1 \
-                    size    39600
+checksums           rmd160  30750fde10141de3596b3630c682fdce2a1d2a93 \
+                    sha256  1facb8b9097ce98333b913d163bb1d9d110739d550c978862d847b2a314c2850 \
+                    size    2966400
 
-python.default_version      310
+patch {
+    foreach _pyfile [glob ${worksrcpath}/*.py] {
+        reinplace -E "s|^#!/usr/bin/env python3|#!${python.bin}|" ${_pyfile}
+    }
+}
+
+python.default_version 312

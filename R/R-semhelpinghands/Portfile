@@ -3,17 +3,18 @@
 PortSystem          1.0
 PortGroup           R 1.0
 
-R.setup             cran sfcheung semhelpinghands 0.1.9
+R.setup             cran sfcheung semhelpinghands 0.1.12
 revision            0
 categories-append   math
+platforms           {darwin any}
 maintainers         nomaintainer
 license             GPL-3+
 description         Helper functions for structural equation modelling
 long_description    {*}${description}
 homepage            https://sfcheung.github.io/semhelpinghands
-checksums           rmd160  6aecdae7d1d484b6e597b7cde0c7309858b0cc76 \
-                    sha256  302eacb19fc5e45896981358c4c3bb89b5854e782b96c834a68f09b65d38c50f \
-                    size    858639
+checksums           rmd160  42bb35cf9663e7b7691a967d43922993123a0acf \
+                    sha256  71e5f94a2cfa08ff8627cbe2270c40ce374164c14f2386251a3a40555a3cf3b3 \
+                    size    1051279
 supported_archs     noarch
 
 depends_lib-append  port:R-ggplot2 \

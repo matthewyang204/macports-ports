@@ -5,14 +5,14 @@ PortGroup           python 1.0
 PortGroup           select 1.0
 
 name                py-ipython
-version             8.22.2
+version             8.25.0
 revision            0
 categories-append   devel science
 license             BSD
 supported_archs     noarch
 platforms           {darwin any}
 
-python.versions     38 39 310 311 312
+python.versions     38 39 310 311 312 313
 
 maintainers         {aronnax @lpsinger} {stromnov @stromnov} openmaintainer
 
@@ -21,9 +21,9 @@ long_description    {*}${description}
 
 homepage            https://ipython.org/
 
-checksums           rmd160  63afce935775c92552e6b8b068743d3bc31f97d4 \
-                    sha256  2dcaad9049f9056f1fef63514f176c7d41f930daa78d05b82a176202818f2c14 \
-                    size    5490399
+checksums           rmd160  6f75245975469af4b4fe7c9ce7dc4d9b0df1be13 \
+                    sha256  c6ed726a140b6e725b911528f80439c534fac915246af3efc39440a6b0f9d716 \
+                    size    5492936
 
 if {${name} ne ${subport}} {
     set python_major [string index ${python.version} 0]
@@ -62,6 +62,9 @@ if {${name} ne ${subport}} {
     } else {
         if {${python.version} < 311} {
             depends_lib-append  port:py${python.version}-exceptiongroup
+        }
+        if {${python.version} < 312} {
+            depends_lib-append  port:py${python.version}-typing_extensions
         }
     }
 

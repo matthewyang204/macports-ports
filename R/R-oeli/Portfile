@@ -3,17 +3,17 @@
 PortSystem          1.0
 PortGroup           R 1.0
 
-R.setup             cran loelschlaeger oeli 0.4.0
+R.setup             cran loelschlaeger oeli 0.7.0
 revision            0
 categories-append   devel
-maintainers         {@barracuda156 gmail.com:vital.had} openmaintainer
+maintainers         nomaintainer
 license             GPL-3+
 description         Utilities for developing data science software
 long_description    {*}${description}
 homepage            https://github.com/loelschlaeger/oeli
-checksums           rmd160  0f38902b11b7496f0c80839aa4bb38290869cf6e \
-                    sha256  e11c3e6d180767fac777cfb3645cea1bc8d384c9532c977ee104e3a91d4003ea \
-                    size    75526
+checksums           rmd160  741f5864da2a7537af0e41ca17e228a2188159b5 \
+                    sha256  4c73597ce3f348f35b1f0cff9fdbac097cd6eaceffed0fc512b50f80563fce5e \
+                    size    95012
 
 depends_lib-append  port:R-benchmarkme \
                     port:R-checkmate \
@@ -25,6 +25,7 @@ depends_lib-append  port:R-benchmarkme \
                     port:R-RcppArmadillo \
                     port:R-rprojroot \
                     port:R-showtext \
+                    port:R-SimMultiCorrData \
                     port:R-sysfonts \
                     port:R-testthat \
                     port:R-usethis
@@ -33,7 +34,6 @@ compilers.setup     require_fortran
 
 depends_test-append port:R-knitr \
                     port:R-rmarkdown \
-                    port:R-testthat \
                     port:R-xml2
 
 test.run            yes

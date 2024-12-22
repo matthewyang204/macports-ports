@@ -3,7 +3,7 @@
 PortSystem          1.0
 PortGroup           R 1.0
 
-R.setup             cran cran bravo 2.3.1
+R.setup             cran liyangxiaobei bravo 3.2.2
 revision            0
 categories-append   math
 maintainers         nomaintainer
@@ -11,9 +11,9 @@ license             GPL-3
 description         Bayesian screening and variable selection
 long_description    Performs Bayesian variable screening and selection \
                     for ultra-high-dimensional linear regression models.
-checksums           rmd160  f27e0a282820f9fcc4c2cd1247e874a88809760d \
-                    sha256  b963ecc91101ae12a0e4d2eed37f8a16d589cb45255ed38e2d126ac9fa940f12 \
-                    size    15728
+checksums           rmd160  909bdd1cf6c453e186c26c0f47327685a0a8be2c \
+                    sha256  fae2ee804a34a5dcce4ae9c9495be96845bacbaaa5644efdde835ac0aace649a \
+                    size    24722
 
 depends_lib-append  port:R-Rcpp
 

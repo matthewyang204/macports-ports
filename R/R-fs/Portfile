@@ -9,7 +9,7 @@ PortGroup           R 1.0
 legacysupport.newest_darwin_requires_legacy 14
 
 # Revert to GitHub once updated there.
-R.setup             cran r-lib fs 1.6.3
+R.setup             cran r-lib fs 1.6.5
 revision            0
 # libuv version used:
 set uv_ver          1.44.2
@@ -22,11 +22,11 @@ long_description    fs provides a cross-platform, uniform interface to file syst
                     which brings the benefit of extensive real-world use and rigorous cross-platform testing. \
                     The name, and some of the interface, is partially inspired by Rust’s fs module.
 homepage            https://fs.r-lib.org
-checksums           rmd160  a46e5f1167de09a2f987911b7e514f43bc7b4ff1 \
-                    sha256  fa82061e50d7a4d94b7e404f9f2b699e75ae8fbfb575fabdfc2c39f536c0f971 \
-                    size    1185603
+checksums           rmd160  3939e37843360e980cbccefe7b81f50ba1a4ae06 \
+                    sha256  0e3b4d40215bee77b52d158a2e4967f4408721576aaf39bc6a77024522c70b34 \
+                    size    1200455
 
-patch.pre_args      -p1
+patch.pre_args-replace  -p0 -p1
 patchfiles          0001-fs-fix-libuv-for-10.7.patch \
                     0002-core.c-patch-close_nocancel.patch
 
@@ -34,7 +34,12 @@ if {${os.platform} eq "darwin" && ${os.major} < 15} {
     patchfiles-append \
                     0003-libuv-link-to-legacysupport.patch
     post-patch {
-        reinplace "s|@PREFIX@|${prefix}|g" ${worksrcpath}/src/Makevars
+        # https://trac.macports.org/ticket/69853
+        if {[string match *clang* ${configure.compiler}]} {
+            reinplace "s|@MP_FLAGS@|-I${prefix}/include/LegacySupport -Wno-error=incompatible-function-pointer-types|" ${worksrcpath}/src/Makevars
+        } else {
+            reinplace "s|@MP_FLAGS@|-I${prefix}/include/LegacySupport|" ${worksrcpath}/src/Makevars
+        }
     }
 }
 

@@ -4,7 +4,7 @@ PortSystem          1.0
 PortGroup           python 1.0
 
 name                py-whatthepatch
-version             1.0.5
+version             1.0.7
 revision            0
 
 categories-append   devel
@@ -18,11 +18,11 @@ long_description    {*}${description}
 
 homepage            https://github.com/cscorley/whatthepatch
 
-checksums           rmd160  9c9cac4c7a7aab683f8533bb4ec56890867b2a51 \
-                    sha256  7f374c172812581bc3763587525d14a143aac7fe4220bc4676ecce0d86cb8f08 \
-                    size    31850
+checksums           rmd160  56a8265c42d1b06324860aa7539c02a886c5b786 \
+                    sha256  9eefb4ebea5200408e02d413d2b4bc28daea6b78bb4b4d53431af7245f7d7edf \
+                    size    34612
 
-python.versions     38 39 310 311 312
+python.versions     39 310 311 312 313
 
 if {${name} ne ${subport}} {
     test.run        yes

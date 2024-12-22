@@ -6,7 +6,7 @@ PortGroup           github 1.0
 PortGroup           legacysupport 1.1
 
 name                podofo-0.10
-github.setup        podofo podofo 0.10.1
+github.setup        podofo podofo 0.10.4
 revision            0
 license             GPL-2 LGPL-2
 categories          graphics
@@ -19,16 +19,16 @@ long_description    PoDoFo is a library to work with the PDF file format. The Po
                     The parser can also be used to extract information from a PDF file.
 homepage            http://podofo.sourceforge.net/
 
-checksums           sha256  fad6e3c5b840d769f11dae4261d3aa6f3b48934e1a13b7155cfa248719073d7b \
-                    rmd160  ce1a2d49fb1df0d19b6002447dcef8b996be9f78 \
-                    size    1690250
+checksums           sha256  042e62dd5fab3f96819af380cb34fae46f038756cd574ac9692391347dcd4c4e \
+                    rmd160  260b5cf40332935f1998a3c6663c22df52d905e3 \
+                    size    1692173
 
 # macports-libcxx needed for std::filesystem
 legacysupport.newest_darwin_requires_legacy 18
 legacysupport.use_mp_libcxx yes
 
 depends_build-append \
-                    port:pkgconfig
+                    path:bin/pkg-config:pkgconfig
 
 depends_lib-append \
                     port:fontconfig \
@@ -37,6 +37,7 @@ depends_lib-append \
                     path:include/turbojpeg.h:libjpeg-turbo \
                     port:libpng \
                     port:libunistring \
+                    port:libxml2 \
                     port:lua \
                     path:lib/libssl.dylib:openssl \
                     port:tiff \
@@ -79,3 +80,5 @@ variant tests description {Enable tests} {
 notes-append "
     Binaries for ${subport} are installed in ${port_prefix}/bin
 "
+
+github.livecheck.regex {(0.10.\d+)}

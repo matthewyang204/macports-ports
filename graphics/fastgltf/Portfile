@@ -2,10 +2,13 @@
 
 PortSystem          1.0
 
+PortGroup           legacysupport 1.1
 PortGroup           github  1.0
 PortGroup           cmake   1.1
 
-github.setup        spnda fastgltf 0.7.0 v
+legacysupport.newest_darwin_requires_legacy 19
+
+github.setup        spnda fastgltf 0.8.0 v
 github.tarball_from archive
 revision            0
 
@@ -32,9 +35,9 @@ license             MIT
 maintainers         {gmail.com:herby.gillot @herbygillot} \
                     openmaintainer
 
-checksums           rmd160  5939b2782e35730abdcbf659d37298688d2b7fc7 \
-                    sha256  1d0af69db938fd81dd34ea51f99e37f0023852c93befe63e23f9e55abd4a18ec \
-                    size    117902
+checksums           rmd160  e2157d5e5f9f07102b27117f15997f2bde7bd42b \
+                    sha256  0bc88a0858c88d94306443946a5a1606118b7d5e4960f1e6186a3632e9df38fb \
+                    size    148091
 
 depends_lib-append  port:simdjson
 

@@ -4,7 +4,7 @@ PortSystem          1.0
 PortGroup           compilers 1.0
 PortGroup           octave 1.0
 
-octave.setup        github gnu-octave pkg-control 4.0.0
+octave.setup        github gnu-octave pkg-control 4.1.0 control-
 octave.module       control
 revision            0
 license             GPL-3+ BSD
@@ -16,11 +16,9 @@ long_description    {*}${description}
 github.tarball_from releases
 distname            control-${version}
 
-checksums           rmd160  1fa393683943e2a881b8f9f4be235b01fd01833d \
-                    sha256  3eb214c739f30b2c71cc72c63ec62bdd99fb55fd0cd46a74eba2ebb7ac1e967a \
-                    size    2426291
+checksums           rmd160  bbabff8ef9b7ae0354d7baaa49a68bff63dda18d \
+                    sha256  96bcc2ac7b4e1dec4e9e34d1e8543d7f1827325fdd41ca0ade480fd47c8d9152 \
+                    size    2442148
 
 compilers.choose    fc f77 f90
 compilers.setup     require_fortran
-
-github.livecheck.regex  control-(\[0-9.\]+)

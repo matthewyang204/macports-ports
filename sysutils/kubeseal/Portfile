@@ -3,7 +3,7 @@
 PortSystem          1.0
 PortGroup           golang 1.0
 
-go.setup            github.com/bitnami-labs/sealed-secrets 0.26.0 v
+go.setup            github.com/bitnami-labs/sealed-secrets 0.27.2 v
 go.offline_build    no
 github.tarball_from archive
 name                kubeseal
@@ -19,9 +19,9 @@ maintainers         @tux-o-matic \
                     {gmail.com:herby.gillot @herbygillot} \
                     openmaintainer
 
-checksums           rmd160  32937783e98c410bff12787191b92951be5839e7 \
-                    sha256  4570ed319f6d4b65cbcd2febbceb2411d73385d562b5e4ea59048ffdb8a11405 \
-                    size    1321760
+checksums           rmd160  117704b846e94fd5b2d7df549a19810d16be6c63 \
+                    sha256  d2012d34331595eed48b450d5334cff7b973e5747cf35e748f7441d0d45b1b7c \
+                    size    1322504
 
 build.cmd           make
 build.target        ${name}

@@ -9,7 +9,7 @@ PortGroup           legacysupport 1.1
 # CLOCK_MONOTONIC
 legacysupport.newest_darwin_requires_legacy 15
 
-github.setup        ARMmbed mbedtls 3.5.2 mbedtls-
+github.setup        Mbed-TLS mbedtls 3.6.2 mbedtls-
 name                mbedtls3
 revision            0
 
@@ -24,11 +24,14 @@ long_description    {*}${description}
 platforms           darwin
 
 homepage            https://tls.mbed.org
-github.tarball_from archive
+github.tarball_from releases
+# https://github.com/Mbed-TLS/mbedtls/releases/download/mbedtls-3.6.1/mbedtls-3.6.1.tar.bz2
 
-checksums           rmd160  9513a15a0b236798672c8da2f98aba689e490954 \
-                    sha256  eedecc468b3f8d052ef05a9d42bf63f04c8a1c50d1c5a94c251c681365a2c723 \
-                    size    5584711
+use_bzip2           yes
+
+checksums           rmd160  83d3fc5aca55743890d66f5980c59be258565264 \
+                    sha256  8b54fb9bcf4d5a7078028e0520acddefb7900b3e66fec7f7175bb5b7d85ccdca \
+                    size    4979769
 
 variant python38 conflicts python39 python310 python311 python312 description {Use Python 3.8} {}
 variant python39 conflicts python38 python310 python311 python312 description {Use Python 3.9} {}

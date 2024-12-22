@@ -4,24 +4,24 @@ PortSystem                      1.0
 PortGroup                       cmake 1.1
 PortGroup                       github 1.0
 
-github.setup                    Tencent rapidjson 3f73edae00aba5b0112a80b4d41e6f1ff7d92a3d
-version                         20240209
+github.setup                    Tencent rapidjson ebd87cb468fb4cb060b37e579718c4a4125416c1
+version                         20241202
 revision                        0
 name                            rapidjson-devel
 
-checksums                       rmd160  2e041833827a80b5140618cba4481a2d25aecab7 \
-                                sha256  ca07fc482dcb35f24901d1da81145a77b78f174fc397431be920a1cb6a0c9738 \
-                                size    1116371
+checksums                       rmd160  723b2fc13339aa594c24ee8f41a6d23ceedadb99 \
+                                sha256  ff469e4815b534c9b5695eafe41d8047950082c74dc6171aa0622353f31b1d8d \
+                                size    1116577
 github.tarball_from             archive
 license                         MIT
 categories                      devel
 if {![variant_isset examples]} {
-platforms                       any
-supported_archs                 noarch
+    platforms                   any
+    supported_archs             noarch
 }
 
 # original by {@Lord-Kamina gmail.com:g.litenstein}
-maintainers                     {@barracuda156 gmail.com:vital.had} openmaintainer
+maintainers                     nomaintainer
 
 conflicts                       rapidjson
 
@@ -32,8 +32,7 @@ long_description                RapidJSON is a fast, unicode-friendly, self-cont
 homepage                        https://rapidjson.org
 
 patchfiles-append               0001-CMakeLists-fix-optflags-for-ppc.patch \
-                                0002-Wno-sign-conversion-Wno-sign-compare-with-GCC.patch \
-                                0003-Remove-valgrind-from-tests.patch
+                                0002-Wno-sign-conversion-Wno-sign-compare-with-GCC.patch
 
 compiler.cxx_standard           2011
 

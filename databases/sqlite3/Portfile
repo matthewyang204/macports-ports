@@ -5,8 +5,8 @@ PortGroup           clang_dependency 1.0
 
 name                sqlite3
 # don't forget to update the checksums for sqlite3-tools when updating sqlite3
-version             3.45.1
-revision            1
+version             3.47.2
+revision            0
 categories          databases
 license             public-domain
 
@@ -28,9 +28,9 @@ master_sites        ${homepage}2024
 set padded_ver      [string range [subst [regsub -all {\.([0-9]+)} "${version}.0.0" {[format %02d \1]}]] 0 6]
 distname            sqlite-autoconf-${padded_ver}
 
-checksums           rmd160  7002c169121fe164a3bff99a183ae3644e614534 \
-                    sha256  cd9c27841b7a5932c9897651e20b86c701dd740556989b01ca596fcfa3d49a0a \
-                    size    3232682
+checksums           rmd160  0ddd1171b0d08f276bc1195543e77705274919c3 \
+                    sha256  f1b2ee412c28d7472bc95ba996368d6f0cdcf00362affdadb27ed286c179540b \
+                    size    3328600
 
 depends_lib         port:libedit \
                     port:ncurses \
@@ -41,15 +41,12 @@ if {${os.platform} eq "darwin" && ${os.major} < 11 && ${cxx_stdlib} eq "libc++"}
     clang_dependency.extra_versions 3.7
 }
 
-# Drop defines-ppc patches with 3.46.0: https://sqlite.org/forum/forumpost/fc4bfa307db74d04
 if {${subport} ne "${name}-tools"} {
     configure.checks.implicit_function_declaration.whitelist-append strchr
 
-    patchfiles      patch-sqlite3_fix-atomic-clang-4.diff \
-                    patch-sqlite3_fix-defines-ppc.diff
+    patchfiles      patch-sqlite3_fix-atomic-clang-4.diff
 } else {
-    patchfiles      patch-sqlite3-tools_fix-atomic-clang-4.diff \
-                    patch-sqlite3-tools_fix-defines-ppc.diff
+    patchfiles      patch-sqlite3-tools_fix-atomic-clang-4.diff
 }
 
 configure.args      --enable-threadsafe \
@@ -98,6 +95,7 @@ subport ${name}-tcl {
 
     configure.dir   ${worksrcpath}/tea
     build.dir       ${configure.dir}
+    patch.dir       ${configure.dir}
 
     configure.args  --exec-prefix=${prefix} \
                     --with-tcl=${prefix}/lib \
@@ -105,10 +103,12 @@ subport ${name}-tcl {
 
     configure.cppflags-prepend  -I${worksrcpath}
 
+    patchfiles      patch-tea-generic-tclsqlite3.c.diff
+
     platform darwin {
         if {${os.major} < 11} {
-            patch.dir   ${configure.dir}
-            patchfiles  patch-tea-configure.diff
+            patchfiles-append \
+                        patch-tea-configure.diff
         }
     }
 }
@@ -123,9 +123,9 @@ subport ${name}-tools {
     long_description        {*}${description}, including the sqldiff program and the \
                             sqlite3_analyzer program.
 
-    checksums       rmd160  5d14a18912537c0ad4bd969f1375ad5d1f6d2655 \
-                    sha256  7f7b14a68edbcd4a57df3a8c4dbd56d2d3546a6e7cdd50de40ceb03af33d34ba \
-                    size    14152147
+    checksums       rmd160  f7ce9d0639ebfd62f0ffaeaaafd6baac3bff60c6 \
+                    sha256  e6a471f1238225f34c2c48c5601b54024cc538044368230f59ff0672be1fc623 \
+                    size    14421983
 
     use_zip                 yes
     depends_lib             port:tcl \

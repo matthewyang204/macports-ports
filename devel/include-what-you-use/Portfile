@@ -3,32 +3,39 @@
 PortSystem          1.0
 PortGroup           github 1.0
 PortGroup           cmake 1.1
+PortGroup           compiler_blacklist_versions 1.0
 
-github.setup        include-what-you-use include-what-you-use 0.21
+github.setup        include-what-you-use include-what-you-use 0.23
 github.tarball_from archive
-revision            1
+revision            0
 categories          devel
 license             NCSA
-maintainers         {outlook.com:mohd.akram @mohd-akram} openmaintainer
+maintainers         {makr @mohd-akram} openmaintainer
 
 description         A tool for use with clang to analyze #includes in C and C++ \
                     source files
 
 long_description    {*}${description}
 
-checksums           rmd160  70834a92aaed0d19e1c345191f48279b5d1f360c \
-                    sha256  a472fe8587376d041585c72e5643200f8929899f787725f0ba9e5b3d3820d401 \
-                    size    776263
+checksums           rmd160  ee93214503554f9503bb2de1e7b26aa1ca14fd71 \
+                    sha256  16672743fdf781d7db313f48c7f4b34bc6517eddfd92d7db793790fe793a306c \
+                    size    813726
 
-set llvm_version    17
+set llvm_version    19
 set llvm_dir        ${prefix}/libexec/llvm-${llvm_version}
 
-depends_lib-append  port:clang-${llvm_version}
+depends_build-append    port:python312
+depends_lib-append      port:clang-${llvm_version}
 
 cmake.install_rpath-append  ${llvm_dir}/lib
 
 configure.args-append   -DLLVM_DIR=${llvm_dir}/lib/cmake/llvm \
-                        -DClang_DIR=${llvm_dir}/lib/cmake/clang
+                        -DClang_DIR=${llvm_dir}/lib/cmake/clang \
+                        -DPython3_EXECUTABLE=${prefix}/bin/python3.12
+
+# CMake Error at /opt/local/libexec/llvm-18/lib/cmake/llvm/CheckCompilerVersion.cmake:37 (message):
+#  Host Apple Clang version must be at least 10.0
+compiler.blacklist-append { clang <= 1100 }
 
 post-destroot {
     # Move the binary next to clang so it picks up its include directory one

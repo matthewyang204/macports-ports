@@ -4,7 +4,7 @@ PortSystem          1.0
 PortGroup           github 1.0
 PortGroup           legacysupport 1.1
 
-github.setup        universal-ctags ctags 6.0.20231217.0 p
+github.setup        universal-ctags ctags 6.1.20241027.0 p
 name                universal-ctags
 epoch               1
 revision            0
@@ -13,7 +13,6 @@ categories          devel
 platforms           darwin
 license             GPL-2+
 maintainers         {@kaimingguo gmail.com:augustin.guo} \
-                    {@catap korins.ky:kirill} \
                     {@judaew judaew} \
                     openmaintainer
 
@@ -25,9 +24,9 @@ long_description \
 
 homepage            https://ctags.io
 
-checksums           rmd160  6dac6d51d6805d8c6683cc19718b036390d3b106 \
-                    sha256  dc1bd7088863429fc903208d3f94d870f87142fd9edf942dd1b2effbd762305c \
-                    size    3102385
+checksums           rmd160  215d2d75e531cb5d2f142ac55527377c112de8cc \
+                    sha256  85d674897e03737827c6b90bcc9313206f764677f020347ae1fc7447b85a74a8 \
+                    size    3215837
 
 # LegacySupport is needed for strnlen before 10.7
 legacysupport.newest_darwin_requires_legacy 10
@@ -69,13 +68,13 @@ variant libxml2 description {Extra support for XML based languages} {
 }
 
 variant manpages description {Enable documentation} {
-    set python_branch       3.11
+    set python_branch       3.12
     set python_version      [string map {. {}} ${python_branch}]
 
     depends_build-append    port:py${python_version}-docutils
 
-    configure.args-append   --with-rst2man=${prefix}/bin/rst2man-${python_branch}.py \
-                            --with-rst2html=${prefix}/bin/rst2html-${python_branch}.py
+    configure.args-append   --with-rst2man=${prefix}/bin/rst2man-${python_branch} \
+                            --with-rst2html=${prefix}/bin/rst2html-${python_branch}
 }
 
 variant link_to_ctags description {Create a link from uctags to ctags} {

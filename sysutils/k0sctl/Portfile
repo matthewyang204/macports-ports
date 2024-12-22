@@ -3,7 +3,7 @@
 PortSystem          1.0
 PortGroup           golang 1.0
 
-go.setup            github.com/k0sproject/k0sctl 0.17.4 v
+go.setup            github.com/k0sproject/k0sctl 0.20.0 v
 go.offline_build    no
 github.tarball_from archive
 revision            0
@@ -18,9 +18,9 @@ license             Apache-2
 maintainers         {gmail.com:herby.gillot @herbygillot} \
                     openmaintainer
 
-checksums           rmd160  b70c298d1267324bc3b04b6c669f1ce3aa9c340d \
-                    sha256  8b1f7dac34a02116030304ab09eb0ff651bbf39fc6cd9193e9881bd2b0be6b92 \
-                    size    97579
+checksums           rmd160  4dc00e8dc00ef2e42589a09c39d2f730d877a2d7 \
+                    sha256  126b468aa6a724fad129c7f7b20d502b32475ef811fb39b940e20686e5327fb7 \
+                    size    106731
 
 build.cmd           make
 build.pre_args-append \

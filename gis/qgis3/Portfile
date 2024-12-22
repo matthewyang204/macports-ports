@@ -25,27 +25,34 @@ subport ${name-ltr} {}
 
 if {${subport} eq ${name}} {
     # Latest version
-    github.setup    qgis QGIS 3_36_0 final-
+    github.setup    qgis QGIS 3_40_1 final-
     revision        0
     set app_name    QGIS3
 
-    checksums       rmd160  4f4abd2b50ece1e094f27d6fd4c4cb5c38fb944d \
-                    sha256  4c2fd5d44b95d861ffbb8ded8724ad38b49d601ccd27fa38457f6127cfc6c87b \
-                    size    199052249
+    checksums       rmd160  fdd005787e7bea3c5eb64771c4d8eb177849cb13 \
+                    sha256  eee2f267240ed2d92e3209b6c2b4bb0bb4e909b958ab6ba21a8f559ef1cd9fbb \
+                    size    210895928
 
     set grass_utils_file grass_utils.py
 } else {
     # LTR version
-    github.setup    qgis QGIS 3_34_4 final-
+    github.setup    qgis QGIS 3_34_13 final-
     revision        0
     set app_name    QGIS3-LTR
     description     {*}${description} (LTR)
 
-    checksums       rmd160  0730bdf3e121a185224f4602124f5a359ea6c8ac \
-                    sha256  890526e82dca56ad39574b414dfb516438bea739076d49f37cb0b3fa6f1abd5f \
-                    size    196392186
+    checksums       rmd160  f5448b99bc297fee4dfa929f17397e67e9cf3ffb \
+                    sha256  d6a296e8311bf75cb5f951ccbda21083c7908fdb839402a656d4b16311a4d6ed \
+                    size    198067959
 
     set grass_utils_file Grass7Utils.py
+
+    patchfiles-append patch-configure_PROJ94.diff
+    post-patch {
+        # Fix configure with PROJ 9.4, use CMake default FindSQLite3
+        # works together with patch-configure_PROJ94.diff
+        file delete ${worksrcpath}/cmake/FindSqlite3.cmake
+    }
 }
 
 version             [string map {_ .} ${github.version}]
@@ -77,15 +84,18 @@ depends_build-append \
                     port:flex \
                     port:ld64
 
-depends_lib-append  port:exiv2 \
+depends_lib-append  port:draco \
+                    port:exiv2 \
                     port:expat \
                     port:gdal \
+                    port:gdal-pdf \
                     port:geos \
                     port:gsl \
                     port:libiconv \
                     port:libtasn1 \
                     port:libzip \
                     port:pdal \
+                    port:proj \
                     port:protobuf3-cpp \
                     port:qca-qt5 \
                     port:qca-qt5-ossl \
@@ -155,6 +165,7 @@ configure.args-append \
                     -DGDAL_CONFIG=${prefix}/bin/gdal-config \
                     -DGEOS_CONFIG=${prefix}/bin/geos-config \
                     -DLIBZIP_CONF_INCLUDE_DIR=${prefix}/lib/pkgconfig \
+                    -DPROJ_ROOT=${prefix}/lib/proj9 \
                     -DQCA_INCLUDE_DIR=${prefix}/libexec/qt5/include/QtCrypto \
                     -DQCA_LIBRARY=${prefix}/libexec/qt5/lib/libqca-qt5.dylib \
                     -DQGIS_MACAPP_BUNDLE=0 \
@@ -164,10 +175,10 @@ configure.args-append \
                     -DQWT_INCLUDE_DIR=${prefix}/libexec/qt5/lib/qwt.framework/Versions/Current/Headers \
                     -DQWT_LIBRARY=${prefix}/libexec/qt5/lib/qwt.framework/Versions/Current/qwt \
                     -DSPATIALINDEX_LIBRARY=${prefix}/lib/libspatialindex.dylib \
-                    -DUSE_OPENCL=OFF \
+                    -DUSE_OPENCL=ON \
                     -DWITH_3D=ON \
                     -DWITH_BINDINGS=FALSE \
-                    -DWITH_DRACO=OFF \
+                    -DWITH_DRACO=ON \
                     -DWITH_GRASS7=OFF \
                     -DWITH_GRASS8=OFF \
                     -DWITH_GSL=ON \
@@ -177,13 +188,11 @@ configure.args-append \
                     -DWITH_QWTPOLAR=ON \
                     -DWITH_SERVER=OFF
 
-configure.ldflags   "-Wl,-rpath,${prefix}/libexec/qt5/lib"
-
-variant draco description {Add Draco support} {
-    depends_lib-append      port:draco
-    configure.args-replace  -DWITH_DRACO=OFF -DWITH_DRACO=ON
-}
-default_variants +draco
+configure.cppflags-append \
+                    -I${prefix}/lib/proj9/include
+configure.ldflags-append \
+                    "-Wl,-rpath,${prefix}/libexec/qt5/lib" \
+                    -L${prefix}/lib/proj9/lib
 
 # GRASS variants
 variant grass7 conflicts grass description "Build GRASS 7 plugin" {
@@ -216,7 +225,7 @@ variant grass conflicts grass7 description "Build GRASS (latest) plugin" {
 }
 
 # PostgreSQL variants
-set pg_suffixes {15 14 13 12}
+set pg_suffixes {16 15 14 13 12}
 set pg_variants {}
 foreach suffix ${pg_suffixes} {
     lappend pg_variants postgresql${suffix}
@@ -230,7 +239,7 @@ foreach suffix ${pg_suffixes} {
         depends_lib-append      port:${vrt}
         configure.args-append   -DPostgreSQL_ROOT=${prefix}/lib/${vrt} \
                                 -DPostgreSQL_INCLUDE_DIR=${prefix}/include/${vrt}
-        configure.env-append    PostgreSQL_ADDITIONAL_VERSIONS=15
+        configure.env-append    PostgreSQL_ADDITIONAL_VERSIONS=15,16
     "
 }
 set pgdefault "if {"
@@ -238,35 +247,11 @@ foreach suffix ${pg_suffixes} {
     set pgdefault "${pgdefault}!\[variant_isset postgresql${suffix}\] && "
 }
 set pgdefault [string range ${pgdefault} 0 end-4]
-set pgdefault "${pgdefault}} { default_variants +postgresql15 }"
+set pgdefault "${pgdefault}} { default_variants +postgresql16 }"
 eval ${pgdefault}
 
-# PROJ variants
-set proj_versions {6 7 8 9}
-set proj_variants {}
-foreach pjver ${proj_versions} {
-    lappend proj_variants proj${pjver}
-}
-foreach proj_ver ${proj_versions} {
-    set index [lsearch -exact ${proj_variants} proj${proj_ver}]
-    set cflcts [lreplace ${proj_variants} ${index} ${index}]
-    variant proj${proj_ver} description "Use Proj${proj_ver}" conflicts {*}${cflcts} "
-        depends_lib-append        port:proj${proj_ver}
-        configure.args-append     -DPROJ_ROOT=${prefix}/lib/proj${proj_ver}
-        configure.cppflags-append -I${prefix}/lib/proj${proj_ver}/include
-        configure.ldflags-append  -L${prefix}/lib/proj${proj_ver}/lib
-    "
-}
-set projdf "if {"
-foreach pv ${proj_versions} {
-    set projdf "${projdf}!\[variant_isset proj${pv}\] && "
-}
-set projdf [string range ${projdf} 0 end-4]
-set projdf "${projdf}} { default_variants +proj${pv} }"
-eval ${projdf}
-
 # Python variants
-set python_suffixes {38 39 310 311}
+set python_suffixes {39 310 311 312}
 set python_variants {}
 set plugin_variants {}
 foreach pyver ${python_suffixes} {
@@ -303,9 +288,12 @@ foreach pyver ${python_suffixes} {
 
         configure.args-append   -DPython_EXECUTABLE=${prefix}/bin/python${pyversion}
         configure.args-append   -DWITH_BINDINGS=ON
-        configure.args-append   -DPYUIC_PROGRAM=${prefix}/bin/pyuic5-${pyversion}
-        configure.args-append   -DPYRCC_PROGRAM=${prefix}/bin/pyrcc5-${pyversion}
         configure.args-append   -DQSCI_SIP_DIR=${frameworks_dir}/Python.framework/Versions/${pyversion}/lib/python${pyversion}/site-packages/PyQt5/bindings
+
+        if {\"${subport}\" eq \"${name-ltr}\"} {
+            configure.args-append   -DPYUIC_PROGRAM=${prefix}/bin/pyuic5-${pyversion}
+            configure.args-append   -DPYRCC_PROGRAM=${prefix}/bin/pyrcc5-${pyversion}
+        }
 
         post-patch {
             # Complies with py-gdal layout
@@ -347,6 +335,7 @@ foreach pyver ${python_suffixes} {
                             port:py${pyver}-pandas \
                             port:py${pyver}-patsy \
                             port:py${pyver}-Pillow \
+                            port:py${pyver}-plotly \
                             port:py${pyver}-pyproj \
                             port:py${pyver}-pysal \
                             port:py${pyver}-rasterio \
@@ -360,10 +349,6 @@ foreach pyver ${python_suffixes} {
                             port:py${pyver}-statsmodels \
                             port:py${pyver}-termcolor
     "
-    # plotly temporary removed, see https://trac.macports.org/ticket/69416
-    # and https://trac.macports.org/ticket/69415, not crucial for
-    # the workings of QGIS.
-    # port:py${pyver}-plotly
 }
 
 # Python default
@@ -372,30 +357,32 @@ foreach pyver ${python_suffixes} {
     set python_default "${python_default}!\[variant_isset python${pyver}\] && "
 }
 set python_default [string range ${python_default} 0 end-4]
-set python_default "${python_default}} { default_variants +python311 +plugin_support311}"
+set python_default "${python_default}} { default_variants +python312}"
 eval ${python_default}
 
 # Python support default
 set python_default "if {"
 foreach pyver ${python_suffixes} {
-    set python_default "${python_default}!\[variant_isset python${pyver}\] && "
+    set python_default "${python_default}!\[variant_isset plugin_support${pyver}\] && "
 }
 set python_default [string range ${python_default} 0 end-4]
-set python_default "${python_default}} { default_variants +python311 +plugin_support311}"
+set python_default "${python_default}} { default_variants +plugin_support312}"
 eval ${python_default}
 
-# Assert +pythonXY and +plugin_supportXY variants are in sync
-set supp_py_list [list]
-set pyth_py_list [list]
-foreach pyver ${python_suffixes} {
-    if {[variant_isset plugin_support${pyver}]} {lappend supp_py_list ${pyver}}
-    if {[variant_isset python${pyver}]} {lappend pyth_py_list ${pyver}}
-}
-if { [expr ([llength $supp_py_list] > 0) && ([llength $pyth_py_list] > 0)] &&
-     [lindex $supp_py_list 0] != [lindex $pyth_py_list 0] } {
-         set pyv [lindex $pyth_py_list 0]
-         ui_error "${subport} +pythonXY and +plugin_supportXY variants must be in sync"
-         return -code error "Try running `port install ${subport} +python${pyv} +plugin_support${pyv}`"
+pre-configure {
+    # Assert +pythonXY and +plugin_supportXY variants are in sync
+    set supp_py_list [list]
+    set pyth_py_list [list]
+    foreach pyver ${python_suffixes} {
+        if {[variant_isset plugin_support${pyver}]} {lappend supp_py_list ${pyver}}
+        if {[variant_isset python${pyver}]} {lappend pyth_py_list ${pyver}}
+    }
+    if { [expr ([llength $supp_py_list] > 0) && ([llength $pyth_py_list] > 0)] &&
+         [lindex $supp_py_list 0] != [lindex $pyth_py_list 0] } {
+             set pyv [lindex $pyth_py_list 0]
+             ui_error "${subport} +pythonXY and +plugin_supportXY variants must be in sync"
+             return -code error "Try running `port install ${subport} +python${pyv} +plugin_support${pyv}`"
+    }
 }
 
 variant server description "Builds with the server (FCGI) option" {
@@ -419,7 +406,7 @@ post-destroot {
 
 if {${subport} eq ${name-ltr}} {
     livecheck.type  regex
-    livecheck.url   https://qgis.org/version-ltr.txt
+    livecheck.url   https://version.qgis.org/version-ltr.txt
     livecheck.version ${version}
     livecheck.regex #QGIS Version \[0-9\]{5}|Visit https://download.qgis.org to get your copy of version (\[0-9.\]+)|<html><body>
 }
@@ -427,5 +414,5 @@ if {${subport} eq ${name-ltr}} {
 notes-append \
     "Some QGIS plugins may fail with error message noting missing PyQt5.QtWebKit\
     module, this could be solved by manually installing the module with e.g.\
-    `sudo port install py311-pyqt5 +webkit` (just make sure you use the same Python\
+    `sudo port install py312-pyqt5 +webkit` (just make sure you use the same Python\
     version for py-pyqt5 as for the QGIS Python bindings)."

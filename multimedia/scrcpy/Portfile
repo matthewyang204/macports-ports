@@ -9,7 +9,7 @@ PortGroup           legacysupport 1.1
 # needed for clock_gettime and static_assert to work on older OS X versions
 legacysupport.newest_darwin_requires_legacy 15
 
-github.setup        Genymobile scrcpy 2.3.1 v
+github.setup        Genymobile scrcpy 3.1 v
 revision            0
 github.tarball_from archive
 
@@ -29,13 +29,14 @@ extract.only        ${distfiles}
 distfiles-append    ${name}-server-v${version}:bootstrap
 
 checksums           ${distname}${extract.suffix} \
-                    rmd160  5ff0b8a66eb77e6e914eac3c0b73cf77fd5b1450 \
-                    sha256  76f38779f00d91d0b46a399ebca32c82ff1facdbd843871b7e46c2e7cad38a42 \
-                    size    401278 \
+                    rmd160  c14ed61ed903f250a6600176e024259fcce7b622 \
+                    sha256  beaa5050a3c45faa77cedc70ad13d88ef26b74d29d52f512b7708671e037d24d \
+                    size    459749 \
                     ${name}-server-v${version} \
-                    rmd160  d418586f74046a4a7c9ae7c7a9c035d4ab27139f \
-                    sha256  f6814822fc308a7a532f253485c9038183c6296a6c5df470a9e383b4f8e7605b \
-                    size    66007
+                    rmd160  557c6120412ea0c841920e9cb4f6a6f255a7e200 \
+                    sha256  958f0944a62f23b1f33a16e9eb14844c1a04b882ca175a738c16d23cb22b86c0 \
+                    size    90640
+
 depends_build-append \
                     port:pkgconfig
 

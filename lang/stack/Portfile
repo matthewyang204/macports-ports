@@ -6,7 +6,7 @@ PortGroup           gpg_verify 1.0
 PortGroup           haskell_stack 1.0
 PortGroup           legacysupport 1.1
 
-github.setup        commercialhaskell stack 2.15.1 v
+github.setup        commercialhaskell stack 2.15.7 v
 revision            0
 
 name                stack
@@ -50,24 +50,24 @@ extract.only        ${github.tag_prefix}${github.version}${extract.suffix}
 # run `port clean --all stack` afterwards
 
 checksums           ${github.tag_prefix}${github.version}${extract.suffix} \
-                    rmd160  423fbf5701a3d9423d192e76ce6462e7643586f5 \
-                    sha256  3dbc2fed8e78adfed9dcef40bad53ab5828faa0fac993c6c0c80e3ef19736e10 \
-                    size    940776
+                    rmd160  30fd583d71a67268c9c339c8cd1fe86934c90e6f \
+                    sha256  a508663e2bd92c1b6326ce313c623c2fc2d91d9dec962e88d953b2dc49a78b20 \
+                    size    949917
 
 switch ${build_arch} {
     arm64 {
         checksums-append \
                     ${distname}-bin \
-                    rmd160  9c67f6d2a9ef2f222d8f59b1b4685849b1eb56fa \
-                    sha256  d305fcb1097e147c2a72fe1e55c408af7e434605dff320fb311ce3124ebe1174 \
-                    size    99739856
+                    rmd160  48a120674125753d8d04271b2184c168ecc45932 \
+                    sha256  c111bd0e057fe0efd60b71b57c96871056564904267581a965d889dbe2422c6e \
+                    size    100297696
     }
     x86_64 {
         checksums-append \
                     ${distname}-bin \
-                    rmd160  003586b22dbb130f425c7202a17bea829096b26e \
-                    sha256  ecf9c2b3a647e929ddbd5b5d0deccef514bd560d8afc19cd3283f738895cd02b \
-                    size    35005704
+                    rmd160  31bbc224031d399ecf23eca8eb6bdc71acd8df86 \
+                    sha256  4828cb2726e8ce721791eb75fa933ac3b3ec954ffc6734997e95cb7584136a11 \
+                    size    35052472
     }
     default {
         known_fail  yes

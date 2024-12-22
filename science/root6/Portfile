@@ -8,11 +8,11 @@ PortGroup           compilers                     1.0
 PortGroup           compiler_blacklist_versions   1.0
 PortGroup           github                        1.0
 PortGroup           select                        1.0
-PortGroup           xcodeversion                  1.0
 PortGroup           legacysupport                 1.1
+PortGroup           openssl                       1.0
 
 # Please also check if Gate needs a revbump after root6 update
-github.setup        root-project root 6-30-04 v
+github.setup        root-project root 6-34-02 v
 version             [string map {- .} ${github.version}]
 revision            0
 livecheck.version   ${github.version}
@@ -24,9 +24,9 @@ livecheck.version   ${github.version}
 #livecheck.version   6-14-00
 #revision            0
 
-checksums           rmd160  f886fa56db20c40280f2fec7a491a008e4241ec5 \
-                    sha256  e9d1311345187b72aff245e3636ea7a58f7a2eb88dcf3f68273f50abfffdab7d \
-                    size    184779727
+checksums           rmd160  e136563fe8030fab8e5724b8c6c0938993797aa8 \
+                    sha256  0efc66bf7e6c126367d12fc9adc4b35819bc61b354fe6d1acd45443394605afb \
+                    size    197313465
 
 # extract major version
 set version_major   [lindex [split ${version} .] 0]
@@ -48,7 +48,7 @@ long_description    The ROOT system provides a set of frameworks with all \
                     of data in a very efficient way.
 
 homepage            https://root.cern.ch/
-platforms           {darwin > 15}
+platforms           {darwin >= 17}
 
 dist_subdir         root/${version}
 
@@ -57,10 +57,18 @@ compilers.choose    f90 fc f77
 compilers.setup     require_fortran -g95 -gcc44 -gcc45 -gcc46 -gcc47 -gcc48 -gcc49 -gcc5 -gcc6 -gcc7 -gcc8
 compiler.blacklist-append *gcc* {clang < 920} {macports-clang-3.[0-9]} {macports-clang-[4-6].0}
 
+# c++17 filesystem required, only available in Xcode clang from macOS 10.15
+compiler.blacklist-append {clang < 1200}
+# enabling root7 requires better <memory> support (macOS 12 or newer)
+compiler.blacklist-append {clang < 1400}
+
 # If using MacPorts clang, make sure it's added as a runtime dep as well as cling will need it.
 if {[regexp {macports-clang-(.*)} ${configure.compiler} -> clang_v]} {
     depends_run-append port:clang-${clang_v}
 }
+
+# https://trac.macports.org/ticket/69945
+use_parallel_build  no
 
 depends_build-append port:pkgconfig
 
@@ -80,12 +88,12 @@ depends_lib-append  port:expat \
                     port:xxhashlib \
                     port:z3 \
                     port:zstd \
-                    path:lib/libopenblas.dylib:OpenBLAS \
-                    path:lib/libssl.dylib:openssl
-
-# Use builtin zlib instead as upstream claims has better performance
-# https://root.cern/content/release-61800
-#                   port:zlib
+                    port:nlohmann-json \
+                    port:zlib \
+                    port:bzip2 \
+                    port:brotli \
+                    port:librsvg \
+                    path:lib/libopenblas.dylib:OpenBLAS
 
 depends_run-append  port:root_select
 
@@ -99,7 +107,7 @@ select.file         ${filespath}/${name}
 # port specific location
 set install_prefix  ${prefix}/libexec/root${version_major}
 
-patch.pre_args      -p1
+patch.pre_args-replace  -p0 -p1
 
 configure.args-append \
                     -Dgnuinstall=ON \
@@ -112,10 +120,9 @@ configure.args-append \
                     -Dbuiltin_freetype=ON \
                     -Dbuiltin_glew=OFF \
                     -Dbuiltin_pcre=OFF \
-                    -Dbuiltin_zlib=ON \
+                    -Dbuiltin_zlib=OFF \
                     -Dbuiltin_lzma=OFF \
                     -Dbuiltin_tbb=OFF \
-                    -Dbuiltin_afterimage=ON \
                     -Ddavix=OFF \
                     -Dfftw3=OFF \
                     -Dkrb5=OFF \
@@ -135,7 +142,6 @@ configure.args-append \
                     -Dchirp=OFF \
                     -Dhdfs=OFF \
                     -Druby=OFF \
-                    -Dminuit2=ON \
                     -Dtmva=OFF \
                     -Dqt=OFF \
                     -Dqtgsi=OFF \
@@ -155,7 +161,7 @@ configure.args-append \
                     -Dastiff=ON \
                     -Dgeocad=OFF \
                     -Dr=OFF \
-                    -Droot7=OFF \
+                    -Droot7=ON \
                     -Dwebgui=ON \
                     -Dbuiltin_veccore=OFF \
                     -DPNG_LIBRARY=${prefix}/lib/libpng.dylib \
@@ -223,6 +229,19 @@ pre-configure {
     set pystringtoreplace "/usr/bin/env python"
     foreach f [ exec find ${worksrcpath} -type f -and -not -name "shtest-encoding.py" -and -name "*.py" ] {
         reinplace -q "s|${pystringtoreplace}|/usr/bin/python|g" $f
+    }
+}
+
+post-build {
+    ui_debug "Searching ${workpath}/build for third party build logs ..."
+    foreach log [ exec find ${workpath}/build -type f -and -name "*.log" ] {
+        ui_debug "Contents of ${log} :-"
+        set f [open ${log}]
+        set lines [split [read $f] "\n"]
+        foreach line $lines {
+            ui_debug "${line}"
+        }
+        close $f
     }
 }
 
@@ -376,7 +395,7 @@ variant opengl description {Build with opengl support} {
 # ========================================================================================
 
 # List of possible python versions
-set python_versions { 3.8 3.9 3.10 3.11 3.12 }
+set python_versions { 3.9 3.10 3.11 3.12 }
 # Enable python variant by default on OS X 10.9 and newer.
 # Disabled on older systems due to an issue fetching the source for
 # the various python dependencies due to these systems having out of

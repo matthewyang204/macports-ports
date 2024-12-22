@@ -5,7 +5,7 @@ PortGroup           github  1.0
 PortGroup           qt6     1.0
 PortGroup           compiler_blacklist_versions 1.0
 
-github.setup        pgmodeler pgmodeler 1.1.0 v
+github.setup        pgmodeler pgmodeler 1.1.5 v
 github.tarball_from archive
 revision            0
 
@@ -20,9 +20,9 @@ description         PostgreSQL Database Modeler
 long_description    pgModeler - {*}${description} - is an open source data \
                     modeling tool designed for PostgreSQL.
 
-checksums           rmd160  9ddb89f981a929cdf482ef92e2d22b40855580d3 \
-                    sha256  a72fd207a89eef0e1e05938e1b89b94b72cc9ae31364b35409ddfc10bc5ad8d7 \
-                    size    4183347
+checksums           rmd160  77615bd0da0942fd761d3a85a2eb611efade898a \
+                    sha256  7b402b8f72cd40bb099d33b3601623bc7673fc726db5e8e8401ce0a3cb287c1e \
+                    size    4203814
 
 compiler.cxx_standard \
                     2011

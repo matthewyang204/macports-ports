@@ -2,44 +2,63 @@
 
 PortSystem          1.0
 PortGroup           github 1.0
+PortGroup           legacysupport 1.1
 
-github.setup        mikebrady shairport-sync 2.8.6
-revision            3
+# _dprintf
+legacysupport.newest_darwin_requires_legacy 10
+
+github.setup        mikebrady shairport-sync 4.3.4
+revision            0
 
 categories          multimedia
-platforms           darwin
 license             MIT BSD ISC
 maintainers         gmail.com:ale275 \
                     openmaintainer
 description         Shairport Sync is an AirPlay audio player
 long_description    AirTunes emulator. Shairport Sync adds multi-room capability with Audio Synchronisation.
 
-checksums           rmd160  642f43d32f7bae3cddc7038ae9b48456882096c2 \
-                    sha256  99083c7134b1ad99adcdbdcc2d4122ff5e67853a754119d580c5173fbe8bfbc1
+checksums           rmd160  4af53a38966869abb461e919030301d09b82edb8 \
+                    sha256  9da48b123639973e4a219c6d79a2f752fa4c7e6687e4b3419b378c4c75bd1dee \
+                    size    562663
 
-depends_build       port:pkgconfig \
+depends_build       path:bin/pkg-config:pkgconfig \
                     port:autoconf \
                     port:automake
+
+set ffmpeg_ver      6
 
 depends_lib         path:lib/libssl.dylib:openssl \
                     port:popt \
                     port:soxr \
                     port:libao \
                     port:libdaemon \
-                    port:libconfig-hr
+                    port:libconfig-hr \
+                    port:libplist \
+                    port:libsodium \
+                    port:libgcrypt \
+                    port:ffmpeg${ffmpeg_ver}
 
 use_autoreconf      yes
 autoreconf.args     -fvi
 
-configure.args      --with-os-type=darwin \
+configure.pkg_config_path   ${prefix}/libexec/ffmpeg${ffmpeg_ver}/lib/pkgconfig
+
+configure.args      --with-os=darwin \
                     --with-ssl=openssl \
                     --with-dns_sd \
                     --with-ao \
                     --with-stdout \
                     --with-pipe \
                     --with-soxr \
+                    --with-airplay-2 \
                     --with-piddir=${prefix}/var \
                     --sysconfdir=${prefix}/etc/shairport-sync
+
+# https://github.com/mikebrady/shairport-sync/issues/1860
+if {${configure.build_arch} in [list ppc ppc64]} {
+    configure.args-delete \
+                    --with-airplay-2
+}
 
 variant metadata description {Enable metadata output} {
   configure.args-append --with-metadata

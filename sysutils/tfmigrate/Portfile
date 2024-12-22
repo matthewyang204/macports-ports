@@ -3,7 +3,7 @@
 PortSystem          1.0
 PortGroup           golang 1.0
 
-go.setup            github.com/minamijoyo/tfmigrate 0.3.20 v
+go.setup            github.com/minamijoyo/tfmigrate 0.4.1 v
 go.offline_build    no
 github.tarball_from archive
 revision            0
@@ -18,9 +18,9 @@ license             MIT
 maintainers         {gmail.com:herby.gillot @herbygillot} \
                     openmaintainer
 
-checksums           rmd160  ae02063d211644bd5a0cc1d06fbdb636dfc815a5 \
-                    sha256  8139a470ad941bdeb5e4c7b3f6edc7677bb9190d499bbe488c22ac063ee84f0a \
-                    size    101442
+checksums           rmd160  e7db8f5128dd27d95691372cdf16c18064cf7298 \
+                    sha256  fa7e5b45609c1d60140157a17ac4d5ff311311582f110c8a3d0e9a2cd50ceba6 \
+                    size    93242
 
 build.cmd           make
 build.target        build
@@ -33,3 +33,6 @@ patch {
 destroot {
     xinstall -m 0755 ${worksrcpath}/bin/${name} ${destroot}${prefix}/bin/
 }
+
+github.livecheck.regex \
+                    {([0-9.]+)}

@@ -1,6 +1,7 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
 
 PortSystem          1.0
+PortGroup           compiler_blacklist_versions 1.0
 PortGroup           compilers 1.0
 PortGroup           cmake 1.1
 PortGroup           gitlab 1.0
@@ -14,7 +15,7 @@ description         A C++ template library for linear algebra: vectors, \
                     matrices, and related algorithms.
 long_description    {*}${description}
 
-depends_build-append    port:pkgconfig
+depends_build-append    path:bin/pkg-config:pkgconfig
 
 if {${subport} eq ${name}} {
     gitlab.setup        libeigen eigen 3.4.0
@@ -27,25 +28,33 @@ if {${subport} eq ${name}} {
 
     # Backport of: https://gitlab.com/libeigen/eigen/-/commit/4d05765345e7e4a984d600039f797e2fede924f3
     patchfiles-append   patch-ppc.diff
+
+    compiler.cxx_standard \
+                        2011
 }
 
 subport eigen3-devel {
-    gitlab.setup        libeigen eigen eede526b
+    gitlab.setup        libeigen eigen 8ad4344c
     # For when there is no current development version (other than rolling snapshot)
-    version             3.4-tracking-20240124
+    version             3.4-tracking-20241122
     revision            0
     epoch               3
-    gitlab.livecheck.branch 3.4
+    gitlab.livecheck.branch master
 
     conflicts           eigen3
 
     long_description    {*}${description} This (-devel) version tracks \
                         development of the current (3.4) branch.
 
-    checksums           rmd160  f5947216fc4f9e70797b913746e6ccc8f842f599 \
-                        sha256  ebe6c86aa5c1f66bc725138b49b95be3898c8ae9fd7ebd7b52d45acc2831b215 \
-                        size    2220709
+    checksums           rmd160  c7891fe0d6b45c82bb938a0fa596803148456abb \
+                        sha256  2550f496965bc1409f421f3fb20e4b3adecb374712cdb3e57f173e1f4f23a97c \
+                        size    2278889
 
+    # Eigen's source code specifically checks the version of Apple Clang.
+    compiler.blacklist-append \
+                        {clang < 900}
+    compiler.cxx_standard \
+                        2014
     compilers.setup     require_fortran
 }
 
@@ -71,11 +80,7 @@ variant blas description \
         configure.universal_args ""
 }
 
-
-compiler.cxx_standard   2011
-
 configure.env-append    PKG_CONFIG_LIBDIR=${prefix}/lib/pkgconfig
-cmake.out_of_source     yes
 
 test.run            yes
 test.target         check

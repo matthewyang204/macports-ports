@@ -5,7 +5,7 @@ PortGroup           python 1.0
 
 name                pre-commit
 python.rootname     pre_commit
-version             3.6.2
+version             4.0.1
 revision            0
 
 categories-append   devel
@@ -19,9 +19,9 @@ long_description    {*}${description}
 
 homepage            https://github.com/pre-commit/pre-commit
 
-checksums           rmd160  16b74aad9cadea702791652b64804b38ea6a740a \
-                    sha256  c3ef34f463045c88658c5b99f38c1e297abdcc0ff13f98d3370055fbbfabc67e \
-                    size    177293
+checksums           rmd160  3f2d57106e073e03b2b9a09ebbaee1882c2babe4 \
+                    sha256  80905ac375958c0444c65e9cebebd948b3cdb518f335a091a670a89d652139d2 \
+                    size    191678
 
 python.default_version 312
 
@@ -29,7 +29,6 @@ depends_lib-append  port:py${python.version}-cfgv \
                     port:py${python.version}-identify \
                     port:py${python.version}-nodeenv \
                     port:py${python.version}-yaml \
-                    port:py${python.version}-toml \
                     port:py${python.version}-virtualenv
 
 post-destroot {

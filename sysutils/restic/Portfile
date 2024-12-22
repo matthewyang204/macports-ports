@@ -3,7 +3,7 @@
 PortSystem          1.0
 PortGroup           golang 1.0
 
-go.setup            github.com/restic/restic 0.16.4 v
+go.setup            github.com/restic/restic 0.17.3 v
 go.offline_build    no
 github.tarball_from archive
 revision            0
@@ -22,9 +22,9 @@ license             BSD
 maintainers         {gmail.com:herby.gillot @herbygillot} \
                     openmaintainer
 
-checksums           rmd160  ee3abfdbe08a0aaf8453db80e53c37849d365818 \
-                    sha256  d736a57972bb7ee3398cf6b45f30e5455d51266f5305987534b45a4ef505f965 \
-                    size    23990246
+checksums           rmd160  f82c47b053016972b61d8aafebe4bada57f1875b \
+                    sha256  bf0dd73edfae531c24070e2e7833938613f7b179ed165e6b681098edfdf286c8 \
+                    size    24109574
 
 dist_subdir         ${name}/${version}_${revision}
 

@@ -21,10 +21,49 @@ set source_build        no
 set offline_build       yes
 
 # *NOTE* Remember to update `latestVersion` on a version upgrade.
-set latestVersion       kubectl-1.29
+set latestVersion       kubectl-1.32
 
 # When source_build is yes, the checksum should be the one for the
 # kubernetes source tarball, instead of the zipped pre-built binary.
+
+subport kubectl-1.32 {
+    set source_build    yes
+    set offline_build   no
+    supported_archs     x86_64 arm64
+    platforms           {darwin >= 17}
+
+    set patchNumber     0
+    revision            0
+    checksums           rmd160  4d749ae965fbab2475c9ac3679f4dc001fa751ab \
+                        sha256  3793859c53f09ebc92e013ea858b8916cc19d7fe288ec95882dada4e5a075d08 \
+                        size    39162995
+}
+
+subport kubectl-1.31 {
+    set source_build    yes
+    set offline_build   no
+    supported_archs     x86_64 arm64
+    platforms           {darwin >= 17}
+
+    set patchNumber     4
+    revision            0
+    checksums           rmd160  0fea06c0940eaf18c9c5f6d845986bf5ac10203e \
+                        sha256  ff3a2e9cae3b4734be4a6cdfeb933830c63219eaeda05cc4e59b7559fcde52b0 \
+                        size    36572367
+}
+
+subport kubectl-1.30 {
+    set source_build    yes
+    set offline_build   no
+    supported_archs     x86_64 arm64
+    platforms           {darwin >= 17}
+
+    set patchNumber     8
+    revision            0
+    checksums           rmd160  12c5c7ec73951775e28142e955615a8eaf5bfe74 \
+                        sha256  d33a93d74ae29d31a44384920039160c66eebacfb7ff83ceec9104577e3bd1e9 \
+                        size    39619616
+}
 
 subport kubectl-1.29 {
     set source_build    yes
@@ -32,11 +71,11 @@ subport kubectl-1.29 {
     supported_archs     x86_64 arm64
     platforms           {darwin >= 17}
 
-    set patchNumber     2
+    set patchNumber     12
     revision            0
-    checksums           rmd160  e03da5dbd960f99f8b5ff5757444f28883539cd4 \
-                        sha256  da261f3d82e1b534dbc585bdf961b1eb9d073501fa0ecf406317e95238d0867b \
-                        size    41132583
+    checksums           rmd160  e81dc2505ba829990369cd5274ecb67fb705debb \
+                        sha256  f673ef85629d057b37329653199813bcd9912c883c39daec3f2ae02961ff0d22 \
+                        size    41213761
 }
 
 subport kubectl-1.28 {
@@ -45,11 +84,11 @@ subport kubectl-1.28 {
     supported_archs     x86_64 arm64
     platforms           {darwin >= 17}
 
-    set patchNumber     7
+    set patchNumber     15
     revision            0
-    checksums           rmd160  0760bde60aa8165a9695e44dd0a428ca1965fa8e \
-                        sha256  bd7b2c457c91479ee4233d717f0740bc16a43bc51c270c21a1b63d703bef9329 \
-                        size    39959046
+    checksums           rmd160  66f7671f9b665e1f8f8aa5bdf4f697abf418b147 \
+                        sha256  2d6d0a2a9e1cf207ac3090f9ad37a8f12d061b568973fcee91af9ba7c0292cb3 \
+                        size    40046030
 }
 
 subport kubectl-1.27 {
@@ -57,11 +96,11 @@ subport kubectl-1.27 {
     supported_archs     x86_64 arm64
     platforms           {darwin >= 17}
 
-    set patchNumber     11
+    set patchNumber     16
     revision            0
-    checksums           rmd160  dc9a4b1b1068a626a82fbb465c6bf567b81add19 \
-                        sha256  2dafbfd80b1efd40ac059bfac468be746cefad0c52462d77dc89bf03c5ba1bf0 \
-                        size    39184562
+    checksums           rmd160  11d99ae884f611b8cec2098eb523bafd8233f6aa \
+                        sha256  e1d9d96de9103e0982727acfb3d59172c7f67fa8e5371a627eaa15cd1236fe5d \
+                        size    39231976
 }
 
 subport kubectl-1.26 {
@@ -69,11 +108,11 @@ subport kubectl-1.26 {
     supported_archs     x86_64 arm64
     platforms           {darwin >= 17}
 
-    set patchNumber     14
+    set patchNumber     15
     revision            0
-    checksums           rmd160  f06d9816dd6f4b8133940eea5e2460af4d1f6af4 \
-                        sha256  81c974206b9e40ad051de1e0be2a61a8fe4fa340c0ab76aa60a871a01282e25c \
-                        size    39454535
+    checksums           rmd160  52a005df44f39f10d57fb10ecf606e867d1f90de \
+                        sha256  10ab7b287996c04dd584e781808be52a090987f893bc34008ca5321e8c414aa2 \
+                        size    41444383
 }
 
 subport kubectl-1.25 {
@@ -235,7 +274,7 @@ if {${subport} == ${name}} {
     PortGroup           obsolete 1.0
 
     replaced_by         ${latestVersion}
-    version             1.29.2
+    version             1.32.0
     revision            0
 
 } elseif {${subport} == "kubectl_select"} {

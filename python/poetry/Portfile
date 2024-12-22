@@ -4,7 +4,7 @@ PortSystem              1.0
 PortGroup               python 1.0
 
 name                    poetry
-version                 1.8.1
+version                 1.8.5
 revision                0
 categories-append       devel
 platforms               {darwin any}
@@ -23,21 +23,21 @@ long_description        Poetry: Dependency Management for Python. \
 
 homepage                https://python-poetry.org/
 
-checksums               rmd160  ba5ebd7411fb53f3d36b33a951a6910db3212023 \
-                        sha256  23519cc45eb3cf48e899145bc762425a141e3afd52ecc53ec443ca635122327f \
-                        size    1514978
+checksums               rmd160  f4a25e3e7e56aa6384675cf8d23bce06387996fb \
+                        sha256  eb2c88d224f58f36df8f7b36d6c380c07d1001bca28bde620f68fc086e881b70 \
+                        size    1519790
 
-variant python38 conflicts python39 python310 python311 description {Use Python 3.8} {}
-variant python39 conflicts python38 python310 python311 description {Use Python 3.9} {}
-variant python310 conflicts python38 python39 python311 description {Use Python 3.10} {}
-variant python311 conflicts python38 python39 python310 description {Use Python 3.11} {}
-variant python312 conflicts python38 python39 python310 description {Use Python 3.12} {}
+variant python39 conflicts python310 python311 python312 description {Use Python 3.9} {}
+variant python310 conflicts python39 python311 python312 description {Use Python 3.10} {}
+variant python311 conflicts python39 python310 python312 description {Use Python 3.11} {}
+variant python312 conflicts python39 python310 python311 description {Use Python 3.12} {}
+variant python313 conflicts python39 python310 python311 description {Use Python 3.12} {}
 
-if {![variant_isset python38] && ![variant_isset python39] && ![variant_isset python310] && ![variant_isset python311]} {
-    default_variants +python312
+if {![variant_isset python39] && ![variant_isset python310] && ![variant_isset python311] && ![variant_isset python312] } {
+    default_variants +python313
 }
 
-foreach pv {312 311 310 39 38} {
+foreach pv {313 312 311 310 39} {
     if {[variant_isset python${pv}]} {
         python.default_version  ${pv}
         break

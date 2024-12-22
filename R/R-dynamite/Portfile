@@ -4,22 +4,25 @@ PortSystem          1.0
 PortGroup           R 1.0
 
 # GitHub version is outdated.
-R.setup             cran ropensci dynamite 1.4.9
+R.setup             cran ropensci dynamite 1.5.5
 revision            0
 categories-append   math
+platforms           {darwin any}
 maintainers         {@barracuda156 gmail.com:vital.had} openmaintainer
 license             GPL-3+
-description         Bayesian modeling and causal inference for multivariate longitudinal data
+description         Bayesian modeling and causal inference \
+                    for multivariate longitudinal data
 long_description    {*}${description}
 homepage            https://docs.ropensci.org/dynamite
-checksums           rmd160  6873c7d4498f5cd43adad001d18f566e3270b1a5 \
-                    sha256  dc54a8b5c565574d0b239118d424d70429de7aa9ce2b4b377fec28d6b59deb2b \
-                    size    5114444
+checksums           rmd160  6bede3844bc7de5ec3a407ba66d8dc7a89903810 \
+                    sha256  f08b495759339446cbfc2a5d0381d49c97ab1c612600ebe1f0f8fcded1277eb9 \
+                    size    4924696
 supported_archs     noarch
 
 depends_lib-append  port:R-checkmate \
                     port:R-cli \
                     port:R-data.table \
+                    port:R-ggforce \
                     port:R-ggplot2 \
                     port:R-glue \
                     port:R-loo \
@@ -29,13 +32,13 @@ depends_lib-append  port:R-checkmate \
                     port:R-rstan \
                     port:R-tibble
 
-depends_test-append port:R-bookdown \
-                    port:R-cmdstanr \
+depends_test-append port:R-cmdstanr \
                     port:R-covr \
                     port:R-dplyr \
                     port:R-knitr \
+                    port:R-mice \
                     port:R-mockthat \
-                    port:R-rmarkdown \
+                    port:R-quarto \
                     port:R-testthat \
                     port:R-tidyr
 

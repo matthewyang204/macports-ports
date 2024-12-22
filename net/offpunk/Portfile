@@ -4,26 +4,29 @@ PortSystem          1.0
 PortGroup           python 1.0
 PortGroup           sourcehut 1.0
 
-sourcehut.setup     lioploum offpunk 2.2 v
+sourcehut.setup     lioploum offpunk 2.4 v
 revision            0
 categories          net gemini
 license             AGPL
-maintainers         {@barracuda156 gmail.com:vital.had} openmaintainer
-description         Command-line and offline-first smolnet browser/feed reader for Gemini, Gopher, Spartan and Web by Ploum.
-long_description    {*}${description}. The goal of Offpunk is to be able to synchronise your content once (a day, a week, a month) \
+maintainers         nomaintainer
+description         Command-line and offline-first smolnet browser/feed reader \
+                    for Gemini, Gopher, Spartan and Web by Ploum
+long_description    {*}${description}. The goal of Offpunk is to be able \
+                    to synchronise your content once (a day, a week, a month) \
                     and then browse/organise it while staying disconnected.
 
-checksums           rmd160  abf647146c681374ea3e2ced819dd6594fd49847 \
-                    sha256  c6afc11bcfc8624f2eb79e97b37987ee3a9b46fe0888a09d86310fd3a7ddb346 \
-                    size    231019
+checksums           rmd160  2351c67c90a61cd625ea6ecedec4c15ab2dd766b \
+                    sha256  f79c1a2369da20c1ef278a4eca65d320d3d7cef6cc9c2a90475c6d6132ace3fd \
+                    size    471822
 
-python.default_version 311
+python.default_version 312
 
 depends_lib-append  port:chafa \
                     port:less \
                     port:py${python.version}-chardet \
                     port:py${python.version}-feedparser \
                     port:py${python.version}-hatchling \
+                    port:py${python.version}-lxml_html_clean \
                     port:py${python.version}-Pillow \
                     port:py${python.version}-readability-lxml \
                     port:py${python.version}-requests \

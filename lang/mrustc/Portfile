@@ -18,7 +18,7 @@ epoch               1
 
 categories          lang devel
 license             MIT
-maintainers         {@catap korins.ky:kirill} openmaintainer
+maintainers         nomaintainer
 description         Alternative implementation of Rust
 
 long_description    In-progress alternative rust compiler. Capable of building a \
@@ -101,7 +101,7 @@ pre-patch {
 }
 
 patch.dir           ${workpath}/rustc-${rust_version}-src
-patch.pre_args      -p1
+patch.pre_args-replace  -p0 -p1
 
 # patches as git tree: https://github.com/catap/rust-legacy-bootstrap/tree/1.54.0
 patchfiles          0001-Introduced-support-of-MACPORTS_LEGACY_SUPPORT_.patch \

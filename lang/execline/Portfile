@@ -1,9 +1,13 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
 
 PortSystem          1.0
+PortGroup           legacysupport 1.1
+
+# _clock_gettime
+legacysupport.newest_darwin_requires_legacy 15
 
 name                execline
-version             2.9.4.0
+version             2.9.6.1
 revision            0
 categories          lang
 license             ISC
@@ -25,9 +29,9 @@ master_sites        ${homepage}
 
 depends_build       port:skalibs
 
-checksums           rmd160  ae6a2b494d4a903bca75b2d20be331e78ddb8802 \
-                    sha256  9ab55d561539dfa76ff4a97906fa995fc4a288e3de5225cb1a9d8fa9e9ebc49b \
-                    size    110097
+checksums           rmd160  d34a02f086c956b3d3a55f7d2ed8d7ee90d2282b \
+                    sha256  76919d62f2de4db1ac4b3a59eeb3e0e09b62bcdd9add13ae3f2dad26f8f0e5ca \
+                    size    111566
 
 configure.args      --disable-shared \
                     --with-lib=${prefix}/lib/skalibs

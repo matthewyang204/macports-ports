@@ -3,15 +3,17 @@
 PortSystem          1.0
 PortGroup           R 1.0
 
-R.setup             cran christian.hennig fpc 2.2-11
+R.setup             cran christian.hennig fpc 2.2-13
 revision            0
+categories-append   math
+platforms           {darwin any}
 maintainers         nomaintainer
 license             GPL
 description         Flexible Procedures for Clustering
 long_description    {*}${description}
-checksums           rmd160  adcb6e5337810d9f1bf82589d42fbe5510893009 \
-                    sha256  825590b90813c04c26d2507602fcbcb7f19a1354b154f470540c9be4e86f411a \
-                    size    202524
+checksums           rmd160  b5e495546b7660d6b18f6df4f4299db7d605f0b0 \
+                    sha256  4f543df847bc0fee60b97416484f00dbafb433d893ce8c019de787f302d53f47 \
+                    size    204083
 supported_archs     noarch
 
 depends_lib-append  port:R-diptest \

@@ -3,15 +3,16 @@
 PortSystem          1.0
 PortGroup           R 1.0
 
-R.setup             cran dusadrian admisc 0.34
+R.setup             cran dusadrian admisc 0.37
 revision            0
 maintainers         nomaintainer
 license             GPL-3+
 description         Adrian Dusa’s Miscellaneous
 long_description    {*}${description}
-checksums           rmd160  c7601bc24c75c58756ecd60638b95944b391fb2f \
-                    sha256  fdcf875e6440fd049a78171db2594d6d963c484eca9387f852c5c8b3208a5bdf \
-                    size    64567
+homepage            https://github.com/dusadrian/admisc
+checksums           rmd160  97f7b0982a113832e0b31bb7b51a9e32a1d0cd3f \
+                    sha256  57741b29ed08285ac26331dc63d5c1a7c815245148ea2b8feb0fd5b2f8da3dae \
+                    size    66260
 
 depends_test-append port:R-QCA
 

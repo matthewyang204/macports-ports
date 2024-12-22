@@ -13,11 +13,11 @@ legacysupport.newest_darwin_requires_legacy 10
 
 boost.version       1.81
 
-github.setup        facebookincubator fizz 2024.01.22.00 v
-revision            0
-checksums           rmd160  0ee5499538022431f588c0c17b18695f1d867e68 \
-                    sha256  52781edd21618dc6ff4c65c5be9b7b674cc6b9c33dbd688f9bbf2360894f505f \
-                    size    681625
+github.setup        facebookincubator fizz 2024.09.23.00 v
+revision            2
+checksums           rmd160  804d87fb37e7ed5fd6a5803f5763ec6b8c877738 \
+                    sha256  becb7ba4a31f18afe1f92d0effabcc22edd41e82a83d8710e02ea3a12f2c8b95 \
+                    size    765586
 
 categories          devel
 license             BSD
@@ -30,7 +30,7 @@ github.tarball_from releases
 distname            ${name}-v${version}
 extract.mkdir       yes
 
-set port_libfmt     libfmt10
+set port_libfmt     libfmt11
 cmake.module_path-append \
                     ${prefix}/lib/${port_libfmt}/cmake
 
@@ -40,6 +40,7 @@ depends_lib-append  port:bzip2 \
                     port:gflags \
                     port:google-glog \
                     port:libevent \
+                    port:liboqs \
                     port:libsodium \
                     port:libunwind \
                     port:lz4 \
@@ -48,15 +49,6 @@ depends_lib-append  port:bzip2 \
                     port:${port_libfmt}
 
 cmake.source_dir    ${worksrcpath}/${name}
-
-# Confirmed to fail both on powerpc and i386
-# if libstdc++ with gcc are used.
-# https://github.com/facebookincubator/fizz/issues/109
-if {${configure.cxx_stdlib} ne "libc++"} {
-    patchfiles-append \
-                    0001-Revert-Read-b64-encoded-ECH-Config-List-in-fizz-clie.patch \
-                    0002-Revert-235358c8b2e613b85d47b2088c21f7bd344910ec.patch
-}
 
 # Fix error: invalid output constraint '=@ccc' in asm
 compiler.blacklist-append \
@@ -69,6 +61,8 @@ configure.args-append \
                     -DBUILD_TESTS=OFF \
                     -DBUILD_SHARED_LIBS=ON
 
+# There is a configure check, but it is broken:
+# https://github.com/facebookincubator/fizz/issues/139
 if {[string match *gcc* ${configure.compiler}]} {
     # ___atomic_fetch_add_8
     configure.ldflags-append  -latomic

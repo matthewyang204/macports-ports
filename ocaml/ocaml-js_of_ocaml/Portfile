@@ -5,17 +5,17 @@ PortGroup           github 1.0
 PortGroup           ocaml 1.1
 
 name                ocaml-js_of_ocaml
-github.setup        ocsigen js_of_ocaml 5.4.0
+github.setup        ocsigen js_of_ocaml 5.9.1
 revision            0
 categories          ocaml devel lang
-maintainers         {@barracuda156 gmail.com:vital.had} openmaintainer
+maintainers         nomaintainer
 license             {GPL-2+ LGPL-2.1+}
 description         Compiler from OCaml bytecode to JavaScript
 long_description    {*}${description}
 
-checksums           rmd160  4eda89388d1fe9a4331d9deb58110bfb2b0d75fa \
-                    sha256  c7c230738828c0f93982653975c5ca1c574ba76d628599fac3018c2a45f75d42 \
-                    size    1944795
+checksums           rmd160  f8dfe2f0074235de99494884bcd732a5334d3975 \
+                    sha256  00f92a40eeeb29a44ba0326aaefa5bba2ac522ee800a2ee64d707ca75d498084 \
+                    size    2240203
 github.tarball_from archive
 
 depends_lib-append  port:ocaml-ppxlib

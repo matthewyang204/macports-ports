@@ -3,16 +3,19 @@
 PortSystem          1.0
 PortGroup           R 1.0
 
-R.setup             bioconductor Bioconductor BSgenome 1.70.1
+R.setup             bioconductor Bioconductor BSgenome 1.72.0
 revision            0
+categories-append   bioconductor
 maintainers         nomaintainer
 license             Artistic-2
-description         Software infrastructure for efficient representation of full genomes and their SNPs
+description         Software infrastructure for efficient representation \
+                    of full genomes and their SNPs
 long_description    {*}${description}
-checksums           rmd160  0934a427f755234b57348bd9bd627df3fc04d3c8 \
-                    sha256  30da54e024fea74241fdf1259073f13fd1643cfd8deff6b6a716c6736780b9ad \
-                    size    5909240
+checksums           rmd160  1526c109a69a66c046695640b3e2b51673cce55b \
+                    sha256  98541684ea234a3c102338b4a4d055817d92a088b9e67ea88b6a339fa79a4bde \
+                    size    5718748
 supported_archs     noarch
+platforms           {darwin any}
 
 depends_lib-append  port:R-BiocGenerics \
                     port:R-BiocIO \

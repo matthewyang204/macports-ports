@@ -3,17 +3,17 @@
 PortSystem          1.0
 PortGroup           R 1.0
 
-# Revert to GitHub once updated there.
-R.setup             cran joshuaulrich xts 0.13.2
+R.setup             github joshuaulrich xts 0.14.1 v
 revision            0
 maintainers         {@barracuda156 gmail.com:vital.had} openmaintainer
-license             GPL-3
+license             GPL-2+
 description         eXtensible Time Series
 long_description    {*}${description}
 homepage            https://joshuaulrich.github.io/xts
-checksums           rmd160  6ec42e4aac6d808b17fa44d37648cbfdc689d619 \
-                    sha256  4ad590f65c4c9daa7fe920aee0274a23478daacbfcd6edc2566dc392460f1dfb \
-                    size    456969
+checksums           rmd160  baa6e584072a811d4122dcbfa8496b37639281db \
+                    sha256  8be11b09ea3abec282ec9f0d0343ff33bbf0b627ff9e27c6b10503fa17e4c5df \
+                    size    233524
+github.tarball_from archive
 
 depends_lib-append  port:R-zoo
 

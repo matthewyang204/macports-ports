@@ -2,7 +2,7 @@
 
 PortSystem          1.0
 
-version             2.45.0
+version             2.64.0
 revision            0
 
 # Github CLI is failing to build on 10.12 and below.
@@ -54,9 +54,9 @@ if ${source_build} {
 
     use_parallel_build  no
 
-    checksums           rmd160  78ee2e867a045acfc347c0a736427f0c70be2a2b \
-                        sha256  61363c109487a17fad44dff3a55f0c7dd36c8d6e4d7b630755705bd3aa34a323 \
-                        size    838080
+    checksums           rmd160  c8822e07eac9efa02025086141b70bd173b4c739 \
+                        sha256  229fd8fc51325ebb5a357af6af116094d6be6a5f1e0f0923b7892ed01b208abb \
+                        size    12932275
 
     github.tarball_from archive
 
@@ -76,9 +76,9 @@ if ${source_build} {
 
     distname        gh_${version}_macOS_amd64
 
-    checksums       rmd160  731a152b1f5b16fca2bc90455b9348f16774e110 \
-                    sha256  82bea89eea5ddfcd5f88c53857fc2220ee361e0b65629f153d10695971a44195 \
-                    size    11445962
+    checksums       rmd160  910e26d3641faffd32cc9ede4472419962f94be8 \
+                    sha256  7cf59a9f0d7d37932de0cf501a2305fe8032c643ddedacd47369a712e400e0e8 \
+                    size    13748280
 
     use_configure   no
     use_zip         yes
@@ -91,10 +91,8 @@ destroot {
         # standard legacysupport tweaks don't work, since the install here is
         # from a binary tarball ... have to tweak the binary to use the legacy
         # support library, which in turn uses the System.B library.
-        # Add legacysupport for 10.11 and older for clock_gettime support
-        if {${os.major} <= 15} {
-            system -W ${destroot}${prefix}/bin "install_name_tool -change /usr/lib/libSystem.B.dylib ${prefix}/lib/libMacportsLegacySupport.dylib gh"
-        }
+        # Add legacysupport for all non-source versions for utimensat() support
+        system -W ${destroot}${prefix}/bin "install_name_tool -change /usr/lib/libSystem.B.dylib ${prefix}/lib/libMacportsLegacySystem.B.dylib gh"
     }
 
     set docdir ${prefix}/share/doc/${name}

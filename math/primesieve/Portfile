@@ -4,11 +4,11 @@ PortSystem                  1.0
 PortGroup                   cmake 1.1
 PortGroup                   github 1.0
 
-github.setup                kimwalisch primesieve 11.1 v
-github.tarball_from         tarball
-checksums                   rmd160  ed7e991bbdf34c5bf0048b8db65ff64177fd68c1 \
-                            sha256  2a58c0aa59c1819cce3ea70407d030e9cd88c8072048c8cb427728782c0cf1a4 \
-                            size    129017
+github.setup                kimwalisch primesieve 12.4 v
+github.tarball_from         archive
+checksums                   rmd160  dafb066647154abbba2c375e440dfebb2668e906 \
+                            sha256  eb7081adebe8030e93b3675c74ac603438d10a36792246b274c79f11d8a987ce \
+                            size    141828
 
 categories                  math
 maintainers                 nomaintainer
@@ -26,11 +26,6 @@ compiler.cxx_standard       2017
 configure.pre_args-replace  -DCMAKE_BUILD_WITH_INSTALL_RPATH:BOOL=ON \
                             -DCMAKE_BUILD_WITH_INSTALL_RPATH:BOOL=OFF
 configure.args-append       -DBUILD_TESTS=ON
-
-# Until this is fixed: https://github.com/kimwalisch/primesieve/issues/141
-if {[string match *gcc* ${configure.compiler}] && ${configure.build_arch} in [list arm i386 ppc]} {
-    configure.ldflags-append    -latomic
-}
 
 test.run                    yes
 test.cmd                    ctest

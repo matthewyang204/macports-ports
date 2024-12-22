@@ -5,7 +5,7 @@ PortGroup           python 1.0
 PortGroup           github 1.0
 
 name                py-cfn-lint
-github.setup        aws-cloudformation cfn-python-lint 0.85.3 v
+github.setup        aws-cloudformation cfn-python-lint 1.18.2 v
 revision            0
 
 platforms           {darwin any}
@@ -17,9 +17,9 @@ description         Checks cloudformation for practices and behaviour that \
                     could potentially be improved
 long_description    {*}${description}
 
-checksums           sha256  f55280e2d9e01afe29a6b0084f1e5e7e40005fbf2e909c88acb20d83b0e90f02 \
-                    rmd160  8722d52dd44cdb175aacbb90d96cc9251705f703 \
-                    size    4340474
+checksums           sha256  97fa5160ff954122f70bfbdd26d50973de1209163842a3c37b6c45e76497a3d5 \
+                    rmd160  b418c51f770352b52607110841dd9058f287b2c9 \
+                    size    3072337
 
 python.versions     39 310 311
 

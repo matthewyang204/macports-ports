@@ -26,31 +26,31 @@ subport ${name}-devel {}
 
 if {${name} eq ${subport}} {
     # Main Port
-    github.setup        tstack lnav 0.12.0 v
+    github.setup        tstack lnav 0.12.3 v
     github.tarball_from archive
     revision            0
 
     conflicts           lnav-devel
 
     checksums           ${distname}${extract.suffix} \
-                        rmd160  c9869fba8ac907f9c88b55da4d37b5422964bfef \
-                        sha256  d431840213549c8175780ecc6151ae66c3ecf27b48e5e859a6a18df83c4a02bd \
-                        size    18038892
+                        rmd160  a6ca7f065d6f323f654c4578f475413c01d07dd4 \
+                        sha256  7ba030e5da5b59cd9ea7c0d82aef3af1a6ee1969cab6e22e4bb0f37a96005c7a \
+                        size    19229649
 
     github.livecheck.regex {([0-9.]+)}
 
 } else {
     # Devel
-    github.setup        tstack lnav 0.12.0 v
+    github.setup        tstack lnav 0.12.3 v
     github.tarball_from archive
     revision            0
 
     conflicts           lnav
 
     checksums           ${distname}${extract.suffix} \
-                        rmd160  c9869fba8ac907f9c88b55da4d37b5422964bfef \
-                        sha256  d431840213549c8175780ecc6151ae66c3ecf27b48e5e859a6a18df83c4a02bd \
-                        size    18038892
+                        rmd160  a6ca7f065d6f323f654c4578f475413c01d07dd4 \
+                        sha256  7ba030e5da5b59cd9ea7c0d82aef3af1a6ee1969cab6e22e4bb0f37a96005c7a \
+                        size    19229649
 }
 
 depends_lib-append  path:lib/libssl.dylib:openssl \

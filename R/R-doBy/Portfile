@@ -3,31 +3,38 @@
 PortSystem          1.0
 PortGroup           R 1.0
 
-R.setup             cran sorenh doBy 4.6.20
+R.setup             github hojsgaard doBy 4.6.24 v
 revision            0
 categories-append   math
-maintainers         {@barracuda156 gmail.com:vital.had} openmaintainer
+platforms           {darwin any}
+maintainers         nomaintainer
 license             GPL-2+
-description         Groupwise statistics, ls-means, linear estimates, utilities
+description         Groupwise statistics, ls-means, linear estimates, \
+                    utilities
 long_description    {*}${description}
-checksums           rmd160  680b9fbdec777de1e2553545fdd557aa26cf0bbe \
-                    sha256  7a0a7fab5bcdd7e62e42a3d2f2d307519e635d48b626c5673f5344ff7ba2da22 \
-                    size    4515088
+checksums           rmd160  aaaec0f6daee857e5cc2972c4a4e38fb4971ad44 \
+                    sha256  a7ad44855f1fdb33919cdd308b08225e330d5b05d629710a990ec20b4410efd4 \
+                    size    9184813
+github.tarball_from archive
 supported_archs     noarch
 
 depends_lib-append  port:R-broom \
+                    port:R-cowplot \
                     port:R-Deriv \
                     port:R-dplyr \
                     port:R-ggplot2 \
-                    port:R-magrittr \
+                    port:R-modelr \
                     port:R-microbenchmark \
-                    port:R-pbkrtest \
-                    port:R-tibble
+                    port:R-rlang \
+                    port:R-tibble \
+                    port:R-tidyr
 
 depends_test-append port:R-geepack \
                     port:R-knitr \
                     port:R-lme4 \
+                    port:R-markdown \
                     port:R-multcomp \
+                    port:R-pbkrtest \
                     port:R-testthat
 
 test.run            yes

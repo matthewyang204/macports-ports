@@ -5,7 +5,7 @@ PortSystem          1.0
 name                aspnetcore-runtime-devel
 set main_version    9.0.0
 # See patch version in https://dotnet.microsoft.com/en-us/download/dotnet/9.0
-set patch_version   1.24081.5
+set patch_version   6.24328.4
 version             ${main_version}-preview.${patch_version}
 revision            0
 categories          dotnet
@@ -23,21 +23,21 @@ long_description    .NET is a free, cross-platform, open source developer platfo
                     to build for web, mobile, desktop, games, and IoT.
 
 homepage            https://dotnet.microsoft.com/
-platforms           {darwin any}
+platforms           {darwin any} {darwin >= 21}
 supported_archs     x86_64 arm64
 
 switch ${build_arch} {
     x86_64 {
         distname            aspnetcore-runtime-${version}-osx-x64
-        checksums           rmd160  dd1392d76c76e982dfe7dac3c976425fe67077f7 \
-                            sha256  d3d1401e21c6c0fe3b19e9467eddcc5f7441e054542e1ac5bc0416f8a3cdca3e \
-                            size    41719718
+        checksums           rmd160  8c22af5e48578469fd1ab32d07520e198175947d \
+                            sha256  cbe2945b9a9c345cef4fc800ba731a0f90ba97be51f29eb60944aa3285188fce \
+                            size    42991953
     }
     arm64 {
         distname            aspnetcore-runtime-${version}-osx-arm64
-        checksums           rmd160  4a0bf69e4a7793126153a2e595eb3350b7411ca1 \
-                            sha256  e307a1f5e848f73c268091073afddd872a3a46240f3b15b12425826827ca9a06 \
-                            size    39771409
+        checksums           rmd160  4f88a5979741e49b5c64f9a98901359f732d17c9 \
+                            sha256  7cdc5574fd305bee2078dc4dd0b21515dc446d64999dd1b39726cafb82b74ae6 \
+                            size    40780166
     }
     default {
         known_fail yes

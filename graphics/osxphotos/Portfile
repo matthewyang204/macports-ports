@@ -4,7 +4,7 @@ PortSystem              1.0
 PortGroup               python 1.0
 
 name                    osxphotos
-version                 0.67.4
+version                 0.69.2
 revision                0
 
 categories              graphics python
@@ -13,7 +13,6 @@ platforms               {darwin any}
 supported_archs         noarch
 
 maintainers             openmaintainer \
-                        {@catap korins.ky:kirill} \
                         {breun.nl:nils @breun} \
                         {@RhetTbull gmail.com:rturnbull}
 
@@ -26,17 +25,20 @@ long_description        {*}${description}
 
 homepage                https://github.com/RhetTbull/osxphotos
 
-checksums               rmd160  ac4f6516336514da2b9aaf90943bcc1c3d245e48 \
-                        sha256  3bfebe866f26554df74cff3c81d34c9b01a0024e609b655f3a8c401797c9ec78 \
-                        size    2090024
+checksums               rmd160  93f49070fa4ff370101fcbb4da450acfcf431ee3 \
+                        sha256  ea6d431b9cea6ea4eede6079419e48a586149daca88937db121073e73306d47f \
+                        size    2234555
 
-python.default_version  311
+python.default_version  313
 
 depends_build-append    port:py${python.version}-setuptools
 
 depends_lib-append      port:py${python.version}-bitmath \
                         port:py${python.version}-bpylist2 \
+                        port:py${python.version}-cgmetadata \
                         port:py${python.version}-click \
+                        port:py${python.version}-mac-alias \
+                        port:py${python.version}-makelive \
                         port:py${python.version}-mako \
                         port:py${python.version}-more-itertools \
                         port:py${python.version}-objexplore \
@@ -60,8 +62,16 @@ depends_lib-append      port:py${python.version}-bitmath \
                         port:py${python.version}-xdg-base-dirs \
                         port:py${python.version}-yaml
 
+depends_run-append      port:py${python.version}-utitools
+
 post-destroot {
     xinstall -m 755 -d ${destroot}${prefix}/share/doc/${subport}
     xinstall -m 644 -W ${worksrcpath} LICENSE README.md README.rst \
        ${destroot}${prefix}/share/doc/${subport}
 }
+
+test.run    yes
+test.cmd    osxphotos
+test.target
+test.args   version
+

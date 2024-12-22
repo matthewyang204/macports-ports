@@ -3,15 +3,17 @@
 PortSystem          1.0
 
 name                parallel
-version             20230422
+version             20241122
 revision            0
-checksums           rmd160  dab7478eb43581b9d0d610799c8725c7eb4aa269 \
-                    sha256  9106593d09dc4de0e094b7b14390a309d8fcb1d27104a53814d16937dcbae3c2 \
-                    size    2483116
+checksums           rmd160  b1c6b08259f716f5c88cee7443582a98167fa2e8 \
+                    sha256  1a9e752f42c17ca10bc07d0a63a2ca6edcee532282e55d2b34bd9dd14c978a58 \
+                    size    2677522
 
 categories          sysutils
 license             GPL-3+
-maintainers         {ciserlohn @ci42} openmaintainer
+maintainers         {ciserlohn @ci42} \
+                    {gmail.com:herby.gillot @herbygillot} \
+                    openmaintainer
 supported_archs     noarch
 platforms           any
 

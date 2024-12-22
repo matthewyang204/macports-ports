@@ -28,7 +28,7 @@ checksums           rmd160  898e24b4ca3e1a777d18aa3c7aa882d0e122a758 \
                     sha256  bc536b292fece9763a65b04fe637af9d393ae17f656321305fe2569a0d8de43f \
                     size    74434
 
-python.versions     39 310
+python.versions     39 310 311 312
 
 livecheck.type      none
 
@@ -43,6 +43,9 @@ if {${name} ne ${subport}} {
 
     depends_lib-append \
                     port:openbabel2
+
+    # reaction.h: error: ‘shared_ptr’ is not a member of ‘std’
+    compiler.cxx_standard 2011
 
     post-destroot {
         set docdir ${prefix}/share/doc/${subport}

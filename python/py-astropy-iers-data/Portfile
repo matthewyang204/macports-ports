@@ -4,7 +4,8 @@ PortSystem          1.0
 PortGroup           python 1.0
 
 name                py-astropy-iers-data
-version             0.2024.3.4.0.30.17
+python.rootname     astropy_iers_data
+version             0.2024.12.16.0.35.48
 revision            0
 license             BSD
 platforms           {darwin any}
@@ -15,11 +16,11 @@ description         IERS Earth Rotation and Leap Second tables for the astropy c
 long_description    {*}${description}
 homepage            https://github.com/astropy/astropy-iers-data
 
-checksums           rmd160  6d10351a4c560a4247d98042c16f392a23321ba4 \
-                    sha256  d530709e64d267a0547d305910608b8321f5d0225e37cf0b57430225b05114e2 \
-                    size    1858789
+checksums           rmd160  77f99ef29317112160b5ba2c2a81a1181791c719 \
+                    sha256  dbb95668d66bb160342f058df49953c9d47bac628279169ffd476ca51fe90fac \
+                    size    1886605
 
-python.versions     39 310 311 312
+python.versions     39 310 311 312 313
 
 if {${name} ne ${subport}} {
     python.pep517   yes
