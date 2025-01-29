@@ -10,7 +10,7 @@ PortGroup           qt5     1.0
 
 name                qgis3
 categories          gis
-maintainers         {vince @Veence} {yahoo.com:n_larsson @nilason} openmaintainer
+maintainers         {yahoo.com:n_larsson @nilason} {vince @Veence} openmaintainer
 description         QGIS 3 is a user-friendly GIS based on Qt 5
 long_description    QGIS is a full-featured, user-friendly, free-and-open-source \
                     (FOSS) geographical information system (GIS) that runs on    \
@@ -25,25 +25,27 @@ subport ${name-ltr} {}
 
 if {${subport} eq ${name}} {
     # Latest version
-    github.setup    qgis QGIS 3_40_1 final-
+    github.setup    qgis QGIS 3_40_3 final-
+    github.tarball_from archive
     revision        0
     set app_name    QGIS3
 
-    checksums       rmd160  fdd005787e7bea3c5eb64771c4d8eb177849cb13 \
-                    sha256  eee2f267240ed2d92e3209b6c2b4bb0bb4e909b958ab6ba21a8f559ef1cd9fbb \
-                    size    210895928
+    checksums       rmd160  63458d5e7cffca50e3ff71f31ad85f05e551a3f0 \
+                    sha256  5590ab80f78f3311a5d7d72f5543538203151040dd098c695e773f56c8832338 \
+                    size    210945106
 
     set grass_utils_file grass_utils.py
 } else {
     # LTR version
-    github.setup    qgis QGIS 3_34_13 final-
+    github.setup    qgis QGIS 3_34_15 final-
+    github.tarball_from archive
     revision        0
     set app_name    QGIS3-LTR
     description     {*}${description} (LTR)
 
-    checksums       rmd160  f5448b99bc297fee4dfa929f17397e67e9cf3ffb \
-                    sha256  d6a296e8311bf75cb5f951ccbda21083c7908fdb839402a656d4b16311a4d6ed \
-                    size    198067959
+    checksums       rmd160  658a73d8056582383f9941f57bb9f49b3e0c52eb \
+                    sha256  d16a05ebd7acfba25fe330552ec3d66227f892525f3159cc5388e121adbeae27 \
+                    size    198080196
 
     set grass_utils_file Grass7Utils.py
 

@@ -4,7 +4,7 @@ PortSystem      1.0
 PortGroup       github 1.0
 
 name            libsdl2_image
-github.setup    libsdl-org SDL_image 2.8.3 release-
+github.setup    libsdl-org SDL_image 2.8.4 release-
 categories      devel graphics
 license         zlib
 maintainers     {jmr @jmroot} openmaintainer
@@ -16,19 +16,16 @@ long_description \
 
 github.tarball_from releases
 distname        SDL2_image-${version}
+# stealth update of 2.8.4
+dist_subdir     ${name}/${version}_1
 
-checksums       rmd160 3dea0085177ff9d0a1a88f7253208569f98afb4a \
-                sha256 4b000f2c238ce380807ee0cb68a0ef005871691ece8646dbf4f425a582b1bb22
+checksums       rmd160 771030df60815bc150ee2d591004aaa466d96241 \
+                sha256 f7c06a8783952cfe960adccdd3d8472b63ab31475b4390d10cfdcc1aea61238f
 
 depends_build   path:bin/pkg-config:pkgconfig
 depends_lib     port:libsdl2 \
                 port:tiff \
                 port:webp
-
-# bad timestamp in 2.8.3 tarball
-pre-configure {
-    system -W ${worksrcpath} ./touch-autofoo.sh
-}
 
 configure.args  --disable-avif \
                 --disable-imageio \
