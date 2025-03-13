@@ -11,7 +11,7 @@ name            sbcl
 #
 # Please bump the revisions of math/maxima, math/fricas and possibly
 # math/maxima-devel when this port changes.
-version         2.5.0
+version         2.5.2
 revision        0
 epoch           1
 
@@ -43,9 +43,9 @@ patchfiles-append \
 patchfiles-append \
                 0004-fix-pthread-macOS.patch
 
-checksums           rmd160  5a3919ed26710955e9cfeb57fd872f5b76b6904c \
-                    sha256  2e18afd088e4a2df21b77bae2e170ce570d11da6d27607292265f1cc6a8a19b1 \
-                    size    8204593
+checksums           rmd160  1f6826895de0cb2c6b17dcfabb4cd9e9f53bc905 \
+                    sha256  5dc27eba7dda433df53fd7441de8b11474a82cdac1689c1f6ce55fa065d65fac \
+                    size    8227645
 
 if {${name} eq ${subport}} {
     master_sites \

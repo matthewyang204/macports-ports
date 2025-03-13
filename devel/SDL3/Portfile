@@ -5,7 +5,7 @@ PortGroup       cmake 1.0
 PortGroup       github 1.0
 
 name            SDL3
-github.setup    libsdl-org SDL 3.2.0 release-
+github.setup    libsdl-org SDL 3.2.8 release-
 categories      devel multimedia
 platforms       {darwin >= 20}
 license         zlib
@@ -21,8 +21,8 @@ homepage        https://www.libsdl.org/
 
 github.tarball_from releases
 distname        ${name}-${version}
-checksums       rmd160 7853ccb027af3fbc85cf93ca291f43d7ec4801e1 \
-                sha256 bf308f92c5688b1479faf5cfe24af72f3cd4ce08d0c0670d6ce55bc2ec1e9a5e
+checksums       rmd160 939b43a8337f1c3775a5e7d9d00823c7addf4142 \
+                sha256 13388fabb361de768ecdf2b65e52bb27d1054cae6ccb6942ba926e378e00db03
 
 cmake.out_of_source yes
 

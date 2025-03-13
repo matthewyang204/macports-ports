@@ -3,7 +3,7 @@
 PortSystem          1.0
 
 name                JOSM
-version             19277
+version             19342
 revision            0
 categories          gis editors java
 license             GPL-2+
@@ -19,9 +19,9 @@ homepage            https://josm.openstreetmap.de
 master_sites        ${homepage}/download/macosx/
 distname            josm-macos-${version}-java21
 
-checksums           rmd160  1c045bc99f3f7eb0a6003116202a7738e1392124 \
-                    sha256  bcfeecea49de38ea4b518675527ed9768f30319fdf12b2da245c6d47fbc2bc3f \
-                    size    122713512
+checksums           rmd160  a46c797138d8b8cb11f99bbba91ead662d262e6e \
+                    sha256  ce887ef73ae3a99f7efe1e63e2ed130d991eeb6be3abf29ceb8be433d02774cc \
+                    size    122823560
 
 extract.mkdir       yes
 

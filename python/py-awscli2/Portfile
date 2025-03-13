@@ -6,9 +6,8 @@ PortGroup           select 1.0
 PortGroup           github 1.0
 
 name                py-awscli2
-github.setup        aws aws-cli 2.23.2
-# Change github.tarball_from to 'releases' or 'archive' next update
-github.tarball_from tarball
+github.setup        aws aws-cli 2.24.20
+github.tarball_from archive
 revision            0
 
 categories          python devel
@@ -22,11 +21,11 @@ long_description    {*}${description}
 
 homepage            https://aws.amazon.com/cli/
 
-checksums           rmd160  6fd907dab234c3c8a40ee9f13a9aa7e9577e012a \
-                    sha256  24131ec7365fdd02c93e88106e1b00466b73946d6b13d16c51c79ab0acf5e819 \
-                    size    15915997
+checksums           rmd160  556728ca8260f93aab698f55a11227611a346295 \
+                    sha256  4203b963a4581e3f5ade5b20b275a0d902df5e806185b45a225c0179755fb005 \
+                    size    16038234
 
-python.versions     39 310 311 312
+python.versions     39 310 311 312 313
 python.pep517       yes
 python.pep517_backend \
                     flit

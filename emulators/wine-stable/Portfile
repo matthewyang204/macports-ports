@@ -14,7 +14,7 @@ conflicts                   wine-devel wine-staging wine-crossover
 set my_name                 wine
 revision                    0
 # MacPorts does not support i386 on macOS Mojave and new WoW64 requires macOS Catalina 10.15.4
-platforms                   {darwin > 15 != 18.*}
+platforms                   {darwin >= 16 != 18.*}
 set branch                  [lindex [split ${version} .] 0].0
 license                     LGPL-2.1+
 categories                  emulators
@@ -74,6 +74,10 @@ patchfiles-append \
 # Some required hacks to make wine work better on macOS & Rosetta2
 patchfiles-append \
     0002-macos_hacks.diff
+
+# https://bugs.winehq.org/show_bug.cgi?id=57819
+patchfiles-append \
+    MR7328.diff
 
 # wine requires the program specified in INSTALL to create intermediate
 # directories; /usr/bin/install doesn't.
@@ -170,11 +174,13 @@ variant kerberos description "Build ${subport} with Kerberos, for network authen
 }
 
 if {${os.major} < 19} {
-    # Using the 10.13 SDK as that's what CodeWeavers tests against for i386
-    configure.sdk_version   10.13
-    if {${configure.sdkroot} eq ""} {
-        pre-fetch {
-            error "Building ${subport} @${version} requires the MacOSX10.13.sdk to be present in ${developer_dir}/SDKs/"
+    if {${os.major} == 16} {
+        # Using the 10.13 SDK as that's what CodeWeavers tests against for i386
+        configure.sdk_version   10.13
+        if {${configure.sdkroot} eq ""} {
+            pre-fetch {
+                error "Building ${subport} @${version} requires the MacOSX10.13.sdk to be present in ${developer_dir}/SDKs/"
+            }
         }
     }
 
